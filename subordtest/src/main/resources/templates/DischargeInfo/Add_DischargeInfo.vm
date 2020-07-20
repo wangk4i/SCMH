@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EDRDocument>
+    <Header>
+        <DocumentId>$!{docmentId}</DocumentId>
+        <OperateType>$!{operateEnum}</OperateType>
+        <BusinessActivityIdentification>$!{activityion}</BusinessActivityIdentification>
+        <ReportZoneCode version='1.0' value='$!{zoneCodeValue}'>$!{zoneCode}</ReportZoneCode>
+        <ReportOrgCode version='1.0' value='$!{orgCodeValue}'>$!{orgCode}</ReportOrgCode>
+        <License>$!{licenseCode}</License>
+    </Header>
+    <Body>
+    <PersonInfo>
+        <PersonID>$!{BasicInformationId}</PersonID>
+        <PatientName>$!{PatientName}</PatientName>
+        <IdCardTypeCode version='1.0' value='$!{IDTypeNam}'>$!{IDType}</IdCardTypeCode>
+        <IdCard>$!{IDCode}</IdCard>
+        <GenderCode version='1.0' value='$!{GenderNam}'>$!{GenderCode}</GenderCode>
+        <NationalityCode version='1.0' value='$!{NationalityNam}'>$!{Nationality}</NationalityCode>
+        <BirthDate>$!{BirthDate}</BirthDate>
+        <Age>$!{Age}</Age>
+    </PersonInfo>
+    <TreatmentInfo>
+        <ID>$!{DischargeInformationId}</ID>
+        <ReportID>$!{CaseReportId}</ReportID>
+        <ReportZoneCode version='1.0' value='$!{ZoneNam}'>$!{ZoneCd}</ReportZoneCode>
+        <ReportOrgCode version='1.0' value='$!{OrgCodeValue}'>$!{OrgCode}</ReportOrgCode>
+        <PatientRegistrationNumber>$!{NewCaseReportNumber}</PatientRegistrationNumber>
+        <InhospitalNo>$!{InMentalNumber}</InhospitalNo>
+        <AdmissionDate>$!{Admissiontime}</AdmissionDate>
+        <DischargeDate>$!{Dischargetime}</DischargeDate>
+        <PsychogenyPastHospital>$!{InMentalHospital}</PsychogenyPastHospital>
+        <PsychogenyPastDangerousCodeList>
+            <PsychogenyPastDangerousCode version='1.0' value='$!{}'>$!{}</PsychogenyPastDangerousCode>
+            <PsychogenyPastDangerousCode version='1.0' value='$!{}'>$!{}</PsychogenyPastDangerousCode>
+        </PsychogenyPastDangerousCodeList>
+        <PsychogenyPastRiskCode version='1.0' value='$!{RiskNowNam}'>$!{RiskNow}</PsychogenyPastRiskCode>
+        <DiseaseCode version='1.0' value='$!{DischargeDiagnosisNam}'>$!{DischargeDiagnosis}</DiseaseCode>
+        <DiagnoseTime>$!{DiagnosisDate}</DiagnoseTime>
+        <IfNoMedication version='1.0' value='$!{IfNoMedicationNam}'>$!{IfNoMedication}</IfNoMedication>
+        <DrugList>
+            <DrugInfo>
+                <DrugID>$!{MedicationId}</DrugID>
+                <Sort>$!{SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{IfLongActNam}'>$!{IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{DrugNam}'>$!{DrugCode}</DrugCode>
+                <DrugSpecifications>$!{LDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{DrugUnit}</DrugDoseCode>
+                <LongActingDrugFrequency>$!{LDrugFrequency}</LongActingDrugFrequency>
+                <LongActingDrugFrequencyUnitCode version='1.0' value='$!{UseDailyNam}'>$!{UseDailyCode}</LongActingDrugFrequencyUnitCode>
+                <LongActingDrugDose>$!{LDrugDose}</LongActingDrugDose>
+            </DrugInfo>
+            <DrugInfo>
+                <DrugID>$!{MedicationId}</DrugID>
+                <Sort>$!{SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{IfLongActNam}'>$!{IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{DrugNam}'>$!{DrugCode}</DrugCode>
+                <DrugSpecifications>$!{SDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{DrugUnit}</DrugDoseCode>
+                <NonLongActingDrugDoseMorning>$!{SDrugDosem}</NonLongActingDrugDoseMorning>
+                <NonLongActingDrugDoseNoon>$!{SDrugDosen}</NonLongActingDrugDoseNoon>
+                <NonLongActingDrugDoseEvening>$!{SDrugDosee}</NonLongActingDrugDoseEvening>
+            </DrugInfo>
+        </DrugList>
+        <TreatmentEffectCode version='1.0' value='$!{InMentalEffectNam}'>$!{InMentalEffect}</TreatmentEffectCode>
+        <GuideIfNoMedication version='1.0' value='$!{GuideIfNoMedicationNam}'>$!{GuideIfNoMedication}</GuideIfNoMedication>
+        <GuideDrugList>
+            <DrugInfo>
+                <DrugID>$!{MedicationId}</DrugID>
+                <Sort>$!{SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{IfLongActNam}'>$!{IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{DrugNam}'>$!{DrugCode}</DrugCode>
+                <DrugSpecifications>$!{LDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{DrugUnit}</DrugDoseCode>
+                <LongActingDrugFrequency>$!{LDrugFrequency}</LongActingDrugFrequency>
+                <LongActingDrugFrequencyUnitCode version='1.0' value='$!{UseDailyNam}'>$!{UseDailyCode}</LongActingDrugFrequencyUnitCode>
+                <LongActingDrugDose>$!{LDrugDose}</LongActingDrugDose>
+            </DrugInfo>
+            <DrugInfo>
+                <DrugID>$!{MedicationId}</DrugID>
+                <Sort>$!{SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{IfLongActNam}'>$!{IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{DrugNam}'>$!{DrugCode}</DrugCode>
+                <DrugSpecifications>$!{SDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{DrugUnit}</DrugDoseCode>
+                <NonLongActingDrugDoseMorning>$!{SDrugDosem}</NonLongActingDrugDoseMorning>
+                <NonLongActingDrugDoseNoon>$!{SDrugDosen}</NonLongActingDrugDoseNoon>
+                <NonLongActingDrugDoseEvening>$!{SDrugDosee}</NonLongActingDrugDoseEvening>
+            </DrugInfo>
+        </GuideDrugList>
+        <NextMeasuresCodeList>
+            <NextMeasuresCode version='1.0' value='$!{}'>$!{}</NextMeasuresCode>
+            <NextMeasuresCode version='1.0' value='$!{}'>$!{}</NextMeasuresCode>
+            <NextMeasuresCodeOther>$!{RehabilitationMeasuresDesc}</NextMeasuresCodeOther>
+        </NextMeasuresCodeList>
+        <NextMeasuresOther>$!{OtherConsider}</NextMeasuresOther>
+        <DoctorName>$!{FillDoctorName}</DoctorName>
+        <DoctorPhone>$!{DoctorTel}</DoctorPhone>
+        <FillDate>$!{FillDate}</FillDate>
+    </TreatmentInfo>
+    </Body>
+</EDRDocument>

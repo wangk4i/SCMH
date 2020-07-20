@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EDRDocument>
+    <Header>
+        <DocumentId>$!{docmentId}</DocumentId>
+        <OperateType>$!{operateEnum}</OperateType>
+        <BusinessActivityIdentification>$!{activityion}</BusinessActivityIdentification>
+        <ReportZoneCode version='1.0' value='$!{zoneCodeValue}'>$!{zoneCode}</ReportZoneCode>
+        <ReportOrgCode version='1.0' value='$!{orgCodeValue}'>$!{orgCode}</ReportOrgCode>
+        <License>$!{licenseCode}</License>
+    </Header>
+    <Body>
+    <PersonInfo>
+        <PersonID>$!{BasicInformationId}</PersonID>
+    </PersonInfo>
+    <FollowupInfo>
+        <ID>$!{FollowUpInformationId}</ID>
+        <FollowupDate>$!{FollowupDate}</FollowupDate>
+        <LostReasonCode version='1.0' value='$!{LostReasonValue}'>$!{LostReasonCode}</LostReasonCode>
+        <LostReasonOther>$!{LostReasonOther}</LostReasonOther>
+        <HospitalStateCode version='1.0' value='$!{HospitalCourseValue}'>$!{HospitalCourse}</HospitalStateCode>
+        <LastOutHospitalDate>$!{LastDischargedDate}</LastOutHospitalDate>
+        <LastOutHospitalDateAccuracyCode version='1.0' value='$!{LastDischargedDateAccuracyValue}'>$!{LastDischargedDateAccuracy}</LastOutHospitalDateAccuracyCode>
+        <FollowupModeCode version='1.0' value='$!{FollowFormValue}'>$!{FollowForm}</FollowupModeCode>
+        <!--TODO-->
+        <FollowObjectCodeList>
+            <FollowObjectCode version='1.0' value='$!{}'>$!{}</FollowObjectCode>
+            <FollowObjectCode version='1.0' value='$!{}'>$!{}</FollowObjectCode>
+        </FollowObjectCodeList>
+        <ShutStatusCode version='1.0' value='$!{CaptivityValue}'>$!{Captivity}</ShutStatusCode>
+        <DiseaseStatusCode version='1.0' value='$!{CaseClassificationValue}'>$!{CaseClassification}</DiseaseStatusCode>
+        <PsychogenyRiskCode version='1.0' value='$!{RiskAssessmentValue}'>$!{RiskAssessment}</PsychogenyRiskCode>
+        <SymptomsCodeList>
+            <SymptomsCode version='1.0' value='$!{}'>$!{}</SymptomsCode>
+            <SymptomsCode version='1.0' value='$!{}'>$!{}</SymptomsCode>
+            <SymptomsOther>$!{SymptomDesc}</SymptomsOther>
+        </SymptomsCodeList>
+        <InsightConditionCode version='1.0' value='$!{InsightValue}'>$!{Insight}</InsightConditionCode>
+        <SleepConditionCode version='1.0' value='$!{SleepValue}'>$!{Sleep}</SleepConditionCode>
+        <DietConditionCode version='1.0' value='$!{DietValue}'>$!{Diet}</DietConditionCode>
+        <LifeConditionCode version='1.0' value='$!{LifeValue}'>$!{Life}</LifeConditionCode>
+        <MenageConditionCode version='1.0' value='$!{MenageValue}'>$!{Menage}</MenageConditionCode>
+        <WorkConditionCode version='1.0' value='$!{WorkValue}'>$!{Work}</WorkConditionCode>
+        <StudyConditionCode version='1.0' value='$!{StudyValue}'>$!{Study}</StudyConditionCode>
+        <ContactConditionCode version='1.0' value='$!{ContactValue}'>$!{Contact}</ContactConditionCode>
+        <MildDisturbancesNumber>$!{MildDisturbancesNumber}</MildDisturbancesNumber>
+        <TroubleNumber>$!{TroubleNumber}</TroubleNumber>
+        <AccidentNumber>$!{AccidentNumber}</AccidentNumber>
+        <HarmNumber>$!{HarmNumber}</HarmNumber>
+        <AutolesionNumber>$!{AutolesionNumber}</AutolesionNumber>
+        <SuicideFailNumber>$!{SuicideFailNumber}</SuicideFailNumber>
+        <DrugComplianceCode version='1.0' value='$!{DrugHabituationValue}'>$!{DrugHabituation}</DrugComplianceCode>
+        <AdverseDrugReactionCode version='1.0' value='$!{AdverseDrugReactionValue}'>$!{AdverseDrugReaction}</AdverseDrugReactionCode>
+        <TreatmentEffectCode version='1.0' value='$!{InMentalEffectValue}'>$!{InMentalEffect}</TreatmentEffectCode>
+        <DrugList>
+            <DrugInfo>
+                <DrugID>$!{MedicationId}</DrugID>
+                <Sort>$!{SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{IfLongActNam}'>$!{IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{DrugNam}'>$!{DrugCode}</DrugCode>
+                <DrugSpecifications>$!{LDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{DrugUnit}</DrugDoseCode>
+                <LongActingDrugFrequency>$!{LDrugFrequency}</LongActingDrugFrequency>
+                <LongActingDrugFrequencyUnitCode version='1.0' value='$!{UseDailyNam}'>$!{UseDailyCode}</LongActingDrugFrequencyUnitCode>
+                <LongActingDrugDose>$!{LDrugDose}</LongActingDrugDose>
+            </DrugInfo>
+            <DrugInfo>
+                <DrugID>$!{MedicationId}</DrugID>
+                <Sort>$!{SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{IfLongActNam}'>$!{IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{DrugNam}'>$!{DrugCode}</DrugCode>
+                <DrugSpecifications>$!{SDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{DrugUnit}</DrugDoseCode>
+                <NonLongActingDrugDoseMorning>$!{SDrugDosem}</NonLongActingDrugDoseMorning>
+                <NonLongActingDrugDoseNoon>$!{SDrugDosen}</NonLongActingDrugDoseNoon>
+                <NonLongActingDrugDoseEvening>$!{SDrugDosee}</NonLongActingDrugDoseEvening>
+            </DrugInfo>
+        </DrugList>
+        <IfRecipe version='1.0' value='$!{IfRecipeValue}'>$!{IfRecipe}</IfRecipe>
+        <GuideDrugList>
+            <DrugInfo>
+                <DrugID>$!{MedicationId}</DrugID>
+                <Sort>$!{SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{IfLongActNam}'>$!{IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{DrugNam}'>$!{DrugCode}</DrugCode>
+                <DrugSpecifications>$!{LDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{DrugUnit}</DrugDoseCode>
+                <LongActingDrugFrequency>$!{LDrugFrequency}</LongActingDrugFrequency>
+                <LongActingDrugFrequencyUnitCode version='1.0' value='$!{UseDailyNam}'>$!{UseDailyCode}</LongActingDrugFrequencyUnitCode>
+                <LongActingDrugDose>$!{LDrugDose}</LongActingDrugDose>
+            </DrugInfo>
+            <DrugInfo>
+                <DrugID>$!{MedicationId}</DrugID>
+                <Sort>$!{SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{IfLongActNam}'>$!{IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{DrugNam}'>$!{DrugCode}</DrugCode>
+                <DrugSpecifications>$!{SDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{DrugUnit}</DrugDoseCode>
+                <NonLongActingDrugDoseMorning>$!{SDrugDosem}</NonLongActingDrugDoseMorning>
+                <NonLongActingDrugDoseNoon>$!{SDrugDosen}</NonLongActingDrugDoseNoon>
+                <NonLongActingDrugDoseEvening>$!{SDrugDosee}</NonLongActingDrugDoseEvening>
+            </DrugInfo>
+        </GuideDrugList>
+        <IfLaboratoryExam version='1.0' value='$!{LaboratoryExaminationValue}'>$!{LaboratoryExamination}</IfLaboratoryExam>
+        <LaboratorySpecificCodeList>
+            <LaboratorySpecificCode version='1.0' value='$!{}'>$!{}</LaboratorySpecificCode>
+            <LaboratorySpecificCode version='1.0' value='$!{}'>$!{}</LaboratorySpecificCode>
+        </LaboratorySpecificCodeList>
+        <SuggestReferal version='1.0' value='$!{SuggestReferValue}'>$!{SuggestRefer}</SuggestReferal>
+        <CauseReferal>$!{ReferReason}</CauseReferal>
+        <IfReferral version='1.0' value='$!{ReferValue}'>$!{Refer}</IfReferral>
+        <ReferralOrg>$!{ReferDepartment}</ReferralOrg>
+        <IfCaseManagement version='1.0' value='$!{CaseManagementValue}'>$!{CaseManagement}</IfCaseManagement>
+        <CaseAssess version='1.0' value='$!{AssessValue}'>$!{Assess}</CaseAssess>
+        <CaseSocialEvaluation version='1.0' value='$!{SocialEvaluationValue}'>$!{SocialEvaluation}</CaseSocialEvaluation>
+        <RecoveryMeasuresCodeList>
+            <RecoveryMeasuresCode version='1.0' value='$!{}'>$!{}</RecoveryMeasuresCode>
+            <RecoveryMeasuresCode version='1.0' value='$!{}'>$!{}</RecoveryMeasuresCode>
+            <RecoveryMeasuresOther>$!{RecoveryDesc}</RecoveryMeasuresOther>
+        </RecoveryMeasuresCodeList>
+    </FollowupInfo>
+    </Body>
+</EDRDocument>

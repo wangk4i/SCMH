@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EDRDocument>
+    <Header>
+        <DocumentId>$!{docmentId}</DocumentId>
+        <OperateType>$!{operateEnum}</OperateType>
+        <BusinessActivityIdentification>$!{activityion}</BusinessActivityIdentification>
+        <ReportZoneCode version='1.0' value='$!{zoneCodeValue}'>$!{zoneCode}</ReportZoneCode>
+        <ReportOrgCode version='1.0' value='$!{orgCodeValue}'>$!{orgCode}</ReportOrgCode>
+        <License>$!{licenseCode}</License>
+    </Header>
+    <Body>
+    <PersonInfo>
+        <PatientName>$!{PatientName}</PatientName>
+        <IdCardTypeCode version='1.0' value='$!{IDTypeNam}'>$!{IDType}</IdCardTypeCode>
+        <IdCard>$!{IDCode}</IdCard>
+        <GenderCode version='1.0' value='$!{GenderNam}'>$!{GenderCode}</GenderCode>
+        <NationalityCode version='1.0' value='$!{NationalityNam}'>$!{Nationality}</NationalityCode>
+        <Age>$!{Age}</Age>
+    </PersonInfo>
+    <EmergencyInfo>
+        <ID>$!{EmerDealInfoId}</ID>
+        <ReportZoneCode version='1.0' value='$!{ZoneNam}'>$!{ZoneCd}</ReportZoneCode>
+        <ReportOrgCode version='1.0' value='$!{OrgCodeValue}'>$!{OrgCode}</ReportOrgCode>
+        <EmergencyOrg>$!{EmrDealOrg}</EmergencyOrg>
+        <FirstDisposalSite>$!{FirstDisposalSite}</FirstDisposalSite>
+        <Reporter>$!{Reporter}</Reporter>
+        <ReportingTime>$!{ReportTime}</ReportingTime>
+        <ReportingRoute>$!{ReportRoute}</ReportingRoute>
+        <ReportingIdentityCode version='1.0' value='$!{ReporterIdentityValue}'>$!{ReporterIdentity}</ReportingIdentityCode>
+        <ReportingIdentityDesc>$!{ReportingIdentityDesc}</ReportingIdentityDesc>
+        <DisposalStartTime>$!{DealStartTime}</DisposalStartTime>
+        <DisposalEndTime>$!{DealEndTime}</DisposalEndTime>
+        <SceneDescription>$!{SceneDescription}</SceneDescription>
+        <SecurityOrganSignatory>$!{SecurityOrganSignatory}</SecurityOrganSignatory>
+        <SecurityOrganName>$!{SecurityOrganName}</SecurityOrganName>
+        <PreventionDoctor>$!{PreventionDoctor}</PreventionDoctor>
+        <PsychiatryDoctor>$!{PsychiatryDoctor}</PsychiatryDoctor>
+        <PsychiatryNurse>$!{PsychiatryNurse}</PsychiatryNurse>
+        <OtherName>$!{OtherName}</OtherName>
+        <DisposalReasonCodeList>
+            <DisposalReasonCode version='1.0' value='$!{}'>$!{}</DisposalReasonCode>
+            <DisposalReasonCode version='1.0' value='$!{}'>$!{}</DisposalReasonCode>
+            <DisposalReasonOther>$!{DisposalReasonOther}</DisposalReasonOther>
+        </DisposalReasonCodeList>
+        <DisposalMeasuresCodeList>
+            <DisposalMeasuresCode version='1.0' value='$!{}'>$!{}</DisposalMeasuresCode>
+            <DisposalMeasuresCode version='1.0' value='$!{}'>$!{}</DisposalMeasuresCode>
+            <DisposalMeasuresOther>$!{DisposalMeasuresOther}</DisposalMeasuresOther>
+        </DisposalMeasuresCodeList>
+        <DiagnosticConfirmedCode version='1.0' value='$!{DiagnosticConfirmedValue}'>$!{DiagnosticConfirmed}</DiagnosticConfirmedCode>
+        <DiagnosticSuspectedCode version='1.0' value='$!{DiagnosticSuspectedValue}'>$!{DiagnosticSuspected}</DiagnosticSuspectedCode>
+        <HandlesEffectCode version='1.0' value='$!{HandlesEffectValue}'>$!{HandlesEffect}</HandlesEffectCode>
+        <HandlesObjectCode version='1.0' value='$!{HandlesObjectValue}'>$!{HandlesObject}</HandlesObjectCode>
+        <FillDoctor>$!{FillDoctor}</FillDoctor>
+        <FillDate>$!{FillDate}</FillDate>
+    </EmergencyInfo>
+    </Body>
+</EDRDocument>
