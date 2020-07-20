@@ -16,6 +16,7 @@ public interface BasicInfoMapper {
     @Select("select top 1000 ID FROM V_Center2020_BasicInfo_All_Test")
     List<String> queryTestBasicInfoView();
 
+
     @Select("select * from V_Center2020_BasicInfo_Test where ID = #{cd} and BasicInformationId is null ")
     Map<String, Object> queryBasicInfoViewOfInsert(String cd);
 
@@ -30,6 +31,13 @@ public interface BasicInfoMapper {
 
     @Select("select * from V_Center2020_BasicInfo_Test where ID = #{cd} and DeathDate is not null ")
     Map<String, Object> queryBasicInfoViewOfTrundeath(String cd);
+
+
+    @Select("select Nam from SPM_SPMOrgan where OrgCode = #{cd}")
+    String queryOrgNamByOrgCd(String cd);
+
+    @Select("select AllNam from SPM_SPMZone where Code = #{cd}")
+    String queryZoneNamByZoneCd(String cd);
 
 
 

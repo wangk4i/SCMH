@@ -26,6 +26,8 @@ import java.lang.reflect.Field;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -48,6 +50,14 @@ public class OperateTools {
     private RedisUtils redisUtils;
     @Value("${config.docmentenum.license-code}")
     private String licenseCode;
+    // 上传机构代码
+    @Value("${config.docmentenum.reportOrg}")
+    private String reportOrgCode;
+    // 上传地区代码
+    @Value("${config.docmentenum.reportZone}")
+    private String reportZoneCode;
+
+
     @Value("${config.to-xmlpath}")
     private String toXmlpath;
     //业务分类编码
@@ -73,22 +83,28 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
+
+        /*xmlHeaderInfo.setActivityion("MentalHealth");
         xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
         xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
         xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
         xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
         xmlHeaderInfo.setLicenseCode(licenseCode);
+        xmlHeaderInfo.setOperateEnum(OperateEnum.ADD);*/
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.ADD);
+
         //获取模板文件URL
         String templatePath = "templates\\BasicInfo\\Add_BasicInfo.vm";
         //设置Xmlname
         //String xmlName = TypeEnum.DOC + OperateEnum.ADD + info.getId();
-        String xmlName=setXmlNam(TypeEnum.DOC,info);
+        //String xmlName=setXmlNam(TypeEnum.DOC,info);
+        String xmlName = xmlHeaderInfo.getDocmentId();
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
 
@@ -110,17 +126,12 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
-
-        xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
         //获取模板文件URL
         String templatePath = "templates\\BasicInfo\\Update_BasicInfo.vm";
         //设置Xmlname
@@ -146,17 +157,13 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.DELETE);
         //获取模板文件URL
         String templatePath = "templates\\BasicInfo\\Delete_BasicInfo.vm";
         //设置Xmlname
@@ -182,17 +189,13 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UNDELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.UNDELETE);
         //获取模板文件URL
         String templatePath = "templates\\BasicInfo\\Undelete_BasicInfo.vm";
         //设置Xmlname
@@ -216,23 +219,18 @@ public class OperateTools {
         }
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DECLAREDEATH);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.DECLAREDEATH);
         //获取模板文件URL
         //String templatePath = "templates\\Declaredeath_BasicInfo.vm";
         String templatePath = "";
         String DeathCauseCode = (String) result.get("DeathCauseCode");
-
-        // 死亡原因为躯体疾病，需使用上传躯体疾病明细的模板，否则不需上传
+        // 死亡原因为躯体疾病，需上传躯体疾病明细,此处选择模板
         if (DeathCauseCode.equals("1")){
             templatePath = "templates\\BasicInfo\\Declaredeath_BasicInfo.vm";
         } else {
@@ -260,23 +258,23 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.ADD);
+        List<Map<String,Object>> drugList = reportInfoMapper.queryMedicationbyRptCd(info.getId());
+
+        result.put("DrugList",drugList);
+
         //获取模板文件URL
         String templatePath = "templates\\ReportInfo\\Add_ReportInfo.vm";
         //设置Xmlname
         String xmlName=setXmlNam(TypeEnum.REP,info);
         //输出到xml
-        this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toXML(xmlHeaderInfo, result, templatePath, xmlName, drugList);
     }
 
     public void updateReportToXml(MessageInfo info) {
@@ -290,17 +288,13 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
         //获取模板文件URL
         String templatePath = "templates\\ReportInfo\\Update_ReportInfo.vm";
         //设置Xmlname
@@ -320,17 +314,13 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.DELETE);
         //获取模板文件URL
         String templatePath = "templates\\ReportInfo\\Delete_ReportInfo.vm";
         //设置Xmlname
@@ -353,17 +343,13 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.ADD);
         //获取模板文件URL
         String templatePath = "templates\\DischargeInfo\\Add_DischargeInfo.vm";
         //设置Xmlname
@@ -383,17 +369,13 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
         //获取模板文件URL
         String templatePath = "templates\\DischargeInfo\\Update_DischargeInfo.vm";
         //设置Xmlname
@@ -413,17 +395,13 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.DELETE);
         //获取模板文件URL
         String templatePath = "templates\\DischargeInfo\\Delete_DischargeInfo.vm";
         //设置Xmlname
@@ -446,17 +424,13 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.ADD);
         //获取模板文件URL
         String templatePath = "templates\\FollowupInfo\\Add_FollowupInfo.vm";
         //设置Xmlname
@@ -476,17 +450,13 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
         //获取模板文件URL
         String templatePath = "templates\\FollowupInfo\\Update_FollowupInfo.vm";
         //设置Xmlname
@@ -506,17 +476,13 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.DELETE);
         //获取模板文件URL
         String templatePath = "templates\\FollowupInfo\\Delete_FollowupInfo.vm";
         //设置Xmlname
@@ -539,17 +505,13 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.ADD);
         //获取模板文件URL
         String templatePath = "templates\\EmergencyInfo\\Add_EmergencyInfo.vm";
         //设置Xmlname
@@ -569,17 +531,13 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
         //获取模板文件URL
         String templatePath = "templates\\EmergencyInfo\\Update_EmergencyInfo.vm";
         //设置Xmlname
@@ -599,17 +557,13 @@ public class OperateTools {
 
         //获取头部数据
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setActivityion("MentalHealth");
-        xmlHeaderInfo.setZoneCodeValue((String)result.get("ZoneNam"));
-        xmlHeaderInfo.setZoneCode((String)result.get("ZoneCd"));
-        xmlHeaderInfo.setOrgCode((String)result.get("OrgCode"));
-        xmlHeaderInfo.setOrgCodeValue((String)result.get("OrgCodeValue"));
-        xmlHeaderInfo.setLicenseCode(licenseCode);
+        String reportZoneNam = basicInfoMapper.queryZoneNamByZoneCd(reportZoneCode);
+        String reportOrgNam = basicInfoMapper.queryOrgNamByOrgCd(reportOrgCode);
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
-        xmlHeaderInfo.setOperateEnum(OperateEnum.DELETE);
         //获取模板文件URL
         String templatePath = "templates\\EmergencyInfo\\Delete_EmergencyInfo.vm";
         //设置Xmlname
@@ -650,7 +604,7 @@ public class OperateTools {
                 String redisId = redisUtils.randomMember("dataCd");
                 //移除
                 redisUtils.setRemove("dataCd", redisId);
-                dataCd = businessCode + organCode + redisId;
+                dataCd = businessCode +"-" + organCode +"-"+ redisId;
             }else {
                 b = true;
             }
@@ -744,5 +698,70 @@ public class OperateTools {
         }
 
     }
+
+
+    private void  toXML(XmlHeaderInfo info, Map<String, Object> map, String templatePath, String xmlName, List<Map<String,Object>> todoList){
+        //初始化模板引擎
+        VelocityEngine ve = new VelocityEngine();
+        ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+        ve.init();
+
+        //获取模板文件
+        Template template = null;
+        try {
+            template = ve.getTemplate(templatePath);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.info("获取模板文件失败,模板路径:"+templatePath);
+        }
+        //设置xml变量参数
+        VelocityContext vc = new VelocityContext();
+
+        //设置头部文件
+        Field[] fields  = info.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            try {
+                vc.put(field.getName(), field.get(info));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                log.info("根据反射获取字段名称和字段值失败");
+            } finally {
+                field.setAccessible(false);
+            }
+        }
+        //设置body信息
+        for(Map.Entry<String, Object> entry: map.entrySet()){
+            vc.put(entry.getKey(), entry.getValue());
+        }
+
+        for (Map<String,Object> drugInfo: todoList){
+            for (Map.Entry<String, Object> entry: drugInfo.entrySet()){
+                vc.put(entry.getKey(), entry.getValue());
+            }
+        }
+
+
+        //生成xml
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(new File(toXmlpath+"\\"+xmlName+".xml"));
+            template.merge(vc, fileWriter);
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+    /*private XmlHeaderInfo setXmlHeaderInfo(XmlHeaderInfo xml, String Activiitytion){
+
+    }*/
 
 }

@@ -64,7 +64,10 @@
         <DiagnoseTime>$!{DiagnosisDate}</DiagnoseTime>
         <IfNoMedication version='1.0' value='$!{IfNoMedicationNam}'>$!{IfNoMedication}</IfNoMedication>
         <!--TODO -->
-        <DrugList>
+
+
+
+        <DrugList>#foreach($foo in $!{DrugList})
             <DrugInfo>
                 <DrugID>$!{DrugID}</DrugID>
                 <Sort>$!{SortNo}</Sort>
@@ -86,8 +89,9 @@
                 <NonLongActingDrugDoseMorning>$!{SDrugDosem}</NonLongActingDrugDoseMorning>
                 <NonLongActingDrugDoseNoon>$!{SDrugDosen}</NonLongActingDrugDoseNoon>
                 <NonLongActingDrugDoseEvening>$!{SDrugDosee}</NonLongActingDrugDoseEvening>
-            </DrugInfo>
+            </DrugInfo>#end
         </DrugList>
+
         <PsychogenyInformedCode version='1.0' value='$!{NformedNam}'>$!{Nformed}</PsychogenyInformedCode>
         <PsychogenyInformedDate>$!{InformedDate}</PsychogenyInformedDate>
         <FillDoctor>$!{FillingDoctorName}</FillDoctor>
