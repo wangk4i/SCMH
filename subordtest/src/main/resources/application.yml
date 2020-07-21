@@ -50,7 +50,7 @@ mybatis:
   mapper-locations: classpath:mybatis/**/*Mapper.xml
   config-location: classpath:mybatis/mybatis-config.xml
 config:
-  to-xmlpath: D:\mq\filetest
+  to-xmlpath: G:\mq\filetest
   max-wirteMessage: 1000
   business-code: '05'
   #organcode: 001organ

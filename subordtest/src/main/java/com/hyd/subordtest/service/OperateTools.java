@@ -538,6 +538,14 @@ public class OperateTools {
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
 
+        // 处置缘由列表
+        String dealReasonStr = (String) result.get("DealReason");
+        result.put("DealReason", this.getListValue(dealReasonStr));
+
+        // 处置措施列表
+        String dealMeasureStr = (String) result.get("DealMeasure");
+        result.put("DealMeasure", this.getListValue(dealMeasureStr));
+
         //获取模板文件URL
         String templatePath = "templates\\EmergencyInfo\\Add_EmergencyInfo.vm";
         //设置Xmlname
@@ -561,6 +569,14 @@ public class OperateTools {
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         xmlHeaderInfo.setDocmentId(this.getDateCd());
+
+        // 处置缘由列表
+        String dealReasonStr = (String) result.get("DealReason");
+        result.put("DealReason", this.getListValue(dealReasonStr));
+
+        // 处置措施列表
+        String dealMeasureStr = (String) result.get("DealMeasure");
+        result.put("DealMeasure", this.getListValue(dealMeasureStr));
 
         //获取模板文件URL
         String templatePath = "templates\\EmergencyInfo\\Update_EmergencyInfo.vm";
@@ -738,67 +754,6 @@ public class OperateTools {
 
     }
 
-
-    private void  toXML(XmlHeaderInfo info, Map<String, Object> map, String templatePath, String xmlName, List<Map<String,Object>> todoList){
-        //初始化模板引擎
-        VelocityEngine ve = new VelocityEngine();
-        ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-        ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-        ve.init();
-
-        //获取模板文件
-        Template template = null;
-        try {
-            template = ve.getTemplate(templatePath);
-        }catch (Exception e){
-            e.printStackTrace();
-            log.info("获取模板文件失败,模板路径:"+templatePath);
-        }
-        //设置xml变量参数
-        VelocityContext vc = new VelocityContext();
-
-        //设置头部文件
-        Field[] fields  = info.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            field.setAccessible(true);
-            try {
-                vc.put(field.getName(), field.get(info));
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-                log.info("根据反射获取字段名称和字段值失败");
-            } finally {
-                field.setAccessible(false);
-            }
-        }
-        //设置body信息
-        for(Map.Entry<String, Object> entry: map.entrySet()){
-            vc.put(entry.getKey(), entry.getValue());
-        }
-
-        for (Map<String,Object> drugInfo: todoList){
-            for (Map.Entry<String, Object> entry: drugInfo.entrySet()){
-                vc.put(entry.getKey(), entry.getValue());
-            }
-        }
-
-
-        //生成xml
-        FileWriter fileWriter = null;
-        try {
-            fileWriter = new FileWriter(new File(toXmlpath+"\\"+xmlName+".xml"));
-            template.merge(vc, fileWriter);
-        }catch (IOException e){
-            e.printStackTrace();
-        }finally {
-            try {
-                fileWriter.flush();
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
 
     // 查询数据字典 获取用逗号分隔的List对象
     private List<Map<String,Object>> getListValue(String infoStr){

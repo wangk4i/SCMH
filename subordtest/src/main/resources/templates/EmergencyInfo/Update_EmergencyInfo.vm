@@ -38,13 +38,15 @@
         <PsychiatryNurse>$!{PsychiatryNurse}</PsychiatryNurse>
         <OtherName>$!{OtherName}</OtherName>
         <DisposalReasonCodeList>
-            <DisposalReasonCode version='1.0' value='$!{}'>$!{}</DisposalReasonCode>
-            <DisposalReasonCode version='1.0' value='$!{}'>$!{}</DisposalReasonCode>
+#foreach($!{reason} in $!{DealReason})
+            <DisposalReasonCode version='1.0' value='$!{reason.Nam}'>$!{reason.DictCode}</DisposalReasonCode>
+#end
             <DisposalReasonOther>$!{DisposalReasonOther}</DisposalReasonOther>
         </DisposalReasonCodeList>
         <DisposalMeasuresCodeList>
-            <DisposalMeasuresCode version='1.0' value='$!{}'>$!{}</DisposalMeasuresCode>
-            <DisposalMeasuresCode version='1.0' value='$!{}'>$!{}</DisposalMeasuresCode>
+#foreach($!{measure} in $!{DealMeasure})
+            <DisposalMeasuresCode version='1.0' value='$!{measure.Nam}'>$!{measure.DictCode}</DisposalMeasuresCode>
+#end
             <DisposalMeasuresOther>$!{DisposalMeasuresOther}</DisposalMeasuresOther>
         </DisposalMeasuresCodeList>
         <DiagnosticConfirmedCode version='1.0' value='$!{DiagnosticConfirmedValue}'>$!{DiagnosticConfirmed}</DiagnosticConfirmedCode>
