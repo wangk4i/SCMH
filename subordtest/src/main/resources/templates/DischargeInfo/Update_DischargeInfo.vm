@@ -30,67 +30,83 @@
         <DischargeDate>$!{Dischargetime}</DischargeDate>
         <PsychogenyPastHospital>$!{InMentalHospital}</PsychogenyPastHospital>
         <PsychogenyPastDangerousCodeList>
-            <PsychogenyPastDangerousCode version='1.0' value='$!{}'>$!{}</PsychogenyPastDangerousCode>
-            <PsychogenyPastDangerousCode version='1.0' value='$!{}'>$!{}</PsychogenyPastDangerousCode>
+#foreach($!{risk} in $!{PastRiskHave})
+            <PsychogenyPastDangerousCode version='1.0' value='$!{risk.Nam}'>$!{risk.DictCode}</PsychogenyPastDangerousCode>
+#end
         </PsychogenyPastDangerousCodeList>
         <PsychogenyPastRiskCode version='1.0' value='$!{RiskNowNam}'>$!{RiskNow}</PsychogenyPastRiskCode>
         <DiseaseCode version='1.0' value='$!{DischargeDiagnosisNam}'>$!{DischargeDiagnosis}</DiseaseCode>
         <DiagnoseTime>$!{DiagnosisDate}</DiagnoseTime>
         <IfNoMedication version='1.0' value='$!{IfNoMedicationNam}'>$!{IfNoMedication}</IfNoMedication>
+#if($!{IfNoMedication}==0)
         <DrugList>
+#foreach($!{drug} in $!{DrugList})
+#if($!{drug.IfLongAct}==1)
             <DrugInfo>
-                <DrugID>$!{MedicationId}</DrugID>
-                <Sort>$!{SortNo}</Sort>
-                <LongActingDrugFlagCode version='1.0' value='$!{IfLongActNam}'>$!{IfLongAct}</LongActingDrugFlagCode>
-                <DrugCode version='1.0' value='$!{DrugNam}'>$!{DrugCode}</DrugCode>
-                <DrugSpecifications>$!{LDrugSpecifications}</DrugSpecifications>
-                <DrugDoseCode>$!{DrugUnit}</DrugDoseCode>
-                <LongActingDrugFrequency>$!{LDrugFrequency}</LongActingDrugFrequency>
-                <LongActingDrugFrequencyUnitCode version='1.0' value='$!{UseDailyNam}'>$!{UseDailyCode}</LongActingDrugFrequencyUnitCode>
-                <LongActingDrugDose>$!{LDrugDose}</LongActingDrugDose>
+                <DrugID>$!{drug.DrugID}</DrugID>
+                <Sort>$!{drug.SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{drug.IfLongActNam}'>$!{drug.IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{drug.DrugNam}'>$!{drug.DrugCode}</DrugCode>
+                <DrugSpecifications>$!{drug.LDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{drug.DrugUnit}</DrugDoseCode>
+                <LongActingDrugFrequency>$!{drug.LDrugFrequency}</LongActingDrugFrequency>
+                <LongActingDrugFrequencyUnitCode version='1.0' value='$!{drug.UseDailyNam}'>$!{drug.UseDailyCode}</LongActingDrugFrequencyUnitCode>
+                <LongActingDrugDose>$!{drug.LDrugDose}</LongActingDrugDose>
             </DrugInfo>
+#elseif($!{drug.IfLongAct}==0)
             <DrugInfo>
-                <DrugID>$!{MedicationId}</DrugID>
-                <Sort>$!{SortNo}</Sort>
-                <LongActingDrugFlagCode version='1.0' value='$!{IfLongActNam}'>$!{IfLongAct}</LongActingDrugFlagCode>
-                <DrugCode version='1.0' value='$!{DrugNam}'>$!{DrugCode}</DrugCode>
-                <DrugSpecifications>$!{SDrugSpecifications}</DrugSpecifications>
-                <DrugDoseCode>$!{DrugUnit}</DrugDoseCode>
-                <NonLongActingDrugDoseMorning>$!{SDrugDosem}</NonLongActingDrugDoseMorning>
-                <NonLongActingDrugDoseNoon>$!{SDrugDosen}</NonLongActingDrugDoseNoon>
-                <NonLongActingDrugDoseEvening>$!{SDrugDosee}</NonLongActingDrugDoseEvening>
+                <DrugID>$!{drug.DrugID}</DrugID>
+                <Sort>$!{drug.SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{drug.IfLongActNam}'>$!{drug.IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{drug.DrugNam}'>$!{drug.DrugCode}</DrugCode>
+                <DrugSpecifications>$!{drug.SDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{drug.DrugUnit}</DrugDoseCode>
+                <NonLongActingDrugDoseMorning>$!{drug.SDrugDosem}</NonLongActingDrugDoseMorning>
+                <NonLongActingDrugDoseNoon>$!{drug.SDrugDosen}</NonLongActingDrugDoseNoon>
+                <NonLongActingDrugDoseEvening>$!{drug.SDrugDosee}</NonLongActingDrugDoseEvening>
             </DrugInfo>
+    #end
+#end
         </DrugList>
+#end
         <TreatmentEffectCode version='1.0' value='$!{InMentalEffectNam}'>$!{InMentalEffect}</TreatmentEffectCode>
         <GuideIfNoMedication version='1.0' value='$!{GuideIfNoMedicationNam}'>$!{GuideIfNoMedication}</GuideIfNoMedication>
+#if($!{GuideIfNoMedication}==0)
         <GuideDrugList>
+#foreach($!{guideDrug} in $!{GuideDrugList})
+#if($!{guideDrug.IfLongAct}==1)
             <DrugInfo>
-                <DrugID>$!{MedicationId}</DrugID>
-                <Sort>$!{SortNo}</Sort>
-                <LongActingDrugFlagCode version='1.0' value='$!{IfLongActNam}'>$!{IfLongAct}</LongActingDrugFlagCode>
-                <DrugCode version='1.0' value='$!{DrugNam}'>$!{DrugCode}</DrugCode>
-                <DrugSpecifications>$!{LDrugSpecifications}</DrugSpecifications>
-                <DrugDoseCode>$!{DrugUnit}</DrugDoseCode>
-                <LongActingDrugFrequency>$!{LDrugFrequency}</LongActingDrugFrequency>
-                <LongActingDrugFrequencyUnitCode version='1.0' value='$!{UseDailyNam}'>$!{UseDailyCode}</LongActingDrugFrequencyUnitCode>
-                <LongActingDrugDose>$!{LDrugDose}</LongActingDrugDose>
+                <DrugID>$!{guideDrug.DrugID}</DrugID>
+                <Sort>$!{guideDrug.SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{guideDrug.IfLongActNam}'>$!{guideDrug.IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{guideDrug.DrugNam}'>$!{guideDrug.DrugCode}</DrugCode>
+                <DrugSpecifications>$!{guideDrug.LDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{guideDrug.DrugUnit}</DrugDoseCode>
+                <LongActingDrugFrequency>$!{guideDrug.LDrugFrequency}</LongActingDrugFrequency>
+                <LongActingDrugFrequencyUnitCode version='1.0' value='$!{guideDrug.UseDailyNam}'>$!{guideDrug.UseDailyCode}</LongActingDrugFrequencyUnitCode>
+                <LongActingDrugDose>$!{guideDrug.LDrugDose}</LongActingDrugDose>
             </DrugInfo>
+#elseif($!{guideDrug.IfLongAct}==0)
             <DrugInfo>
-                <DrugID>$!{MedicationId}</DrugID>
-                <Sort>$!{SortNo}</Sort>
-                <LongActingDrugFlagCode version='1.0' value='$!{IfLongActNam}'>$!{IfLongAct}</LongActingDrugFlagCode>
-                <DrugCode version='1.0' value='$!{DrugNam}'>$!{DrugCode}</DrugCode>
-                <DrugSpecifications>$!{SDrugSpecifications}</DrugSpecifications>
-                <DrugDoseCode>$!{DrugUnit}</DrugDoseCode>
-                <NonLongActingDrugDoseMorning>$!{SDrugDosem}</NonLongActingDrugDoseMorning>
-                <NonLongActingDrugDoseNoon>$!{SDrugDosen}</NonLongActingDrugDoseNoon>
-                <NonLongActingDrugDoseEvening>$!{SDrugDosee}</NonLongActingDrugDoseEvening>
+                <DrugID>$!{guideDrug.DrugID}</DrugID>
+                <Sort>$!{guideDrug.SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{guideDrug.IfLongActNam}'>$!{guideDrug.IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{guideDrug.DrugNam}'>$!{guideDrug.DrugCode}</DrugCode>
+                <DrugSpecifications>$!{guideDrug.SDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{guideDrug.DrugUnit}</DrugDoseCode>
+                <NonLongActingDrugDoseMorning>$!{guideDrug.SDrugDosem}</NonLongActingDrugDoseMorning>
+                <NonLongActingDrugDoseNoon>$!{guideDrug.SDrugDosen}</NonLongActingDrugDoseNoon>
+                <NonLongActingDrugDoseEvening>$!{guideDrug.SDrugDosee}</NonLongActingDrugDoseEvening>
             </DrugInfo>
+#end
+#end
         </GuideDrugList>
+#end
         <NextMeasuresCodeList>
-            <NextMeasuresCode version='1.0' value='$!{}'>$!{}</NextMeasuresCode>
-            <NextMeasuresCode version='1.0' value='$!{}'>$!{}</NextMeasuresCode>
-            <NextMeasuresCodeOther>$!{RehabilitationMeasuresDesc}</NextMeasuresCodeOther>
+#foreach($!{measure} in $!{RecoveryMeasures})
+            <NextMeasuresCode version='1.0' value='$!{measure.Nam}'>$!{measure.DictCode}</NextMeasuresCode>
+#end
+            <NextMeasuresCodeOther>$!{RecoveryMeasuresDesc}</NextMeasuresCodeOther>
         </NextMeasuresCodeList>
         <NextMeasuresOther>$!{OtherConsider}</NextMeasuresOther>
         <DoctorName>$!{FillDoctorName}</DoctorName>

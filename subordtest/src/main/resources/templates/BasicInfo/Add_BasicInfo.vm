@@ -10,7 +10,7 @@
     </Header>
     <Body>
     <PersonInfo>
-        <ID>$!{BasicInformationID}</ID>
+        <ID>$!{BasicInformationId}</ID>
         <ZoneCode version='1.0' value='$!{ZoneNam}'>$!{ZoneCd}</ZoneCode>
         <OrgCode version='1.0' value='$!{OrgCodeValue}'>$!{OrgCode}</OrgCode>
         <PatientNo>$!{BasicInformationNumber}</PatientNo>
@@ -27,7 +27,7 @@
         <ProfessionCode version='1.0' value='$!{OccupationValue}'>$!{OccupationCode}</ProfessionCode>
         <FamilyHistory version='1.0' value='$!{FamilyHistoryValue}'>$!{FamilyHistory}</FamilyHistory>
         <PsychogenyEconomyLevelCode version='1.0' value='$!{FamilyEconomicsValue}'>$!{FamilyEconomics}</PsychogenyEconomyLevelCode>
-        <Contacts>$!{GuardianName}</Contacts>
+        <Contacts>$!{GuardianNam}</Contacts>
         <ContactsTel>$!{GuardianTel}</ContactsTel>
         <ContactsTelTwo>$!{GuardianTelVice}</ContactsTelTwo>
         <ContactsRelCode version='1.0' value='$!{RelationTOPatientValue}'>$!{RelationToPatient}</ContactsRelCode>
@@ -53,10 +53,10 @@
         <PsychogenyFirstCureDateAccuracyCode version='1.0' value='$!{FIrstMedicineTimeAccValue}'>$!{FirstMedicineTimeAccuracy}</PsychogenyFirstCureDateAccuracyCode>
         <PsychogenyPastHospital>$!{InMentalHospital}</PsychogenyPastHospital>
         <PsychogenyShutStatusHistoryCode version='1.0' value='$!{InCaptivityValue}'>$!{InCaptivity}</PsychogenyShutStatusHistoryCode>
-        <!--TODO -->
         <PsychogenyPastDangerousCodeList>
-            <PsychogenyPastDangerousCode version='1.0' value='$!{t1}'>$!{s}</PsychogenyPastDangerousCode>
-            <PsychogenyPastDangerousCode version='1.0' value='$!{t2}'>$!{p}</PsychogenyPastDangerousCode>
+#foreach($!{risk} in $!{PastRiskHave})
+            <PsychogenyPastDangerousCode version='1.0' value='$!{risk.Nam}'>$!{risk.DictCode}</PsychogenyPastDangerousCode>
+#end
         </PsychogenyPastDangerousCodeList>
         <IfSupportCode version='1.0' value='$!{IfPovertyValue}'>$!{IfPoverty}</IfSupportCode>
         <IfSubsidyCode version='1.0' value='$!{IfSubsidiesValue}'>$!{IfSubsidies}</IfSubsidyCode>

@@ -10,7 +10,7 @@
     </Header>
     <Body>
     <PersonInfo>
-        <ID>$!{BasicInformationID}</ID>
+        <ID>$!{BasicInformationId}</ID>
         <DelCause version='1.0' value='$!{DelReasonValue}'>$!{DelReasonCd}</DelCause>
     </PersonInfo>
     </Body>

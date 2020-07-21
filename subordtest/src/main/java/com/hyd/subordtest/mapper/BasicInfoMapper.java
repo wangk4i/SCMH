@@ -33,11 +33,6 @@ public interface BasicInfoMapper {
     Map<String, Object> queryBasicInfoViewOfTrundeath(String cd);
 
 
-    @Select("select Nam from SPM_SPMOrgan where OrgCode = #{cd}")
-    String queryOrgNamByOrgCd(String cd);
-
-    @Select("select AllNam from SPM_SPMZone where Code = #{cd}")
-    String queryZoneNamByZoneCd(String cd);
 
 
 

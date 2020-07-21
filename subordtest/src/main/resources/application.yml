@@ -52,17 +52,17 @@ mybatis:
 config:
   to-xmlpath: D:\mq\filetest
   max-wirteMessage: 1000
-  business-code: hyd
-  organcode: 001organ
+  business-code: '05'
+  #organcode: 001organ
 
 
   docmentenum:
     license-code: test1111
-    reportOrg: 510107001
-    reportZone: 510107000
+    reportOrg: organ001
+    reportZone: zone001
+    reportOrgNam: organ001Nam
+    reportZoneNam: zone001Nam
 
-    #reportOrgNam: OrgNam_Test
-    #reportZoneNam: ZoneNam_Test
   queue:
     patinfo: SC_PatInfo_Test
     followup: SC_Followup_Test

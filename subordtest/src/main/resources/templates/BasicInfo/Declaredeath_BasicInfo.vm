@@ -10,10 +10,12 @@
     </Header>
     <Body>
     <PersonInfo>
-        <ID>$!{BasicInformationID}</ID>
-        <DeadDate>$!{DeadDate}</DeadDate>
+        <ID>$!{BasicInformationId}</ID>
+        <DeadDate>$!{DeathDate}</DeadDate>
         <DeadReason version='1.0' value='$!{DeathCauseValue}'>$!{DeathCauseCode}</DeadReason>
+#if($!{DeathCauseCode}==1)
         <DeadDetail version='1.0' value='$!{BodyDiseaseValue}'>$!{BodyDiseaseCode}</DeadDetail>
+#end
     </PersonInfo>
     </Body>
 </EDRDocument>

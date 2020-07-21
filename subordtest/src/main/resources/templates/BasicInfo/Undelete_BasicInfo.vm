@@ -10,7 +10,7 @@
     </Header>
     <Body>
     <PersonInfo>
-        <ID>$!{BasicInformationID}</ID>
+        <ID>$!{BasicInformationId}</ID>
         <UndelCause>$!{UndelCause}</UndelCause>
     </PersonInfo>
     </Body>

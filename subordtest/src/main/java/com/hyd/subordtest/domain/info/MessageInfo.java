@@ -39,5 +39,6 @@ public class MessageInfo {
      */
     private Integer msgaction;
 
+    //todo FileCode
 
 }
