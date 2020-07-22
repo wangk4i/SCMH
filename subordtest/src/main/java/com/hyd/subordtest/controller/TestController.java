@@ -2,7 +2,7 @@ package com.hyd.subordtest.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.hyd.subordtest.mapper.BasicInfoMapper;
-import com.hyd.subordtest.service.BasicInfoService;
+import com.hyd.subordtest.service.TestRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping("/test")
 public class TestController {
     @Autowired
-    private BasicInfoService basicInfoService;
+    private TestRedisService testService;
 
     @Autowired(required = false)
     private BasicInfoMapper mapper;
@@ -37,5 +37,13 @@ public class TestController {
         }
         return "success";
     }
+
+    @RequestMapping("/TestRedis")
+    public String testRedis(){
+        return testService.getRedisNum();
+    }
+
+
+
 
 }

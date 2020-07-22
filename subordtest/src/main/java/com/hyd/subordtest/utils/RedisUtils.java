@@ -185,6 +185,12 @@ public class RedisUtils {
         return redisTemplate.opsForValue().increment(key, delta);
     }
 
+    // 自增1
+    public long increm(String key) {
+
+        return redisTemplate.opsForValue().increment(key, 1L);
+    }
+
 
     /**
      * 递减

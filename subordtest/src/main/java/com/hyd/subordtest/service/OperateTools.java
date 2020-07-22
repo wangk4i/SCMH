@@ -16,9 +16,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,6 +33,9 @@ import java.util.*;
 public class OperateTools {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @Resource
+    RedisTemplate<String,Object> redisTemplate;
 
     @Autowired(required = false)
     private BasicInfoMapper basicInfoMapper;
@@ -89,7 +94,7 @@ public class OperateTools {
 
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         // 既往危险行为列表
         String pastRiskHaveStr = (String) result.get("PastRiskHave");
@@ -123,7 +128,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         // 既往危险行为列表
         String pastRiskHaveStr = (String) result.get("PastRiskHave");
@@ -156,7 +161,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         //获取模板文件URL
         String templatePath = "templates\\BasicInfo\\Delete_BasicInfo.vm";
@@ -186,7 +191,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UNDELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         //获取模板文件URL
         String templatePath = "templates\\BasicInfo\\Undelete_BasicInfo.vm";
@@ -214,7 +219,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DECLAREDEATH);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         //获取模板文件URL
         String templatePath = "templates\\BasicInfo\\Declaredeath_BasicInfo.vm";
@@ -243,7 +248,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         // 服药列表
         List<Map<String, Object>> drugList = reportInfoMapper.queryMedicationByNewCaseReportId(info.getId());
@@ -278,7 +283,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         // 服药列表
         List<Map<String, Object>> drugList = reportInfoMapper.queryMedicationByNewCaseReportId(info.getId());
@@ -313,7 +318,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         //获取模板文件URL
         String templatePath = "templates\\ReportInfo\\Delete_ReportInfo.vm";
@@ -339,7 +344,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         // 用药情况列表
         List<Map<String, Object>> drugList = dischargeInfoMapper.queryDrugListByDischargeId(info.getId());
@@ -370,7 +375,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         // 用药情况列表
         List<Map<String, Object>> drugList = dischargeInfoMapper.queryDrugListByDischargeId(info.getId());
@@ -410,7 +415,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         //获取模板文件URL
         String templatePath = "templates\\DischargeInfo\\Delete_DischargeInfo.vm";
@@ -437,7 +442,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         // 用药情况列表
         List<Map<String, Object>> drugList = followupInfoMapper.queryDrugListByFollowupId(info.getId());
@@ -485,7 +490,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         //获取模板文件URL
         String templatePath = "templates\\FollowupInfo\\Update_FollowupInfo.vm";
@@ -509,7 +514,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         //获取模板文件URL
         String templatePath = "templates\\FollowupInfo\\Delete_FollowupInfo.vm";
@@ -536,7 +541,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         // 处置缘由列表
         String dealReasonStr = (String) result.get("DealReason");
@@ -568,7 +573,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         // 处置缘由列表
         String dealReasonStr = (String) result.get("DealReason");
@@ -600,7 +605,7 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getDateCd());
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
 
         //获取模板文件URL
         String templatePath = "templates\\EmergencyInfo\\Delete_EmergencyInfo.vm";
@@ -623,7 +628,6 @@ public class OperateTools {
             //放入Redis并设置有效时间1h
             redisUtils.sSetAndTime("dataCd", 60L*60 ,timeStamp);
         }
-
     }
 
     /*
@@ -634,6 +638,40 @@ public class OperateTools {
      *     当取出的号>=1000 丢弃该值 线程sleep 10毫秒 且key刷新为当前时刻的 HHmmss
      *     继续去取 直到取出为止
      * */
+
+    //生成key HHmmss
+    //increment
+    //1000
+
+    //while(取号值>=1000)
+    //sleep 10ms
+    //生成key HHmmss
+    //取号值=increment
+    //return 日期 +时间+ 取号值
+
+    public String getFileNum(){
+        String key = null;
+        try {
+            DecimalFormat df=new DecimalFormat("000");
+            // 当前时间作为key
+            key = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+            // 当前数目
+            int currNum =  redisTemplate.opsForValue().increment(key).intValue(); //redisTemplate.opsForValue()~ops
+
+            while (currNum >= 1000) {
+                Thread.sleep(10);
+                key = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+                currNum =  redisTemplate.opsForValue().increment(key).intValue();
+            }
+            String numStr = df.format(currNum);
+            return key+numStr;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * 从redis的set中随机获取一个id,获取成功后，从队列中移除当前id
      * 当Redis连接异常或set队列为空时，实时生成id
@@ -641,15 +679,7 @@ public class OperateTools {
      */
     public String getDateCd(){
         boolean b = false;
-        //生成key HHmmss
-        //increment
-        //1000
 
-        //while(取号值>=1000)
-        //sleep 10ms
-        //生成key HHmmss
-        //取号值=increment
-        //return 日期 +时间+ 取号值
         String dataCd = null;
         try {
             //获取Redis中所有ID数量

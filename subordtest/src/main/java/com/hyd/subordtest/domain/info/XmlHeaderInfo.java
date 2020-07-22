@@ -25,18 +25,6 @@ public class XmlHeaderInfo {
 
     private String licenseCode;
 
-
-    /*public XmlHeaderInfo(String docmentId, String operateEnum, String activityion, String zoneCodeValue, String zoneCode, String orgCode, String orgCodeValue, String licenseCode) {
-        this.docmentId = docmentId;
-        this.operateEnum = operateEnum;
-        this.activityion = activityion;
-        this.zoneCodeValue = zoneCodeValue;
-        this.zoneCode = zoneCode;
-        this.orgCode = orgCode;
-        this.orgCodeValue = orgCodeValue;
-        this.licenseCode = licenseCode;
-    }*/
-
     public void setXmlHeaderInfo(String activityion, String zoneCode, String zoneCodeValue, String orgCode, String orgCodeValue, String licenseCode ,String operateEnum) {
         this.operateEnum = operateEnum;
         this.activityion = activityion;

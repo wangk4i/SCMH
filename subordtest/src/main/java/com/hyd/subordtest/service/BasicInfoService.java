@@ -1,33 +1,12 @@
 package com.hyd.subordtest.service;
 
-import com.hyd.subordtest.domain.enumtion.OperateEnum;
-import com.hyd.subordtest.domain.enumtion.TypeEnum;
 import com.hyd.subordtest.domain.info.MessageInfo;
-import com.hyd.subordtest.domain.info.XmlHeaderInfo;
-import com.hyd.subordtest.mapper.*;
-import com.hyd.subordtest.utils.RedisUtils;
-import com.hyd.subordtest.utils.StringUtils;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.runtime.RuntimeConstants;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
 
 
 /**
@@ -108,7 +87,6 @@ public class BasicInfoService {
 
 
 
-
     private void syncReportcardToXml(MessageInfo info) {
         switch (info.getMsgaction()) {
             case 1:
@@ -127,7 +105,6 @@ public class BasicInfoService {
                 break;
         }
     }
-
 
 
 
@@ -173,7 +150,6 @@ public class BasicInfoService {
 
 
 
-
     private void syncEmergencyToXml(MessageInfo info){
         switch (info.getMsgaction()) {
             case 1:
@@ -192,9 +168,6 @@ public class BasicInfoService {
                 break;
         }
     }
-
-
-
 
 
 

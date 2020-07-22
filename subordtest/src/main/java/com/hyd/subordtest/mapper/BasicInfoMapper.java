@@ -13,7 +13,7 @@ import java.util.Map;
 @Mapper
 public interface BasicInfoMapper {
 
-    @Select("select top 1000 ID FROM V_Center2020_BasicInfo_All_Test")
+    @Select("select top 1000 ID FROM V_Center2020_BasicInfo_Test")
     List<String> queryTestBasicInfoView();
 
 
