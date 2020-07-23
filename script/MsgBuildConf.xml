@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+<MsgInfo name='交换-新增档案' MsgCate='1' MsgType='1' MsgAction='1' ifUse='false'>
+<![CDATA[
+	   select top 1 Cd,ZoneCd,OrganCd,FIELDPK 
+		from SPM_SPMPatInfoMana 
+		where ZoneCd like '51%' and State=1 and DelStatus='DelLogo001'
+		and len(isnull(FIELDPK,''))=0
+	 ]]>
+</MsgInfo>
+<MsgInfo name='交换-新增档案' MsgCate='1' MsgType='1' MsgAction='1' ifUse='true'>
+<![CDATA[
+	   select top 1 Cd,ZoneCd,OrganCd,FIELDPK 
+		from SPM_SPMPatInfoMana 
+		where Cd='PatInfo000000901' and State=1 and DelStatus='DelLogo001'
+		and len(isnull(FIELDPK,''))=0
+	 ]]>
+</MsgInfo>
+<MsgInfo name='交换-更新档案' MsgCate='1' MsgType='1' MsgAction='2' ifUse='false'>
+<![CDATA[
+	   select top 30000 Cd,ZoneCd,OrganCd,FIELDPK 
+		from SPM_SPMPatInfoMana 
+		where ZoneCd like '5101%' and State=1 and DelStatus='DelLogo001'
+		and len(isnull(FIELDPK,''))=0
+	 ]]>
+</MsgInfo>
+</root>

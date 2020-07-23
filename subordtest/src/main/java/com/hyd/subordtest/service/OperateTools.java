@@ -364,7 +364,7 @@ public class OperateTools {
 
     public void updateDischargeToXml(MessageInfo info) {
         //去数据库查询数据
-        Map<String, Object> result = dischargeInfoMapper.queryDischargeInfoViewOfInsert(info.getId());
+        Map<String, Object> result = dischargeInfoMapper.queryDischargeInfoViewOfUpdate(info.getId());
         //判断查询结果是否为Null
         if(result==null){
             log.info("当前ID无法转码,视图无此数据{}", info.getId());
@@ -664,7 +664,7 @@ public class OperateTools {
                 currNum =  redisTemplate.opsForValue().increment(key).intValue();
             }
             String numStr = df.format(currNum);
-            return key+numStr;
+            return businessCode +"-"+ reportOrgCode +"-"+ key+numStr;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -798,5 +798,6 @@ public class OperateTools {
         return outPutList;
     }
 
+    // todo 消息交换 传递处理时的信息流转
 }
 

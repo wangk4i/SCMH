@@ -1,0 +1,53 @@
+1 视图名称
+V_Center2020_BasicInfo
+V_Center2020_FollowupInfo
+V_Center2020_FollowupInfo_Med
+V_Center2020_CaseReport
+V_Center2020_CaseReport_Med
+V_Center2020_DischargeInfo
+V_Center2020_DischargeInfo_Med
+V_Center2020_EmergencyInfo
+#get
+
+2 生成脚本
+GIT上script文件夹
+脚本上传
+
+3 sc_mh2020070100 库上建立视图 #get
+
+4 用 sc_mh2020070100 生成xml
+4.1 生成消息构建程序
+     单独用jar包生成
+	 4.1.1 通过配置xml构建消息
+	 <MsgInfo name=“交换-新增档案” Msgcate=1 Msgtype=1 MsgAction=1 isuse=false>
+	 <!CData[
+	   select top 10 Cd,ZoneCd,OrganCd,FIELDPK 
+		from SPM_SPMPatInfoMana 
+		where ZoneCd like '51%' and State=1 and DelStatus='DelLogo001'
+		and len(isnull(FIELDPK,''))=0
+		
+	 ]>
+	 </MsgInfo>
+	 <MsgInfo name=“交换-更新档案” Msgcate=1 Msgtype=1 MsgAction=2 isuse=false>
+	 <!CData[
+	   select top 30000 Cd,ZoneCd,OrganCd,FIELDPK 
+		from SPM_SPMPatInfoMana 
+		where ZoneCd like '5101%' and State=1 and DelStatus='DelLogo001'
+		and len(isnull(FIELDPK,''))=0
+		
+	 ]>
+	 </MsgInfo>
+	 把所有交换场景列出来
+	 4.1.2 通过配置查询消息数据 并发送到接收中心
+	 
+4.2 将接收中心编译成jar包运行
+     消息发送到接收中心
+4.3 订阅中心编译成jar包 
+      启动订阅中心生成xml
+	  
+5 把场景sql设为top1 生成xml 然后copy出来检查
+Message消息持久化后，记录文件生成时间与耗时
+generalfiletime
+generalFileElapse
+	  
+

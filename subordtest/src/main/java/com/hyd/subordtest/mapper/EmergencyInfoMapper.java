@@ -7,13 +7,13 @@ import java.util.Map;
 
 @Mapper
 public interface EmergencyInfoMapper {
-    @Select("select * from V_Center2020_EmergencyInfo_Test where ID= #{cd} ") //and EmerDealInfoId is null
+    @Select("select * from V_Center2020_EmergencyInfo_Test where ID= #{cd} and EmerDealInfoId is null")
     Map<String, Object> queryEmergencyInfoViewOfInsert(String cd);
 
-    @Select("select * from V_Center2020_EmergencyInfo_Test where ID= #{cd} ") //and EmerDealInfoId is not null
+    @Select("select * from V_Center2020_EmergencyInfo_Test where ID= #{cd} and EmerDealInfoId is not null")
     Map<String, Object> queryEmergencyInfoViewOfUpdate(String cd);
 
-    @Select("select * from V_Center2020_EmergencyInfo_Test where ID= #{cd} and DelStatus!= 'DelLogo001'")
+    @Select("select * from V_Center2020_EmergencyInfo_Test where ID= #{cd} and DelStatus= 'DelLogo002'")
     Map<String, Object> queryEmergencyInfoViewOfDelete(String cd);
 
 }
