@@ -56,15 +56,7 @@ public class BatchProcessController {
                             break;
                         default:
                             break;
-                    }
-
-                }
-
-            }
-
-
-        }
-
+                    } } } }
         return "success";
     }
 
@@ -72,13 +64,20 @@ public class BatchProcessController {
 
 
     @RequestMapping("/testm")
-    public List testmapp(){
-        String sqlStr="select top 10 Cd,ZoneCd,OrganCd,FIELDPK \n" +
-                "\t\tfrom SPM_SPMPatInfoMana \n" +
-                "\t\twhere ZoneCd like '51%' and State=1 and DelStatus='DelLogo001'\n" +
-                "\t\tand len(isnull(FIELDPK,''))=0";
-        List list=batchMsgBuildMapper.queryBatchDataByConf(sqlStr);
-        return list;
+    public String testmapp(){
+        //String sql ="select top 1 Cd,ZoneCd,OrganCd,FIELDPK from SPM_SPMPatInfoMana where State=1 and DelStatus='DelLogo001'and len(isnull(FIELDPK,''))=0";
 
+        String sql = "\n" +
+                "\n" +
+                "\t   select top 1 Cd,ZoneCd,OrganCd,FIELDPK \n" +
+                "\t\tfrom SPM_SPMPatInfoMana \n" +
+                "\t\twhere State=1 and DelStatus='DelLogo001'\n" +
+                "\t\tand len(isnull(FIELDPK,''))=0\n" +
+                "\t\n";
+        List<Map<String, Object>> list02 = batchMsgBuildMapper.queryBatchDataByConf(sql);
+        System.out.println(list02);
+
+        return "success";
     }
+
 }

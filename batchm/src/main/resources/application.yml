@@ -46,6 +46,16 @@ spring:
 #      password: Hyd123
 #      type: com.zaxxer.hikari.HikariDataSource
 #    cluster:
+
+templateFilePath:
+  path: D:\mq\templates
+#  BasicInfo:
+#  ReportInfo:
+#  DischargeInfo:
+#  FollowupInfo:
+#  EmergencyInfo:
+
+
 mybatis:
   mapper-locations: classpath:mybatis/**/*Mapper.xml
   config-location: classpath:mybatis/mybatis-config.xml
@@ -53,6 +63,7 @@ config:
   to-xmlpath: D:\mq\filetest
   max-wirteMessage: 1000
   business-code: '05'
+
 
   docmentenum:
     license-code: test1111

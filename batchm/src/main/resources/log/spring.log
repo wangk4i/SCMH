@@ -1,0 +1,53 @@
+logging.pattern.file=2020/07/24-16:29:13  [main] INFO  com.hyd.subordtest.SubordtestApplication- Starting SubordtestApplication v0.0.1-SNAPSHOT on DESKTOP-8K6CHJP with PID 8400 (D:\GitHub\SCMH\batchm\src\main\resources\subordmqServer.jar started by dlk in D:\GitHub\SCMH\batchm\src\main\resources)
+logging.pattern.file=2020/07/24-16:29:13  [main] INFO  com.hyd.subordtest.SubordtestApplication- No active profile set, falling back to default profiles: default
+logging.pattern.file=2020/07/24-16:29:14  [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate- Multiple Spring Data modules found, entering strict repository configuration mode!
+logging.pattern.file=2020/07/24-16:29:14  [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate- Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+logging.pattern.file=2020/07/24-16:29:14  [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate- Finished Spring Data repository scanning in 9ms. Found 0 Redis repository interfaces.
+logging.pattern.file=2020/07/24-16:29:16  [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer- Tomcat initialized with port(s): 9092 (http)
+logging.pattern.file=2020/07/24-16:29:16  [main] INFO  org.apache.catalina.core.StandardService- Starting service [Tomcat]
+logging.pattern.file=2020/07/24-16:29:16  [main] INFO  org.apache.catalina.core.StandardEngine- Starting Servlet engine: [Apache Tomcat/9.0.35]
+logging.pattern.file=2020/07/24-16:29:16  [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]- Initializing Spring embedded WebApplicationContext
+logging.pattern.file=2020/07/24-16:29:16  [main] INFO  org.springframework.web.context.ContextLoader- Root WebApplicationContext: initialization completed in 2197 ms
+logging.pattern.file=2020/07/24-16:29:17  [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor- Initializing ExecutorService 'applicationTaskExecutor'
+logging.pattern.file=2020/07/24-16:29:17  [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer- Tomcat started on port(s): 9092 (http) with context path ''
+logging.pattern.file=2020/07/24-16:29:17  [main] INFO  com.zaxxer.hikari.HikariDataSource- HikariPool-1 - Starting...
+logging.pattern.file=2020/07/24-16:29:18  [main] INFO  com.zaxxer.hikari.HikariDataSource- HikariPool-1 - Start completed.
+logging.pattern.file=2020/07/24-16:29:18  [main] ERROR org.apache.velocity- ResourceManager : unable to find resource 'templates\BasicInfo\Update_BasicInfo.vm' in any resource loader.
+logging.pattern.file=2020/07/24-16:29:18  [main] INFO  com.hyd.subordtest.service.OperateTools- 获取模板文件失败,模板路径:templates\BasicInfo\Update_BasicInfo.vm
+logging.pattern.file=2020/07/24-16:29:18  [main] INFO  org.apache.catalina.core.StandardService- Stopping service [Tomcat]
+logging.pattern.file=2020/07/24-16:29:18  [main] INFO  org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener- 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+logging.pattern.file=2020/07/24-16:29:18  [main] ERROR org.springframework.boot.SpringApplication- Application run failed
+java.lang.NullPointerException: null
+	at com.hyd.subordtest.service.OperateTools.toXML(OperateTools.java:773)
+	at com.hyd.subordtest.service.OperateTools.updateDocumentToXml(OperateTools.java:141)
+	at com.hyd.subordtest.service.BasicInfoService.syncDocumentToXml(BasicInfoService.java:116)
+	at com.hyd.subordtest.service.BasicInfoService.queryDocToXml(BasicInfoService.java:46)
+	at com.hyd.subordtest.service.BasicInfoService.batchProcessDocument(BasicInfoService.java:87)
+	at com.hyd.subordtest.listener.ApplicationStartup.onApplicationEvent(ApplicationStartup.java:16)
+	at com.hyd.subordtest.listener.ApplicationStartup.onApplicationEvent(ApplicationStartup.java:9)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:403)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:360)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:897)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:553)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at com.hyd.subordtest.SubordtestApplication.main(SubordtestApplication.java:13)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49)
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:109)
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:58)
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:88)
+logging.pattern.file=2020/07/24-16:29:18  [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor- Shutting down ExecutorService 'applicationTaskExecutor'
+logging.pattern.file=2020/07/24-16:29:18  [main] INFO  com.zaxxer.hikari.HikariDataSource- HikariPool-1 - Shutdown initiated...
+logging.pattern.file=2020/07/24-16:29:18  [main] INFO  com.zaxxer.hikari.HikariDataSource- HikariPool-1 - Shutdown completed.

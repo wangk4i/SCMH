@@ -56,7 +56,7 @@
 #foreach($!{drug} in $!{DrugList})
 #if($!{drug.IfLongAct}==1)
             <DrugInfo>
-                <DrugID>$!{drug.DrugID}</DrugID>
+                <DrugID>$!{drug.DrugId}</DrugID>
                 <Sort>$!{drug.SortNo}</Sort>
                 <LongActingDrugFlagCode version='1.0' value='$!{drug.IfLongActNam}'>$!{drug.IfLongAct}</LongActingDrugFlagCode>
                 <DrugCode version='1.0' value='$!{drug.DrugNam}'>$!{drug.DrugCode}</DrugCode>
@@ -68,7 +68,7 @@
             </DrugInfo>
 #elseif($!{drug.IfLongAct}==0)
             <DrugInfo>
-                <DrugID>$!{drug.DrugID}</DrugID>
+                <DrugID>$!{drug.DrugId}</DrugID>
                 <Sort>$!{drug.SortNo}</Sort>
                 <LongActingDrugFlagCode version='1.0' value='$!{drug.IfLongActNam}'>$!{drug.IfLongAct}</LongActingDrugFlagCode>
                 <DrugCode version='1.0' value='$!{drug.DrugNam}'>$!{drug.DrugCode}</DrugCode>
@@ -86,7 +86,7 @@
 #foreach($!{guideDrug} in $!{GuideDrugList})
 #if($!{guideDrug.IfLongAct}==1)
             <DrugInfo>
-                <DrugID>$!{guideDrug.DrugID}</DrugID>
+                <DrugID>$!{guideDrug.DrugId}</DrugID>
                 <Sort>$!{guideDrug.SortNo}</Sort>
                 <LongActingDrugFlagCode version='1.0' value='$!{guideDrug.IfLongActNam}'>$!{guideDrug.IfLongAct}</LongActingDrugFlagCode>
                 <DrugCode version='1.0' value='$!{guideDrug.DrugNam}'>$!{guideDrug.DrugCode}</DrugCode>
@@ -98,7 +98,7 @@
             </DrugInfo>
 #elseif($!{guideDrug.IfLongAct}==0)
             <DrugInfo>
-                <DrugID>$!{guideDrug.DrugID}</DrugID>
+                <DrugID>$!{guideDrug.DrugId}</DrugID>
                 <Sort>$!{guideDrug.SortNo}</Sort>
                 <LongActingDrugFlagCode version='1.0' value='$!{guideDrug.IfLongActNam}'>$!{guideDrug.IfLongAct}</LongActingDrugFlagCode>
                 <DrugCode version='1.0' value='$!{guideDrug.DrugNam}'>$!{guideDrug.DrugCode}</DrugCode>

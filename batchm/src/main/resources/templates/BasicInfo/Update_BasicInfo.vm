@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EDRDocument>
+    <Header>
+        <DocumentId>$!{docmentId}</DocumentId>
+        <OperateType>$!{operateEnum}</OperateType>
+        <BusinessActivityIdentification>$!{activityion}</BusinessActivityIdentification>
+        <ReportZoneCode version='1.0' value='$!{zoneCodeValue}'>$!{zoneCode}</ReportZoneCode>
+        <ReportOrgCode version='1.0' value='$!{orgCodeValue}'>$!{orgCode}</ReportOrgCode>
+        <License>$!{licenseCode}</License>
+    </Header>
+    <Body>
+    <PersonInfo>
+        <ID>$!{BasicInformationId}</ID>
+        <ZoneCode version='1.0' value='$!{ZoneNam}'>$!{ZoneCd}</ZoneCode>
+        <OrgCode version='1.0' value='$!{OrgCodeValue}'>$!{OrgCode}</OrgCode>
+        <PatientNo>$!{BasicInformationNumber}</PatientNo>
+        <PatientName>$!{PatientName}</PatientName>
+        <IdCardTypeCode version='1.0' value='$!{IDTypeValue}'>$!{IDType}</IdCardTypeCode>
+        <IdCard>$!{IDCode}</IdCard>
+        <GenderCode version='1.0' value='$!{GenderCodeValue}'>$!{GenderCode}</GenderCode>
+        <NationalityCode version='1.0' value='$!{NationalityValue}'>$!{Nationality}</NationalityCode>
+        <BirthDate>$!{BirthDate}</BirthDate>
+        <Age>$!{Age}</Age>
+        <NationCode version='1.0' value='$!{NationValue}'>$!{NationCode}</NationCode>
+        <MaritalStatusCode version='1.0' value='$!{MaritalStatusValue}'>$!{MaritalStatusCode}</MaritalStatusCode>
+        <EducationCode version='1.0' value='$!{EducationLevelValue}'>$!{EducationLevelCode}</EducationCode>
+        <ProfessionCode version='1.0' value='$!{OccupationValue}'>$!{OccupationCode}</ProfessionCode>
+        <FamilyHistory version='1.0' value='$!{FamilyHistoryValue}'>$!{FamilyHistory}</FamilyHistory>
+        <PsychogenyEconomyLevelCode version='1.0' value='$!{FamilyEconomicsValue}'>$!{FamilyEconomics}</PsychogenyEconomyLevelCode>
+        <Contacts>$!{GuardianNam}</Contacts>
+        <ContactsTel>$!{GuardianTel}</ContactsTel>
+        <ContactsTelTwo>$!{GuardianTelVice}</ContactsTelTwo>
+        <ContactsRelCode version='1.0' value='$!{RelationTOPatientValue}'>$!{RelationToPatient}</ContactsRelCode>
+        <PermanentAddrTypeCode version='1.0' value='$!{DomicileAddressAttrbutionValue}'>$!{DomicileAddressAttributionCode}</PermanentAddrTypeCode>
+        <PermanentAddrCode version='1.0' value='$!{DomicileAddressValue}'>$!{DomicileAddressCode}</PermanentAddrCode>
+        <PermanentAddrDetail>$!{DomicileAddressDetails}</PermanentAddrDetail>
+        <PsychogenyPermanentAddrCode version='1.0' value='$!{RegistertypeValue}'>$!{Registertype}</PsychogenyPermanentAddrCode>
+        <PermanentAddrTypeUnknownCause>$!{UnknownCause}</PermanentAddrTypeUnknownCause>
+        <CurrentAddrTypeCode version='1.0' value='$!{LivingAddressAttributionValue}'>$!{LivingAddressAttributionCode}</CurrentAddrTypeCode>
+        <CurrentAddrCode version='1.0' value='$!{LivingAddressValue}'>$!{LivingAddressCode}</CurrentAddrCode>
+        <CurrentAddrDetail>$!{LivingAddressDetails}</CurrentAddrDetail>
+        <PsychogenyAddrTypeCode version='1.0' value='$!{CurrentAddressValue}'>$!{CurrentAddressType}</PsychogenyAddrTypeCode>
+        <DiseaseCode version='1.0' value='$!{DiagnosisValue}'>$!{Diagnosis}</DiseaseCode>
+        <DiagnoseOrg>$!{DiagnosisHospital}</DiagnoseOrg>
+        <DiagnoseOrgUnknown>$!{UnknownHospita}</DiagnoseOrgUnknown>
+        <DiagnoseOrgUnknownReason>$!{UnknownReason}</DiagnoseOrgUnknownReason>
+        <DiagnoseTime>$!{DiagnosisDate}</DiagnoseTime>
+        <DiagnoseTimeAccuracyCode version='1.0' value='$!{DiagnosisDateAccValue}'>$!{DiagnosisDateAccuracy}</DiagnoseTimeAccuracyCode>
+        <OnsetDate>$!{FirstOnsetDate}</OnsetDate>
+        <OnsetDateAccuracyCode version='1.0' value='$!{FirstOnsetDateAccValue}'>$!{FirstOnsetDateAccuracy}</OnsetDateAccuracyCode>
+        <SignsMedicationCode version='1.0' value='$!{MentalMedicineValue}'>$!{MentalMedicineTreatment}</SignsMedicationCode>
+        <PsychogenyFirstCureDate>$!{FirstMedicineTime}</PsychogenyFirstCureDate>
+        <PsychogenyFirstCureDateAccuracyCode version='1.0' value='$!{FIrstMedicineTimeAccValue}'>$!{FirstMedicineTimeAccuracy}</PsychogenyFirstCureDateAccuracyCode>
+        <PsychogenyPastHospital>$!{InMentalHospital}</PsychogenyPastHospital>
+        <PsychogenyShutStatusHistoryCode version='1.0' value='$!{InCaptivityValue}'>$!{InCaptivity}</PsychogenyShutStatusHistoryCode>
+        <PsychogenyPastDangerousCodeList>
+#foreach($!{risk} in $!{PastRiskHave})
+            <PsychogenyPastDangerousCode version='1.0' value='$!{risk.Nam}'>$!{risk.DictCode}</PsychogenyPastDangerousCode>
+#end
+        </PsychogenyPastDangerousCodeList>
+        <IfSupportCode version='1.0' value='$!{IfPovertyValue}'>$!{IfPoverty}</IfSupportCode>
+        <IfSubsidyCode version='1.0' value='$!{IfSubsidiesValue}'>$!{IfSubsidies}</IfSubsidyCode>
+        <ReceiveDisabled version='1.0' value='$!{ReceiveDisabledValue}'>$!{ReceiveDisabledCode}</ReceiveDisabled>
+        <DisabledLevelCode version='1.0' value='$!{DisabilityGradeValue}'>$!{DisabilityGrade}</DisabledLevelCode>
+        <IfCarefor version='1.0' value='$!{IfSupportgroupValue}'>$!{IfSupportgroup}</IfCarefor>
+        <IfFamilyPhysician version='1.0' value='$!{IfFamilyphysicianValue}'>$!{IfFamilyphysician}</IfFamilyPhysician>
+        <IfRecoveryMeasures version='1.0' value='$!{IfRecoveryValue}'>$!{IfRecovery}</IfRecoveryMeasures>
+        <PsychogenyInformedCode version='1.0' value='$!{InfomedConsentValue}'>$!{InformedConsent}</PsychogenyInformedCode>
+        <PsychogenyInformedDate>$!{SignedInformedConsentDate}</PsychogenyInformedDate>
+    </PersonInfo>
+    </Body>
+</EDRDocument>

@@ -68,7 +68,7 @@
 #foreach($!{drug} in $!{DrugList})
 #if($!{drug.IfLongAct}==1)
             <DrugInfo>
-                <DrugID>$!{drug.DrugId}</DrugID>
+                <DrugID>$!{drug.DrugID}</DrugID>
                 <Sort>$!{drug.SortNo}</Sort>
                 <LongActingDrugFlagCode version='1.0' value='$!{drug.IfLongActNam}'>$!{drug.IfLongAct}</LongActingDrugFlagCode>
                 <DrugCode version='1.0' value='$!{drug.DrugNam}'>$!{drug.DrugCode}</DrugCode>
@@ -80,7 +80,7 @@
             </DrugInfo>
 #elseif($!{drug.IfLongAct}==0)
             <DrugInfo>
-                <DrugID>$!{drug.DrugId}</DrugID>
+                <DrugID>$!{drug.DrugID}</DrugID>
                 <Sort>$!{drug.SortNo}</Sort>
                 <LongActingDrugFlagCode version='1.0' value='$!{drug.IfLongActNam}'>$!{drug.IfLongAct}</LongActingDrugFlagCode>
                 <DrugCode version='1.0' value='$!{drug.DrugNam}'>$!{drug.DrugCode}</DrugCode>

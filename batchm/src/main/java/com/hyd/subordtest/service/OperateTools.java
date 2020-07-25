@@ -71,6 +71,10 @@ public class OperateTools {
     //业务分类编码
     @Value("${config.business-code}")
     private String businessCode;
+    // 模板xml路径
+    @Value("${templateFilePath.path}")
+    private String templateFilePath;
+
 
 
 
@@ -83,7 +87,7 @@ public class OperateTools {
         //去数据库查询数据
         Map<String, Object> result = basicInfoMapper.queryBasicInfoViewOfInsert(info.getId());
         //判断查询结果是否为Null
-        if(result == null || result.isEmpty()){
+        if(result==null){
             log.info("当前ID无法转码,视图无此数据{}", info.getId());
             return;
         }
@@ -615,6 +619,8 @@ public class OperateTools {
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
     }
 
+/*    @Value{"filePaht.xxx"}
+    private String getToXmlpath''*/
     /**
      * 每间隔1小时，生成1000份当前时间的id，放入Redis的set中，且有效期为1h
      */
@@ -734,9 +740,15 @@ public class OperateTools {
     private void  toXML(XmlHeaderInfo info, Map<String, Object> map, String templatePath, String xmlName){
         //初始化模板引擎
         VelocityEngine ve = new VelocityEngine();
-        ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        Properties properties = new Properties();
+        properties.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        properties.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+
+        ve.init(properties);
+
+        /*ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-        ve.init();
+        ve.init();*/
 
         //获取模板文件
         Template template = null;
