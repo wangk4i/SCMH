@@ -1,0 +1,20 @@
+package com.hyd.resultdeal.utils;
+
+import java.lang.management.ManagementFactory;
+
+/**
+ * Created by xieshuai on 2020/6/11 14:27
+ */
+public class SystemUtils {
+
+
+    /**
+     * 记录当前服务启动时的window进程pid
+     * @return
+     */
+    public static String getSystemPid(){
+       String system =  ManagementFactory.getRuntimeMXBean().getName();
+       return system.split("@")[0];
+    }
+
+}
