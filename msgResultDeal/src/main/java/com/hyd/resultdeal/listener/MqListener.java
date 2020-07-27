@@ -1,10 +1,5 @@
 package com.hyd.resultdeal.listener;
 
-import com.alibaba.fastjson.JSONObject;
-import com.hyd.resultdeal.domain.MessageDO;
-import com.hyd.resultdeal.mapper.RespMsgImpl;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**

@@ -6,7 +6,7 @@ import lombok.Data;
  * Created by xieshuai on 2020/7/2 上午 11:38
  */
 @Data
-public class MessageDO {
+public class ReturnMsgDO {
 
     private String xmlNam;
 

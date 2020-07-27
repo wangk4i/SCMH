@@ -1,6 +1,6 @@
 package com.hyd.resultdeal.utils;
 
-import com.hyd.resultdeal.domain.MessageDO;
+import com.hyd.resultdeal.domain.ReturnMsgDO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -77,17 +77,17 @@ public class TextFileUtils {
     /**
      * 返回文本转为message对象
      */
-    public static MessageDO resultMsgAnalysis(String stream){
-        MessageDO result = new MessageDO();
-        String docIdReg = "文件名称:([\\s\\S]*?).xml";
+    public static ReturnMsgDO resultMsgAnalysis(String stream){
+        ReturnMsgDO result = new ReturnMsgDO();
+        String docIdReg = "文件名称:([\\s\\S]*?)\\.xml";
         String msgReg = "交换信息: =([\\s\\S]*?)接受时间";
         String timeReg = "接受时间:=([\\s\\S]*?)消息状态";
         String statusReg = "消息状态:=([\\s\\S]*?)$";
 
-        result.setXmlNam(matchValue(docIdReg, stream));
-        result.setMsgBody(matchValue(msgReg, stream));
-        result.setReceivedTime(matchValue(timeReg, stream));
-        result.setStatus(matchValue(statusReg, stream));
+        result.setXmlNam(matchValue(stream, docIdReg));
+        result.setMsgBody(matchValue(stream, msgReg));
+        result.setReceivedTime(matchValue(stream, timeReg));
+        result.setStatus(matchValue(stream, statusReg));
 
         return result;
     }
@@ -96,12 +96,17 @@ public class TextFileUtils {
      * 正则匹配方法
      */
     public static String matchValue(String stream, String regEx){
-        Pattern pattern = Pattern.compile(regEx);
-        Matcher matcher = pattern.matcher(stream);
-        if(!matcher.find()){
-            log.info("未匹配到，返回值格式有误.原始值:{}，正则:{}", stream,regEx);
+        String resultInfoStr = null;
+        try {
+            Pattern pattern = Pattern.compile(regEx);
+            Matcher matcher = pattern.matcher(stream);
+            if(!matcher.find()){
+                log.info("未匹配到，返回值格式有误.原始值:{}，正则:{}", stream,regEx);
+            }
+            resultInfoStr = matcher.group(1);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        String resultInfoStr = matcher.group(1);
         return resultInfoStr;
     }
 
@@ -114,7 +119,7 @@ public class TextFileUtils {
     public static void alterStringToCreateNewFile(String path, String oldString, String newString){
         File file = new File(path);
         try {
-            long start = System.currentTimeMillis(); //开始时间
+//            long start = System.currentTimeMillis(); //开始时间
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(
                             new FileInputStream(file))); //创建对目标文件读取流
@@ -127,14 +132,14 @@ public class TextFileUtils {
                     new OutputStreamWriter(
                             new FileOutputStream(newFile,true)));
             String string = null; //存储对目标文件读取的内容
-            int sum = 0; //替换次数
+//            int sum = 0; //替换次数
             while ((string = br.readLine()) != null){
                 //判断读取的内容是否包含原字符串
                 if (string.contains(oldString)){
                     //替换读取内容中的原字符串为新字符串
                     string = new String(
                             string.replace(oldString,newString));
-                    sum++;
+//                    sum++;
                 }
                 bw.write(string);
                 bw.newLine(); //添加换行
@@ -144,8 +149,8 @@ public class TextFileUtils {
             String filePath = file.getPath();
             file.delete(); //删除源文件
             newFile.renameTo(new File(filePath)); //将新文件更名为源文件
-            long time = System.currentTimeMillis() - start; //整个操作所用时间;
-            //System.out.println(sum+"个"+oldString+"替换成"+newString+"耗费时间:"+time);
+//            long time = System.currentTimeMillis() - start; //整个操作所用时间;
+//            System.out.println(sum+"个"+oldString+"替换成"+newString+"耗费时间:"+time);
         } catch(Exception e){
             e.printStackTrace();
         }

@@ -1,6 +1,6 @@
 package com.hyd.resultdeal.mapper;
 
-import com.hyd.resultdeal.domain.MessageDO;
+import com.hyd.resultdeal.domain.ReturnMsgDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -22,28 +22,28 @@ public class RespMsgImpl implements RespMsgMapper {
 
     /**
      * 保存单条数据
-     * @param messageDO
+     * @param returnMsgDO
      */
     @Override
-    public void save(MessageDO messageDO) {
-        mongoTemplate.save(messageDO);
+    public void save(ReturnMsgDO returnMsgDO) {
+        mongoTemplate.save(returnMsgDO);
     }
 
     /**
      * 更新单条数据
-     * @param messageDO
+     * @param returnMsgDO
      */
     @Override
-    public void update(MessageDO messageDO) {
+    public void update(ReturnMsgDO returnMsgDO) {
         //设置修改语句
-        Query query = new Query(Criteria.where("xmlId").is(messageDO.getXmlNam()));
+        Query query = new Query(Criteria.where("xmlId").is(returnMsgDO.getXmlNam()));
 
         //修改的内容
         Update update = new Update();
         // xmlStream -> msgBody
-        update.set("msgBody", messageDO.getMsgBody());
+        update.set("msgBody", returnMsgDO.getMsgBody());
 
-        mongoTemplate.updateFirst(query, update, MessageDO.class);
+        mongoTemplate.updateFirst(query, update, ReturnMsgDO.class);
     }
 
     /**
@@ -51,8 +51,8 @@ public class RespMsgImpl implements RespMsgMapper {
      * @return
      */
     @Override
-    public List<MessageDO> findAll() {
-        return mongoTemplate.findAll(MessageDO.class) ;
+    public List<ReturnMsgDO> findAll() {
+        return mongoTemplate.findAll(ReturnMsgDO.class) ;
     }
 
     /**
@@ -62,6 +62,6 @@ public class RespMsgImpl implements RespMsgMapper {
     @Override
     public void delete(Integer messageId) {
         //根据实体删除
-        mongoTemplate.remove(Objects.requireNonNull(mongoTemplate.findById(messageId, MessageDO.class)));
+        mongoTemplate.remove(Objects.requireNonNull(mongoTemplate.findById(messageId, ReturnMsgDO.class)));
     }
 }

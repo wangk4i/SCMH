@@ -1,6 +1,6 @@
 package com.hyd.resultdeal.mapper;
 
-import com.hyd.resultdeal.domain.MessageDO;
+import com.hyd.resultdeal.domain.ReturnMsgDO;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface RespMsgMapper {
 
-    void save(MessageDO messageDO);
+    void save(ReturnMsgDO returnMsgDO);
 
-    void update(MessageDO messageDO);
+    void update(ReturnMsgDO returnMsgDO);
 
-    List<MessageDO> findAll();
+    List<ReturnMsgDO> findAll();
 
     void delete(Integer messageId);
 }
