@@ -5,41 +5,41 @@ import com.hyd.resultdeal.domain.ReturnMsgDO;
 
 public interface ExchangeAction {
 
-    String DocumentAdd(MessageInfoDO info, ReturnMsgDO resultMsg);
+    void DocumentAdd(MessageInfoDO info, ReturnMsgDO resultMsg);
 
-    void DocumentUpdate();
+    void DocumentUpdate(MessageInfoDO info, ReturnMsgDO resultMsg);
 
-    void DocumentDelete();
+    void DocumentDelete(MessageInfoDO info, ReturnMsgDO resultMsg);
 
-    void DocumentUndelete();
+    void DocumentUndelete(MessageInfoDO info, ReturnMsgDO resultMsg);
 
-    void DocumentDeclaredeath();
-
-
-    void ReportAdd();
-
-    void ReportUpdate();
-
-    void ReportDelete();
+    void DocumentDeclaredeath(MessageInfoDO info, ReturnMsgDO resultMsg);
 
 
-    String DischargeAdd(MessageInfoDO info, ReturnMsgDO resultMsg);
+    void ReportAdd(MessageInfoDO info, ReturnMsgDO resultMsg);
+
+    void ReportUpdate(MessageInfoDO info, ReturnMsgDO resultMsg);
+
+    void ReportDelete(MessageInfoDO info, ReturnMsgDO resultMsg);
+
+
+    void DischargeAdd(MessageInfoDO info, ReturnMsgDO resultMsg);
 
     void DischargeUpdate(MessageInfoDO info, ReturnMsgDO resultMsg);
 
     void DischargeDelete(MessageInfoDO info, ReturnMsgDO resultMsg);
 
 
-    void FollowupAdd();
+    void FollowupAdd(MessageInfoDO info, ReturnMsgDO resultMsg);
 
-    void FollowupUpdate();
+    void FollowupUpdate(MessageInfoDO info, ReturnMsgDO resultMsg);
 
-    void FollowupDelete();
+    void FollowupDelete(MessageInfoDO info, ReturnMsgDO resultMsg);
 
 
-    void EmergencyAdd();
+    void EmergencyAdd(MessageInfoDO info, ReturnMsgDO resultMsg);
 
-    void EmergencyUpdate();
+    void EmergencyUpdate(MessageInfoDO info, ReturnMsgDO resultMsg);
 
-    void EmergencyDelete();
+    void EmergencyDelete(MessageInfoDO info, ReturnMsgDO resultMsg);
 }

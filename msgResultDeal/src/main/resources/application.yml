@@ -44,6 +44,10 @@ spring:
 #      password: Hyd123
 #      type: com.zaxxer.hikari.HikariDataSource
 #    cluster:
+
+mybatis:
+  mapper-locations: classpath:mybatis/**/*Mapper.xml
+  config-location: classpath:mybatis/mybatis-config.xml
 config:
   rabbit:
     queueName: receiveXmlQueue

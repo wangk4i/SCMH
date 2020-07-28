@@ -2,12 +2,17 @@ package com.hyd.resultdeal.distributeService;
 
 import com.hyd.resultdeal.domain.MessageInfoDO;
 import com.hyd.resultdeal.domain.ReturnMsgDO;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@Repository
+
+@Service
 public class ExchangeTypeImpl implements ExchangeType {
 
-    ExchangeAction action = new ExchangeActionImpl();
+    @Autowired
+    ExchangeAction action;
+
+
 
 
     @Override
@@ -17,16 +22,16 @@ public class ExchangeTypeImpl implements ExchangeType {
                 action.DocumentAdd(info, resultMsg);
                 break;
             case 2:
-                action.DocumentUpdate();
+                action.DocumentUpdate(info, resultMsg);
                 break;
             case 3:
-                action.DocumentDelete();
+                action.DocumentDelete(info, resultMsg);
                 break;
             case 4:
-                action.DocumentUndelete();
+                action.DocumentUndelete(info, resultMsg);
                 break;
             case 5:
-                action.DocumentDeclaredeath();
+                action.DocumentDeclaredeath(info, resultMsg);
                 break;
             default:
                 break;
@@ -37,6 +42,19 @@ public class ExchangeTypeImpl implements ExchangeType {
 
     @Override
     public void CaseReoprtOperation(MessageInfoDO info, ReturnMsgDO resultMsg) {
+        switch (info.getMsgaction()) {
+            case 1:
+                action.ReportAdd(info, resultMsg);
+                break;
+            case 2:
+                action.ReportUpdate(info, resultMsg);
+                break;
+            case 3:
+                action.ReportDelete(info, resultMsg);
+                break;
+            default:
+                break;
+        }
 
     }
 
@@ -60,11 +78,37 @@ public class ExchangeTypeImpl implements ExchangeType {
 
     @Override
     public void FollowupOperation(MessageInfoDO info, ReturnMsgDO resultMsg) {
+        switch (info.getMsgaction()) {
+            case 1:
+                action.FollowupAdd(info, resultMsg);
+                break;
+            case 2:
+                action.FollowupUpdate(info, resultMsg);
+                break;
+            case 3:
+                action.FollowupDelete(info, resultMsg);
+                break;
+            default:
+                break;
+        }
 
     }
 
     @Override
     public void EmergencyOperation(MessageInfoDO info, ReturnMsgDO resultMsg) {
+        switch (info.getMsgaction()) {
+            case 1:
+                action.EmergencyAdd(info, resultMsg);
+                break;
+            case 2:
+                action.EmergencyUpdate(info, resultMsg);
+                break;
+            case 3:
+                action.EmergencyDelete(info, resultMsg);
+                break;
+            default:
+                break;
+        }
 
     }
 

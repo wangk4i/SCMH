@@ -61,10 +61,11 @@ public class TextFileUtils {
             if(!tmpFile.exists()){//判断文件夹是否创建，没有创建则创建新文件夹
                 tmpFile.mkdirs();
             }
-            System.out.println(endPath + startFile.getName());
+//            System.out.println(endPath + startFile.getName());
             if (startFile.renameTo(new File(endPath + startFile.getName()))) {
-                System.out.println("File is moved successful!");
-                log.info("文件移动成功！文件名：《{}》 目标路径：{}",fileName,endPath);
+//                System.out.println("File is moved successful!");
+//                log.info("文件移动成功！文件名：《{}》 目标路径：{}",fileName,endPath);
+                return;
             } else {
                 System.out.println("File is failed to move!");
                 log.info("文件移动失败！文件名：《{}》 起始路径：{}",fileName,startPath);
