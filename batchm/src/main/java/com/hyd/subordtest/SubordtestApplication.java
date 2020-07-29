@@ -8,11 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SubordtestApplication {
 
     public static void main(String[] args) {
-        SpringApplication SubordtestApplication = new SpringApplication(SubordtestApplication.class);
-        SubordtestApplication.addListeners(new ApplicationStartup());
-        SubordtestApplication.run(args);
+//        SpringApplication SubordtestApplication = new SpringApplication(SubordtestApplication.class);
+//        SubordtestApplication.addListeners(new ApplicationStartup());
+//        SubordtestApplication.run(args);
+
+
         //SpringApplication  SubordtestApplication = new SpringBootApplication(SubordtestApplication.class);
-        //SpringApplication.run(SubordtestApplication.class, args);
+        SpringApplication.run(SubordtestApplication.class, args);
     }
 
 }

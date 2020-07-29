@@ -1,18 +1,13 @@
 package com.hyd.subordtest.controller;
 
-import com.hyd.subordtest.domain.info.MessageInfo;
-import com.hyd.subordtest.domain.info.MsgBuildConf;
-import com.hyd.subordtest.domain.info.MsgBuildXml;
 import com.hyd.subordtest.mapper.BatchMsgBuildMapper;
 import com.hyd.subordtest.service.BasicInfoService;
-import com.hyd.subordtest.utils.XmlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/BatchProcess")

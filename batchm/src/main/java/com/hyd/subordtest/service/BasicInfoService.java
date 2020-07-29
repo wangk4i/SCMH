@@ -9,8 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,6 +37,14 @@ public class BasicInfoService {
 
     @Autowired(required = false)
     private BatchMsgBuildMapper batchMsgBuildMapper;
+
+    @Value("${config.docmentenum.reportOrgNam}")
+    private String reportOrg;
+    @Value("${config.docmentenum.reportOrgNam}")
+    private String reportZone;
+
+    @Value("${config.confPath}")
+    private String confPath;
 
 
     /**
@@ -68,21 +79,31 @@ public class BasicInfoService {
 
 
     public void batchProcessDocument(){
-        String confPath = "D:/GitHub/SCMH/script/MsgBuildConf.xml";      // "../script/MsgBuildConf.xml";
-        MsgBuildXml list01 = (MsgBuildXml) XmlUtil.convertXmlFileToObject(MsgBuildXml.class, confPath);
-        /* 取配置文件里 ifUse 为true 的消息 */
-        List<MsgBuildConf> list = list01.getMsgInfo();
+
+        MsgBuildXml msgInfo = (MsgBuildXml) XmlUtil.convertXmlFileToObject(MsgBuildXml.class, confPath);
+        /* 过滤配置文件里 ifUse 为true 的消息 */
+        List<MsgBuildConf> ConfList = msgInfo.getMsgInfo();
         Boolean ifUse = true;
-        list = list.stream()
+        ConfList = ConfList.stream()
                 .filter(MsgInfo -> ifUse.equals(MsgInfo.isIfUse())).collect(Collectors.toList());
-        if (list.size() > 0){
-            for (MsgBuildConf conf:list){
-                List<Map<String,Object>> list02 =  batchMsgBuildMapper.queryBatchDataByConf(conf.getMsgSql());
-                for (Map<String,Object> map:list02) {
+
+        int todoF = 0;
+        int doneF = 0;
+        String startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
+        if (ConfList.size() > 0){
+            for (MsgBuildConf conf:ConfList){
+                List<Map<String,Object>> MsgList = batchMsgBuildMapper.queryBatchDataByConf(conf.getMsgSql());
+                todoF += MsgList.size();
+                for (Map<String,Object> map:MsgList) {
                     MessageInfo info = new MessageInfo();
                     info.setId((String) map.get("Cd"));
+                    info.setZone(reportZone);
+                    info.setOrgan(reportOrg);
+                    info.setMsgcate(conf.getMsgCate());
+                    info.setMsgtype(conf.getMsgType());
                     info.setMsgaction(conf.getMsgAction());
-                    switch (conf.getMsgType()){
+                    switch (info.getMsgtype()){
                         case 1:
                             queryDocToXml(info);
                             break;
@@ -100,7 +121,15 @@ public class BasicInfoService {
                             break;
                         default:
                             break;
-                    } } } }
+                    }
+                   doneF ++;
+                } } }
+        String endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        // todo 输出日志
+
+        String log = this.finishLog(startTime, endTime, todoF, doneF);
+
+        System.out.println(log);
     }
 
 
@@ -217,6 +246,14 @@ public class BasicInfoService {
     }
 
 
-
+    private String finishLog(String startTime, String endTime, int todoF, int doneF){
+        StringBuffer sb = new StringBuffer();
+        sb.append("##############################################\n");
+        sb.append("开始时间: ").append(startTime).append("\n");
+        sb.append("待处理: ").append(todoF).append("\n");
+        sb.append("已处理: ").append(doneF).append("\n");
+        sb.append("结束时间: ").append(endTime).append("\n\n");
+        return sb.toString();
+    }
 
 }

@@ -25,12 +25,12 @@ public class ExchangeActionImpl implements ExchangeAction {
     @Override
     public void DocumentAdd(MessageInfoDO info, ReturnMsgDO resultMsg) {
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -41,7 +41,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -62,12 +62,12 @@ public class ExchangeActionImpl implements ExchangeAction {
     @Override
     public void DocumentUpdate(MessageInfoDO info, ReturnMsgDO resultMsg) {
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -78,7 +78,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -92,12 +92,12 @@ public class ExchangeActionImpl implements ExchangeAction {
     @Override
     public void DocumentDelete(MessageInfoDO info, ReturnMsgDO resultMsg) {
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -108,7 +108,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -122,12 +122,12 @@ public class ExchangeActionImpl implements ExchangeAction {
     @Override
     public void DocumentUndelete(MessageInfoDO info, ReturnMsgDO resultMsg) {
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -138,7 +138,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -152,13 +152,13 @@ public class ExchangeActionImpl implements ExchangeAction {
     @Override
     public void DocumentDeclaredeath(MessageInfoDO info, ReturnMsgDO resultMsg) {
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         // todo 记录失败日志
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -169,7 +169,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -184,13 +184,13 @@ public class ExchangeActionImpl implements ExchangeAction {
     @Override
     public void ReportAdd(MessageInfoDO info, ReturnMsgDO resultMsg) {
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         // todo 记录失败日志
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncReportErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -201,7 +201,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -222,13 +222,13 @@ public class ExchangeActionImpl implements ExchangeAction {
     @Override
     public void ReportUpdate(MessageInfoDO info, ReturnMsgDO resultMsg) {
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         // todo 记录失败日志
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncReportErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -239,7 +239,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -253,13 +253,13 @@ public class ExchangeActionImpl implements ExchangeAction {
     @Override
     public void ReportDelete(MessageInfoDO info, ReturnMsgDO resultMsg) {
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         // todo 记录失败日志
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncReportErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -270,7 +270,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -283,12 +283,12 @@ public class ExchangeActionImpl implements ExchangeAction {
 
     public void DischargeAdd1(MessageInfoDO info, ReturnMsgDO resultMsg){
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncDischargeErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -299,7 +299,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -335,12 +335,12 @@ public class ExchangeActionImpl implements ExchangeAction {
     private ResponseDO processFieldPk(MessageInfoDO info, ReturnMsgDO resultMsg){
         ResponseDO result = new ResponseDO(-1);
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncDischargeErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             result.setMessage(resultMsg.getMsgBody());
             return result;
@@ -357,7 +357,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -379,12 +379,12 @@ public class ExchangeActionImpl implements ExchangeAction {
     public void DischargeUpdate(MessageInfoDO info, ReturnMsgDO resultMsg) {
 
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncDischargeErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -395,7 +395,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -409,12 +409,12 @@ public class ExchangeActionImpl implements ExchangeAction {
     @Override
     public void DischargeDelete(MessageInfoDO info, ReturnMsgDO resultMsg) {
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncDischargeErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -425,7 +425,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -440,12 +440,12 @@ public class ExchangeActionImpl implements ExchangeAction {
     @Override
     public void FollowupAdd(MessageInfoDO info, ReturnMsgDO resultMsg) {
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncFollowupErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -456,7 +456,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -477,12 +477,12 @@ public class ExchangeActionImpl implements ExchangeAction {
     @Override
     public void FollowupUpdate(MessageInfoDO info, ReturnMsgDO resultMsg) {
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncFollowupErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -493,7 +493,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -508,12 +508,12 @@ public class ExchangeActionImpl implements ExchangeAction {
     public void FollowupDelete(MessageInfoDO info, ReturnMsgDO resultMsg) {
 
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncFollowupErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -524,7 +524,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -539,12 +539,12 @@ public class ExchangeActionImpl implements ExchangeAction {
     @Override
     public void EmergencyAdd(MessageInfoDO info, ReturnMsgDO resultMsg) {
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncEmergencyErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -555,7 +555,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -577,12 +577,12 @@ public class ExchangeActionImpl implements ExchangeAction {
     public void EmergencyUpdate(MessageInfoDO info, ReturnMsgDO resultMsg) {
 
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncEmergencyErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -593,7 +593,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 
@@ -607,12 +607,12 @@ public class ExchangeActionImpl implements ExchangeAction {
     @Override
     public void EmergencyDelete(MessageInfoDO info, ReturnMsgDO resultMsg) {
         InterchangeDO exMsg = gson.fromJson(resultMsg.getMsgBody(), InterchangeDO.class);
-        String docXml = resultMsg.getXmlNam()+".xml";
+        String docXml = resultMsg.getXmlNam();
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
             mapper.syncEmergencyErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
-            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml,  FolderPathConfig.failedFolder);
+            TextFileUtils.moveTotherFolders( FolderPathConfig.sendingXmlFolder, docXml+".xml",  FolderPathConfig.failedFolder);
             TextFileUtils.moveTotherFolders( FolderPathConfig.returnTxtFolder, resultMsg.getXmlNam()+".txt",  FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -623,7 +623,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
         // 更新json的主键
-        String jsonRegEx = "\"id\":\"([\\s\\S]*?)\"";
+        String jsonRegEx = "\"id\": \"([\\s\\S]*?)\"";
         String oldId = TextFileUtils.matchValue(msgInfoJson, jsonRegEx);
         TextFileUtils.alterStringToCreateNewFile(msgFilePath, oldId, fieldPk);
 

@@ -355,11 +355,11 @@ public class OperateTools {
         result.put("GuideDrugList",guideDrugList);
 
         //获取模板文件URL
-        String templatePath = "templates\\DischargeInfo\\Add_DischargeInfo.vm";
+        String templatePath = "\\templates\\DischargeInfo\\Add_DischargeInfo.vm";//"\\templates\\DischargeInfo\\Add_DischargeInfo.vm";
         //设置Xmlname
         String xmlName = xmlHeaderInfo.getDocmentId();
         //输出到xml
-        this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toXML1(xmlHeaderInfo, result, templatePath, xmlName);
     }
 
     public void updateDischargeToXml(MessageInfo info) {
@@ -741,7 +741,63 @@ public class OperateTools {
         //获取模板文件
         Template template = null;
         try {
-            template = ve.getTemplate(templatePath);
+            template = ve.getTemplate(templatePath,"utf-8");
+        }catch (Exception e){
+            e.printStackTrace();
+            log.info("获取模板文件失败,模板路径:"+templatePath);
+        }
+        //设置xml变量参数
+        VelocityContext vc = new VelocityContext();
+
+        //设置头部文件
+        Field[] fields  = info.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            try {
+                vc.put(field.getName(), field.get(info));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                log.info("根据反射获取字段名称和字段值失败");
+            } finally {
+                field.setAccessible(false);
+            }
+        }
+        //设置body信息
+        for(Map.Entry<String, Object> entry: map.entrySet()){
+            vc.put(entry.getKey(), entry.getValue());
+        }
+        //生成xml
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(new File(toXmlpath+"\\"+xmlName+".xml"));
+            template.merge(vc, fileWriter);
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private void  toXML1(XmlHeaderInfo info, Map<String, Object> map, String templatePath, String xmlName){
+        //初始化模板引擎
+        VelocityEngine ve = new VelocityEngine();
+
+        ve.setProperty("resource.loader", "class");
+        ve.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+        /*ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());*/
+        ve.init();
+
+        //获取模板文件
+        Template template = null;
+        try {
+            template = ve.getTemplate(templatePath,"utf-8");
         }catch (Exception e){
             e.printStackTrace();
             log.info("获取模板文件失败,模板路径:"+templatePath);
@@ -802,5 +858,6 @@ public class OperateTools {
     }
 
     // todo 消息交换 传递处理时的信息流转
+
 }
 

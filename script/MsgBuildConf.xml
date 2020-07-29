@@ -22,7 +22,7 @@ SELECT TOP 1000 Cd,*
 		where Cd='1767d41f-ff08-4c9f-980d-a7adacb7e27f' and State=1 and DelStatus='DelLogo001'
 		]]>
 </MsgInfo>
-<MsgInfo name='交换-更新档案' MsgCate='1' MsgType='1' MsgAction='2' ifUse='true'>
+<MsgInfo name='交换-更新档案' MsgCate='1' MsgType='1' MsgAction='2' ifUse='false'>
 <![CDATA[
 	   select top 100 Cd,ZoneCd,OrganCd,FIELDPK 
 		from SPM_SPMPatInfoMana 
@@ -30,4 +30,19 @@ SELECT TOP 1000 Cd,*
 		and len(isnull(FIELDPK,''))!=0
 	 ]]>
 </MsgInfo>
+<MsgInfo name='交换-新增档案' MsgCate='1' MsgType='1' MsgAction='1' ifUse='false'>
+<![CDATA[
+select top 10 *
+from SPM_SPMPatInfoMana 
+where FIELDPK is null and State=1 and DelStatus='DelLogo001'
+]]>
+</MsgInfo>
+<MsgInfo name='交换-新增报告卡' MsgCate='1' MsgType='2' MsgAction='1' ifUse='true'>
+<![CDATA[
+  select top 10 *
+  from SPM_SPMPatInciRpt 
+  where FIELDPK is null and State=1 and DelStatus='DelLogo001' and SyncStatus=''
+]]>
+</MsgInfo>
+
 </root>

@@ -17,7 +17,7 @@ spring:
     virtual-host: root
     publisher-returns: true
   datasource:
-    url: jdbc:sqlserver://172.16.0.21;DatabaseName=sc_mh2020070100 #:1433
+    url: jdbc:sqlserver://172.16.0.21;DatabaseName=sc_mh2020Test #:1433
     username: scuser
     password: Hyd123
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -47,8 +47,7 @@ spring:
 #      type: com.zaxxer.hikari.HikariDataSource
 #    cluster:
 
-templateFilePath:
-  path: D:\mq\templates
+
 #  BasicInfo:
 #  ReportInfo:
 #  DischargeInfo:
@@ -60,9 +59,14 @@ mybatis:
   mapper-locations: classpath:mybatis/**/*Mapper.xml
   config-location: classpath:mybatis/mybatis-config.xml
 config:
-  to-xmlpath: D:\mq\filetest
+  to-xmlpath: D:\mq\exchange\01buildxml\sendingxml
   max-wirteMessage: 1000
   business-code: '05'
+  confPath: D:\GitHub\SCMH\script\MsgBuildConf.xml
+  msgPersistPath: D:\mq\msgFile
+  returnTxtPath: D:\mq\exchange\07returntxt
+
+  templateFilePath: D:\mq\templates
 
 
   docmentenum:

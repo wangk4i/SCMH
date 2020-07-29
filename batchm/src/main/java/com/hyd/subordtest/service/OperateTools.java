@@ -1,5 +1,7 @@
 package com.hyd.subordtest.service;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.hyd.subordtest.domain.enumtion.OperateEnum;
 import com.hyd.subordtest.domain.enumtion.TypeEnum;
 import com.hyd.subordtest.domain.info.MessageInfo;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -72,8 +75,12 @@ public class OperateTools {
     @Value("${config.business-code}")
     private String businessCode;
     // 模板xml路径
-    @Value("${templateFilePath.path}")
+    @Value("${config.templateFilePath}")
     private String templateFilePath;
+    @Value("${config.msgPersistPath}")
+    private String toMsgPath;
+    @Value("${config.returnTxtPath}")
+    private String toReturnTxtPath;
 
 
 
@@ -98,18 +105,19 @@ public class OperateTools {
 
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         // 既往危险行为列表
         String pastRiskHaveStr = (String) result.get("PastRiskHave");
         result.put("PastRiskHave", this.getListValue(pastRiskHaveStr));
 
         //获取模板文件URL
-        String templatePath = "templates\\BasicInfo\\Add_BasicInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+        String templatePath = "templates\\BasicInfo\\Add_BasicInfo.vm"; // templateFilePath + "\BasicInfo\Add_BasicInfo.vm" 模板绝对路径
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
 
     }
 
@@ -132,17 +140,19 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         // 既往危险行为列表
         String pastRiskHaveStr = (String) result.get("PastRiskHave");
         result.put("PastRiskHave", this.getListValue(pastRiskHaveStr));
         //获取模板文件URL
         String templatePath = "templates\\BasicInfo\\Update_BasicInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
 
     }
 
@@ -165,14 +175,16 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         //获取模板文件URL
         String templatePath = "templates\\BasicInfo\\Delete_BasicInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
 
     }
 
@@ -195,15 +207,17 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UNDELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         //获取模板文件URL
         String templatePath = "templates\\BasicInfo\\Undelete_BasicInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
 
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
     /**
@@ -223,16 +237,18 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DECLAREDEATH);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         //获取模板文件URL
         String templatePath = "templates\\BasicInfo\\Declaredeath_BasicInfo.vm";
 
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
 
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
     /**
@@ -252,7 +268,8 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         // 服药列表
         List<Map<String, Object>> drugList = reportInfoMapper.queryMedicationByNewCaseReportId(info.getId());
@@ -268,10 +285,11 @@ public class OperateTools {
 
         //获取模板文件URL
         String templatePath = "templates\\ReportInfo\\Add_ReportInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
     public void updateReportToXml(MessageInfo info) {
@@ -287,7 +305,8 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         // 服药列表
         List<Map<String, Object>> drugList = reportInfoMapper.queryMedicationByNewCaseReportId(info.getId());
@@ -303,10 +322,11 @@ public class OperateTools {
 
         //获取模板文件URL
         String templatePath = "templates\\ReportInfo\\Add_ReportInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
     public void delReportToXml(MessageInfo info) {
@@ -322,14 +342,16 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         //获取模板文件URL
         String templatePath = "templates\\ReportInfo\\Delete_ReportInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
     /**
@@ -348,7 +370,8 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         // 用药情况列表
         List<Map<String, Object>> drugList = dischargeInfoMapper.queryDrugListByDischargeId(info.getId());
@@ -360,10 +383,11 @@ public class OperateTools {
 
         //获取模板文件URL
         String templatePath = "templates\\DischargeInfo\\Add_DischargeInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
     public void updateDischargeToXml(MessageInfo info) {
@@ -379,7 +403,8 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         // 用药情况列表
         List<Map<String, Object>> drugList = dischargeInfoMapper.queryDrugListByDischargeId(info.getId());
@@ -399,10 +424,11 @@ public class OperateTools {
 
         //获取模板文件URL
         String templatePath = "templates\\DischargeInfo\\Add_DischargeInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
     public void delDischargeToXml(MessageInfo info) {
@@ -419,14 +445,16 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         //获取模板文件URL
         String templatePath = "templates\\DischargeInfo\\Delete_DischargeInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
     /**
@@ -446,7 +474,8 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         // 用药情况列表
         List<Map<String, Object>> drugList = followupInfoMapper.queryDrugListByFollowupId(info.getId());
@@ -474,10 +503,11 @@ public class OperateTools {
 
         //获取模板文件URL
         String templatePath = "templates\\FollowupInfo\\Add_FollowupInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
     public void updateFollowupToXml(MessageInfo info) {
@@ -494,14 +524,16 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         //获取模板文件URL
         String templatePath = "templates\\FollowupInfo\\Update_FollowupInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
     public void delFollowupToXml(MessageInfo info) {
@@ -518,14 +550,16 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         //获取模板文件URL
         String templatePath = "templates\\FollowupInfo\\Delete_FollowupInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
     /**
@@ -545,7 +579,8 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         // 处置缘由列表
         String dealReasonStr = (String) result.get("DealReason");
@@ -557,10 +592,11 @@ public class OperateTools {
 
         //获取模板文件URL
         String templatePath = "templates\\EmergencyInfo\\Add_EmergencyInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
     public void updateEmergencyToXml(MessageInfo info) {
@@ -577,7 +613,8 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         // 处置缘由列表
         String dealReasonStr = (String) result.get("DealReason");
@@ -589,10 +626,11 @@ public class OperateTools {
 
         //获取模板文件URL
         String templatePath = "templates\\EmergencyInfo\\Update_EmergencyInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
     public void delEmergencyToXml(MessageInfo info) {
@@ -609,14 +647,16 @@ public class OperateTools {
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.DELETE);
         //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
         // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        xmlHeaderInfo.setDocmentId(this.getFileNum());
+        String xmlName = this.getFileNum();
+        xmlHeaderInfo.setDocmentId(xmlName);
 
         //获取模板文件URL
         String templatePath = "templates\\EmergencyInfo\\Delete_EmergencyInfo.vm";
-        //设置Xmlname
-        String xmlName = xmlHeaderInfo.getDocmentId();
+
         //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
     }
 
 /*    @Value{"filePaht.xxx"}
@@ -814,5 +854,40 @@ public class OperateTools {
     }
 
     // todo 消息交换 传递处理时的信息流转
+
+    public void toMsgJson(MessageInfo info, String fileNam){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String content = gson.toJson(info);
+        File file = new File(toMsgPath +"\\"+fileNam+".json");
+        FileOutputStream o = null;
+        try {
+            o = new FileOutputStream(file,true);
+            o.write(content.getBytes("utf-8"));
+            o.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void toReturnTxt(String fileNam){
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("文件名称:").append(fileNam).append(".xml\n");
+        sb.append("交换信息: =").append("{\"result\":true,\"id\":\"XXXXXX\"}\n");
+        sb.append("接受时间:=").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())).append("\n");
+        sb.append("消息状态:=").append("成功");
+        String content = sb.toString();
+
+        File file = new File(toReturnTxtPath +"\\"+fileNam+".txt");
+        FileOutputStream o = null;
+        try {
+            o = new FileOutputStream(file,true);
+            o.write(content.getBytes("utf-8"));
+            o.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
 
