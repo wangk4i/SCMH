@@ -17,6 +17,7 @@ public class InterchangeDO {
                 ", total=" + total +
                 ", DocumentId='" + DocumentId + '\'' +
                 ", desc='" + desc + '\'' +
+                ", id='" + id + '\'' +
                 '}';
     }
 }

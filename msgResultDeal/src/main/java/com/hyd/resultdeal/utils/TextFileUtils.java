@@ -1,5 +1,7 @@
 package com.hyd.resultdeal.utils;
 
+import com.google.gson.Gson;
+import com.hyd.resultdeal.domain.InterchangeDO;
 import com.hyd.resultdeal.domain.ReturnMsgDO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,15 +18,16 @@ public class TextFileUtils {
 
     /**
      * 读txt文件，内容转为String
-     * @param fileName
+     * @param filePathString
      * @return
      */
-    public static String readFileContent(String fileName) {
-        File file = new File(fileName);
+    public static String readFileContent(String filePathString) {
+        //File file = new File(fileName);
         BufferedReader reader = null;
         StringBuffer sbf = new StringBuffer();
         try {
-            reader = new BufferedReader(new FileReader(file));
+            InputStreamReader fReader = new InputStreamReader(new FileInputStream(filePathString),"UTF-8");
+            reader = new BufferedReader(fReader);
             String tempStr;
             while ((tempStr = reader.readLine()) != null) {
                 sbf.append(tempStr);
@@ -61,17 +64,38 @@ public class TextFileUtils {
             if(!tmpFile.exists()){//判断文件夹是否创建，没有创建则创建新文件夹
                 tmpFile.mkdirs();
             }
-//            System.out.println(endPath + startFile.getName());
+            System.out.println(endPath + startFile.getName());
             if (startFile.renameTo(new File(endPath + startFile.getName()))) {
 //                System.out.println("File is moved successful!");
-//                log.info("文件移动成功！文件名：《{}》 目标路径：{}",fileName,endPath);
-                return;
+                log.info("File is moved successful! FileName:<{}> EndPath{}",fileName,endPath);
             } else {
-                System.out.println("File is failed to move!");
-                log.info("文件移动失败！文件名：《{}》 起始路径：{}",fileName,startPath);
+//                System.out.println("File is failed to move!");
+                log.info("File is failed to move! FileName:<{}> StartPath:{}",fileName,startPath);
             }
         } catch (Exception e) {
-            log.info("文件移动异常！文件名：《{}》 起始路径：{}",fileName,startPath);
+            log.info("File move unexpected！FileName:<{}> StartPath:{}",fileName,startPath);
+        }
+    }
+
+    public static void moveToOtherFolders(String pathName,String fileName,String ansPath){
+        String startPath = pathName + File.separator + fileName;
+        String endPath = ansPath + File.separator + File.separator;
+        try {
+            File startFile = new File(startPath);
+            File tmpFile = new File(endPath);//获取文件夹路径
+            if(!tmpFile.exists()){//判断文件夹是否创建，没有创建则创建新文件夹
+                tmpFile.mkdirs();
+            }
+            System.out.println(endPath + startFile.getName());
+            if (startFile.renameTo(new File(endPath + startFile.getName()))) {
+//                System.out.println("File is moved successful!");
+                log.info("File is moved successful! FileName:<{}> EndPath{}",fileName,endPath);
+            } else {
+//                System.out.println("File is failed to move!");
+                log.info("File is failed to move! FileName:<{}> StartPath:{}",fileName,startPath);
+            }
+        } catch (Exception e) {
+            log.info("File move unexpected！FileName:<{}> StartPath:{}",fileName,startPath);
         }
     }
 
@@ -80,10 +104,10 @@ public class TextFileUtils {
      */
     public static ReturnMsgDO resultMsgAnalysis(String stream){
         ReturnMsgDO result = new ReturnMsgDO();
-        String docIdReg = "文件名称:([\\s\\S]*?)\\.xml";
-        String msgReg = "交换信息: =([\\s\\S]*?)接受时间";
-        String timeReg = "接受时间:=([\\s\\S]*?)消息状态";
-        String statusReg = "消息状态:=([\\s\\S]*?)$";
+        String docIdReg = "(\\d{2}-[\\s\\S]*?-\\d{17})\\.xml";  //(\d{2}-\d{9}-\d{17})\.xml
+        String msgReg = "(\\{[\\s\\S]*?})";
+        String timeReg = "(\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2})";
+        String statusReg = "状态:=([\\s\\S]*?)$";
 
         result.setXmlNam(matchValue(stream, docIdReg));
         result.setMsgBody(matchValue(stream, msgReg));
@@ -120,11 +144,11 @@ public class TextFileUtils {
     public static void alterStringToCreateNewFile(String path, String oldString, String newString){
         File file = new File(path);
         try {
-//            long start = System.currentTimeMillis(); //开始时间
+            long start = System.currentTimeMillis(); //开始时间
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(
                             new FileInputStream(file))); //创建对目标文件读取流
-            File newFile = new File("src/newFile"); //创建临时文件
+            File newFile = new File("D:\\GitHub\\SCMH\\newFile"); //创建临时文件
             if (!newFile.exists()){
                 newFile.createNewFile(); //不存在则创建
             }
@@ -133,14 +157,14 @@ public class TextFileUtils {
                     new OutputStreamWriter(
                             new FileOutputStream(newFile,true)));
             String string = null; //存储对目标文件读取的内容
-//            int sum = 0; //替换次数
+            int sum = 0; //替换次数
             while ((string = br.readLine()) != null){
                 //判断读取的内容是否包含原字符串
                 if (string.contains(oldString)){
                     //替换读取内容中的原字符串为新字符串
                     string = new String(
                             string.replace(oldString,newString));
-//                    sum++;
+                    sum++;
                 }
                 bw.write(string);
                 bw.newLine(); //添加换行
@@ -150,8 +174,8 @@ public class TextFileUtils {
             String filePath = file.getPath();
             file.delete(); //删除源文件
             newFile.renameTo(new File(filePath)); //将新文件更名为源文件
-//            long time = System.currentTimeMillis() - start; //整个操作所用时间;
-//            System.out.println(sum+"个"+oldString+"替换成"+newString+"耗费时间:"+time);
+            long time = System.currentTimeMillis() - start; //整个操作所用时间;
+            System.out.println(sum+"个"+oldString+"替换成"+newString+"耗费时间:"+time);
         } catch(Exception e){
             e.printStackTrace();
         }

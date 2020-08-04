@@ -4,6 +4,7 @@ import com.hyd.subordtest.domain.info.MessageInfo;
 import com.hyd.subordtest.domain.info.MsgBuildConf;
 import com.hyd.subordtest.domain.info.MsgBuildXml;
 import com.hyd.subordtest.mapper.BatchMsgBuildMapper;
+import com.hyd.subordtest.utils.LogUtil;
 import com.hyd.subordtest.utils.XmlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,6 +97,7 @@ public class BasicInfoService {
                 List<Map<String,Object>> MsgList = batchMsgBuildMapper.queryBatchDataByConf(conf.getMsgSql());
                 todoF += MsgList.size();
                 for (Map<String,Object> map:MsgList) {
+                    boolean suc = false;
                     MessageInfo info = new MessageInfo();
                     info.setId((String) map.get("Cd"));
                     info.setZone(reportZone);
@@ -105,154 +107,163 @@ public class BasicInfoService {
                     info.setMsgaction(conf.getMsgAction());
                     switch (info.getMsgtype()){
                         case 1:
-                            queryDocToXml(info);
+                            suc = syncDocumentToXml(info);
                             break;
                         case 2:
-                            queryRepToXml(info);
+                            suc = syncReportcardToXml(info);
                             break;
                         case 3:
-                            queryDiscToXml(info);
+                            suc = syncDischargeToXml(info);
                             break;
                         case 4:
-                            queryFollToXml(info);
+                            suc = syncFollowupToXml(info);
                             break;
                         case 5:
-                            queryEmerToXml(info);
+                            suc = syncEmergencyToXml(info);
                             break;
                         default:
                             break;
+                    }if (suc) {
+                        doneF++;
                     }
-                   doneF ++;
                 } } }
         String endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         // todo 输出日志
-
-        String log = this.finishLog(startTime, endTime, todoF, doneF);
-
-        System.out.println(log);
+        String dealLog = this.finishLog(startTime, endTime, todoF, doneF);
+        LogUtil.buildLogFile(dealLog);
+        System.out.println(dealLog);
     }
 
 
-    private void syncDocumentToXml(MessageInfo info){
-
+    private boolean syncDocumentToXml(MessageInfo info){
+        boolean suc = false;
         switch (info.getMsgaction()){
             case 1:
                 //新增
-                tools.addDocumentToXml(info);
+                suc = tools.addDocumentToXml(info);
                 break;
             case 2:
                 //修改
-                tools.updateDocumentToXml(info);
+                suc = tools.updateDocumentToXml(info);
                 break;
             case 3:
                 //删除
-                tools.delDocumentToXml(info);
+                suc = tools.delDocumentToXml(info);
                 break;
             case 4:
                 //数据恢复
-                tools.restoreDocumentToXml(info);
+                suc = tools.restoreDocumentToXml(info);
                 break;
             case 5:
                 //转死亡
-                tools.turnDeathDocumentToXml(info);
+                suc = tools.turnDeathDocumentToXml(info);
                 break;
             default:
                 break;
         }
+        return suc;
     }
 
 
 
-    private void syncReportcardToXml(MessageInfo info) {
+    private boolean syncReportcardToXml(MessageInfo info) {
+        boolean suc = false;
         switch (info.getMsgaction()) {
             case 1:
                 //新增
-                tools.addReportToXml(info);
+                suc = tools.addReportToXml(info);
                 break;
             case 2:
                 //修改
-                tools.updateReportToXml(info);
+                suc = tools.updateReportToXml(info);
                 break;
             case 3:
                 //删除
-                tools.delReportToXml(info);
+                suc = tools.delReportToXml(info);
                 break;
             default:
                 break;
         }
+        return suc;
     }
 
 
 
-    private void syncDischargeToXml(MessageInfo info){
+    private boolean syncDischargeToXml(MessageInfo info){
+        boolean suc = false;
         switch (info.getMsgaction()) {
             case 1:
                 //新增
-                tools.addDischargeToXml(info);
+                suc = tools.addDischargeToXml(info);
                 break;
             case 2:
                 //修改
-                tools.updateDischargeToXml(info);
+                suc = tools.updateDischargeToXml(info);
                 break;
             case 3:
                 //删除
-                tools.delDischargeToXml(info);
+                suc = tools.delDischargeToXml(info);
                 break;
             default:
                 break;
         }
+        return suc;
     }
 
 
 
-    private void syncFollowupToXml(MessageInfo info){
+    private boolean syncFollowupToXml(MessageInfo info){
+        boolean suc = false;
         switch (info.getMsgaction()) {
             case 1:
                 //新增
-                tools.addFollowupToXml(info);
+                suc = tools.addFollowupToXml(info);
                 break;
             case 2:
                 //修改
-                tools.updateFollowupToXml(info);
+                suc = tools.updateFollowupToXml(info);
                 break;
             case 3:
                 //删除
-                tools.delFollowupToXml(info);
+                suc = tools.delFollowupToXml(info);
                 break;
             default:
                 break;
         }
+        return suc;
     }
 
 
 
-    private void syncEmergencyToXml(MessageInfo info){
+    private boolean syncEmergencyToXml(MessageInfo info){
+        boolean suc = false;
         switch (info.getMsgaction()) {
             case 1:
                 //新增
-                tools.addEmergencyToXml(info);
+                suc = tools.addEmergencyToXml(info);
                 break;
             case 2:
                 //修改
-                tools.updateEmergencyToXml(info);
+                suc = tools.updateEmergencyToXml(info);
                 break;
             case 3:
                 //删除
-                tools.delEmergencyToXml(info);
+                suc = tools.delEmergencyToXml(info);
                 break;
             default:
                 break;
         }
+        return suc;
     }
 
 
     private String finishLog(String startTime, String endTime, int todoF, int doneF){
         StringBuffer sb = new StringBuffer();
-        sb.append("##############################################\n");
-        sb.append("开始时间: ").append(startTime).append("\n");
+        sb.append("\n开始时间: ").append(startTime).append("\n");
         sb.append("待处理: ").append(todoF).append("\n");
         sb.append("已处理: ").append(doneF).append("\n");
         sb.append("结束时间: ").append(endTime).append("\n\n");
+        sb.append("##############################################\n");
         return sb.toString();
     }
 

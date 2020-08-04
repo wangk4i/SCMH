@@ -1,0 +1,121 @@
+2020-08-03 11:43:39.960 - INFO  [           main] o.s.b.StartupInfoLogger        : Starting SpmApplication on DESKTOP-8K6CHJP with PID 2504 (D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server\target\classes started by dlk in D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server)
+2020-08-03 11:43:39.960 - INFO  [           main] o.s.b.SpringApplication        : No active profile set, falling back to default profiles: default
+2020-08-03 11:43:40.210 - INFO  [           main] .s.d.DynamicDataSourceRegister : 开始注册数据源
+2020-08-03 11:43:40.429 - WARN  [           main] o.m.s.m.ClassPathMapperScanner : No MyBatis mapper was found in '[com.hyd..mapper]' package. Please check your configuration.
+2020-08-03 11:43:40.460 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册默认数据源成功
+2020-08-03 11:43:40.460 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册数据源成功，一共注册1个数据源
+2020-08-03 11:43:41.241 - INFO  [           main] o.s.b.w.e.t.TomcatWebServer    : Tomcat initialized with port(s): 12308 (http)
+2020-08-03 11:43:41.241 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing ProtocolHandler ["http-nio-12308"]
+2020-08-03 11:43:41.241 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting service [Tomcat]
+2020-08-03 11:43:41.241 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-08-03 11:43:41.335 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing Spring embedded WebApplicationContext
+2020-08-03 11:43:41.335 - INFO  [           main] letWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1328 ms
+2020-08-03 11:43:41.772 - WARN  [           main] c.s.AbstractApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'outerMoveOutService': Unsatisfied dependency expressed through field 'moveInAndOutService2Service'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2020-08-03 11:43:41.772 - INFO  [           main] o.a.j.l.DirectJDKLog           : Stopping service [Tomcat]
+2020-08-03 11:43:41.772 - INFO  [           main] valuationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-08-03 11:44:59.682 - INFO  [           main] o.s.b.StartupInfoLogger        : Starting SpmApplication on DESKTOP-8K6CHJP with PID 3592 (D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server\target\classes started by dlk in D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server)
+2020-08-03 11:44:59.697 - INFO  [           main] o.s.b.SpringApplication        : No active profile set, falling back to default profiles: default
+2020-08-03 11:44:59.916 - INFO  [           main] .s.d.DynamicDataSourceRegister : 开始注册数据源
+2020-08-03 11:45:00.119 - WARN  [           main] o.m.s.m.ClassPathMapperScanner : No MyBatis mapper was found in '[com.hyd..mapper]' package. Please check your configuration.
+2020-08-03 11:45:00.135 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册默认数据源成功
+2020-08-03 11:45:00.150 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册数据源成功，一共注册1个数据源
+2020-08-03 11:45:00.869 - INFO  [           main] o.s.b.w.e.t.TomcatWebServer    : Tomcat initialized with port(s): 12308 (http)
+2020-08-03 11:45:00.884 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing ProtocolHandler ["http-nio-12308"]
+2020-08-03 11:45:00.884 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting service [Tomcat]
+2020-08-03 11:45:00.884 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-08-03 11:45:00.978 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing Spring embedded WebApplicationContext
+2020-08-03 11:45:00.978 - INFO  [           main] letWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1250 ms
+2020-08-03 11:45:01.369 - WARN  [           main] c.s.AbstractApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'outerMoveOutService': Unsatisfied dependency expressed through field 'moveInAndOutService2Service'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2020-08-03 11:45:01.369 - INFO  [           main] o.a.j.l.DirectJDKLog           : Stopping service [Tomcat]
+2020-08-03 11:45:01.369 - INFO  [           main] valuationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-08-03 11:50:12.082 - INFO  [           main] o.s.b.StartupInfoLogger        : Starting SpmApplication on DESKTOP-8K6CHJP with PID 2460 (D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server\target\classes started by dlk in D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server)
+2020-08-03 11:50:12.082 - INFO  [           main] o.s.b.SpringApplication        : No active profile set, falling back to default profiles: default
+2020-08-03 11:50:12.316 - INFO  [           main] .s.d.DynamicDataSourceRegister : 开始注册数据源
+2020-08-03 11:50:12.504 - WARN  [           main] o.m.s.m.ClassPathMapperScanner : No MyBatis mapper was found in '[com.hyd..mapper]' package. Please check your configuration.
+2020-08-03 11:50:12.535 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册默认数据源成功
+2020-08-03 11:50:12.535 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册数据源成功，一共注册1个数据源
+2020-08-03 11:50:13.238 - INFO  [           main] o.s.b.w.e.t.TomcatWebServer    : Tomcat initialized with port(s): 12308 (http)
+2020-08-03 11:50:13.254 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing ProtocolHandler ["http-nio-12308"]
+2020-08-03 11:50:13.254 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting service [Tomcat]
+2020-08-03 11:50:13.254 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-08-03 11:50:13.332 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing Spring embedded WebApplicationContext
+2020-08-03 11:50:13.332 - INFO  [           main] letWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1203 ms
+2020-08-03 11:50:13.722 - WARN  [           main] c.s.AbstractApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'outerMoveOutService': Unsatisfied dependency expressed through field 'moveInAndOutService2Service'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2020-08-03 11:50:13.722 - INFO  [           main] o.a.j.l.DirectJDKLog           : Stopping service [Tomcat]
+2020-08-03 11:50:13.722 - INFO  [           main] valuationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-08-03 11:52:46.775 - INFO  [           main] o.s.b.StartupInfoLogger        : Starting SpmApplication on DESKTOP-8K6CHJP with PID 1248 (D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server\target\classes started by dlk in D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server)
+2020-08-03 11:52:46.790 - INFO  [           main] o.s.b.SpringApplication        : No active profile set, falling back to default profiles: default
+2020-08-03 11:52:47.009 - INFO  [           main] .s.d.DynamicDataSourceRegister : 开始注册数据源
+2020-08-03 11:52:47.196 - WARN  [           main] o.m.s.m.ClassPathMapperScanner : No MyBatis mapper was found in '[com.hyd..mapper]' package. Please check your configuration.
+2020-08-03 11:52:47.228 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册默认数据源成功
+2020-08-03 11:52:47.228 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册数据源成功，一共注册1个数据源
+2020-08-03 11:52:47.962 - INFO  [           main] o.s.b.w.e.t.TomcatWebServer    : Tomcat initialized with port(s): 12308 (http)
+2020-08-03 11:52:47.962 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing ProtocolHandler ["http-nio-12308"]
+2020-08-03 11:52:47.962 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting service [Tomcat]
+2020-08-03 11:52:47.962 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-08-03 11:52:48.056 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing Spring embedded WebApplicationContext
+2020-08-03 11:52:48.056 - INFO  [           main] letWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1234 ms
+2020-08-03 11:52:48.446 - WARN  [           main] c.s.AbstractApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'outerMoveOutService': Unsatisfied dependency expressed through field 'moveInAndOutService2Service'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2020-08-03 11:52:48.446 - INFO  [           main] o.a.j.l.DirectJDKLog           : Stopping service [Tomcat]
+2020-08-03 11:52:48.462 - INFO  [           main] valuationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-08-03 11:57:54.960 - INFO  [           main] o.s.b.StartupInfoLogger        : Starting SpmApplication on DESKTOP-8K6CHJP with PID 932 (D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server\target\classes started by dlk in D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server)
+2020-08-03 11:57:54.960 - INFO  [           main] o.s.b.SpringApplication        : No active profile set, falling back to default profiles: default
+2020-08-03 11:57:55.194 - INFO  [           main] .s.d.DynamicDataSourceRegister : 开始注册数据源
+2020-08-03 11:57:55.382 - WARN  [           main] o.m.s.m.ClassPathMapperScanner : No MyBatis mapper was found in '[com.hyd..mapper]' package. Please check your configuration.
+2020-08-03 11:57:55.413 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册默认数据源成功
+2020-08-03 11:57:55.413 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册数据源成功，一共注册1个数据源
+2020-08-03 11:57:56.178 - INFO  [           main] o.s.b.w.e.t.TomcatWebServer    : Tomcat initialized with port(s): 12308 (http)
+2020-08-03 11:57:56.194 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing ProtocolHandler ["http-nio-12308"]
+2020-08-03 11:57:56.194 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting service [Tomcat]
+2020-08-03 11:57:56.194 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-08-03 11:57:56.272 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing Spring embedded WebApplicationContext
+2020-08-03 11:57:56.272 - INFO  [           main] letWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1265 ms
+2020-08-03 11:57:56.663 - WARN  [           main] c.s.AbstractApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'outerMoveOutService': Unsatisfied dependency expressed through field 'moveInAndOutService2Service'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2020-08-03 11:57:56.663 - INFO  [           main] o.a.j.l.DirectJDKLog           : Stopping service [Tomcat]
+2020-08-03 11:57:56.678 - INFO  [           main] valuationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-08-03 17:14:25.397 - INFO  [           main] o.s.b.StartupInfoLogger        : Starting SpmApplication on DESKTOP-8K6CHJP with PID 1724 (D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server\target\classes started by dlk in D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server)
+2020-08-03 17:14:25.429 - INFO  [           main] o.s.b.SpringApplication        : No active profile set, falling back to default profiles: default
+2020-08-03 17:14:26.507 - INFO  [           main] .s.d.DynamicDataSourceRegister : 开始注册数据源
+2020-08-03 17:14:26.725 - WARN  [           main] o.m.s.m.ClassPathMapperScanner : No MyBatis mapper was found in '[com.hyd..mapper]' package. Please check your configuration.
+2020-08-03 17:14:26.757 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册默认数据源成功
+2020-08-03 17:14:26.772 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册数据源成功，一共注册1个数据源
+2020-08-03 17:14:27.569 - INFO  [           main] o.s.b.w.e.t.TomcatWebServer    : Tomcat initialized with port(s): 12308 (http)
+2020-08-03 17:14:27.584 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing ProtocolHandler ["http-nio-12308"]
+2020-08-03 17:14:27.584 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting service [Tomcat]
+2020-08-03 17:14:27.584 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-08-03 17:14:27.678 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing Spring embedded WebApplicationContext
+2020-08-03 17:14:27.678 - INFO  [           main] letWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2202 ms
+2020-08-03 17:14:28.131 - WARN  [           main] c.s.AbstractApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'outerMoveOutService': Unsatisfied dependency expressed through field 'moveInAndOutService2Service'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2020-08-03 17:14:28.131 - INFO  [           main] o.a.j.l.DirectJDKLog           : Stopping service [Tomcat]
+2020-08-03 17:14:28.147 - INFO  [           main] valuationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-08-03 17:15:30.306 - INFO  [           main] o.s.b.StartupInfoLogger        : Starting SpmApplication on DESKTOP-8K6CHJP with PID 7204 (D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server\target\classes started by dlk in D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server)
+2020-08-03 17:15:30.322 - INFO  [           main] o.s.b.SpringApplication        : No active profile set, falling back to default profiles: default
+2020-08-03 17:15:30.556 - INFO  [           main] .s.d.DynamicDataSourceRegister : 开始注册数据源
+2020-08-03 17:15:30.759 - WARN  [           main] o.m.s.m.ClassPathMapperScanner : No MyBatis mapper was found in '[com.hyd..mapper]' package. Please check your configuration.
+2020-08-03 17:15:30.790 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册默认数据源成功
+2020-08-03 17:15:30.790 - INFO  [           main] .s.d.DynamicDataSourceRegister : 注册数据源成功，一共注册1个数据源
+2020-08-03 17:15:31.524 - INFO  [           main] o.s.b.w.e.t.TomcatWebServer    : Tomcat initialized with port(s): 12308 (http)
+2020-08-03 17:15:31.524 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing ProtocolHandler ["http-nio-12308"]
+2020-08-03 17:15:31.524 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting service [Tomcat]
+2020-08-03 17:15:31.524 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2020-08-03 17:15:31.603 - INFO  [           main] o.a.j.l.DirectJDKLog           : Initializing Spring embedded WebApplicationContext
+2020-08-03 17:15:31.603 - INFO  [           main] letWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1250 ms
+2020-08-03 17:15:32.134 - INFO  [           main] c.h.s.a.a.JVMPidAspect         : close文件写入成功:D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server\closeServer.bat
+2020-08-03 17:15:32.134 - INFO  [           main] c.h.s.a.a.JVMPidAspect         : pid文件写入成功:D:\GIT103\scspm\MentalServer_2020_SC\SPM_Java_Server\pid.txt
+2020-08-03 17:15:32.415 - INFO  [           main] c.ExecutorConfigurationSupport : Initializing ExecutorService 'applicationTaskExecutor'
+2020-08-03 17:15:32.962 - INFO  [           main] o.a.j.l.DirectJDKLog           : Starting ProtocolHandler ["http-nio-12308"]
+2020-08-03 17:15:32.993 - INFO  [           main] o.s.b.w.e.t.TomcatWebServer    : Tomcat started on port(s): 12308 (http) with context path ''
+2020-08-03 17:15:32.993 - INFO  [           main] o.s.b.StartupInfoLogger        : Started SpmApplication in 3.009 seconds (JVM running for 4.489)
+2020-08-03 17:16:00.789 - INFO  [extShutdownHook] c.ExecutorConfigurationSupport : Shutting down ExecutorService 'applicationTaskExecutor'

@@ -21,7 +21,7 @@ import java.util.concurrent.TimeoutException;
 @Component
 public class RabbitUtils {
 
-    @Value("${config.to-xmlpath}")
+    @Value("${config.build}")
     private String back_folder;
 
     @Value("${spring.rabbitmq.host}")

@@ -1,0 +1,108 @@
+2020-08-03 11:43:41.866 -ERROR  [           main] LoggingFailureAnalysisReporter : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field moveInAndOutService2Service in com.hyd.gwinterfaceserver.patrptcard.service.OuterMoveOutService required a bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' in your configuration.
+
+2020-08-03 11:45:01.447 -ERROR  [           main] LoggingFailureAnalysisReporter : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field moveInAndOutService2Service in com.hyd.gwinterfaceserver.patrptcard.service.OuterMoveOutService required a bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' in your configuration.
+
+2020-08-03 11:50:13.816 -ERROR  [           main] LoggingFailureAnalysisReporter : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field moveInAndOutService2Service in com.hyd.gwinterfaceserver.patrptcard.service.OuterMoveOutService required a bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' in your configuration.
+
+2020-08-03 11:52:48.540 -ERROR  [           main] LoggingFailureAnalysisReporter : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field moveInAndOutService2Service in com.hyd.gwinterfaceserver.patrptcard.service.OuterMoveOutService required a bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' in your configuration.
+
+2020-08-03 11:57:56.756 -ERROR  [           main] LoggingFailureAnalysisReporter : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field moveInAndOutService2Service in com.hyd.gwinterfaceserver.patrptcard.service.OuterMoveOutService required a bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' in your configuration.
+
+2020-08-03 17:14:28.256 -ERROR  [           main] LoggingFailureAnalysisReporter : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field moveInAndOutService2Service in com.hyd.gwinterfaceserver.patrptcard.service.OuterMoveOutService required a bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.hyd.gwinterfaceserver.patrptcard.service.MoveInAndOutService2Service' in your configuration.
+

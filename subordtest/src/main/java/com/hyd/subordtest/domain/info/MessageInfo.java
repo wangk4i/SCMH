@@ -40,15 +40,9 @@ public class MessageInfo {
     private Integer msgaction;
 
     /**
-     * 记录文件生成时间 开始生成xml赋值当前时间
+     * 生成文件名
      */
-    private String generalFileTime;
-
-    /**
-     * 生成文件耗时  xml生成完毕赋值消耗时间
-     */
-    private String generalFileElapse;
-
+    private String fileNam;
 
 
 }

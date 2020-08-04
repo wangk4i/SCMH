@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "spmapp",
+      "type": "com.hyd.system.SPMConfig",
+      "sourceType": "com.hyd.system.SPMConfig"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

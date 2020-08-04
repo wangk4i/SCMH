@@ -10,8 +10,11 @@ import com.hyd.resultdeal.utils.TextFileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.soap.Text;
 import java.io.File;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class FileDealService {
@@ -23,9 +26,15 @@ public class FileDealService {
     private Gson gson = new GsonBuilder().serializeNulls().create();
 
     public void resultDeal(){
-        List<String> resultFiles =  FileUtils.getFiles(FolderPathConfig.returnTxtFolder);
+        List<String> resultFiles =  FileUtils.getFiles(FolderPathConfig.receivedFolder);
         for (String file: resultFiles){
-            analysisMsg(file);
+            String regEx = "\\.txt";
+            String stream = file.substring(file.lastIndexOf("\\"));
+            Pattern pattern = Pattern.compile(regEx);
+            Matcher matcher = pattern.matcher(stream);
+            if(matcher.find()){
+                analysisMsg(file);
+            }
         }
 
 
@@ -37,11 +46,14 @@ public class FileDealService {
         // 序列化响应消息和其中 交换信息json
         String txtContent = TextFileUtils.readFileContent(filePath);
         ReturnMsgDO resultMsg = TextFileUtils.resultMsgAnalysis(txtContent);
-        String msgFilePath = FolderPathConfig.msgPersistFolder + File.separator + resultMsg.getXmlNam()+".json";
+        String msgFileNam = FolderPathConfig.waitingFolder + File.separator + resultMsg.getXmlNam()+".json";
         // todo 没找到json时的处理 记日志
-        String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);
+        String msgInfoJson = TextFileUtils.readFileContent(msgFileNam);
         MessageInfoDO info = gson.fromJson(msgInfoJson, MessageInfoDO.class);
 
+        // 接收到响应txt后，将xml、json转移到received文件夹
+        TextFileUtils.moveToOtherFolders(FolderPathConfig.waitingFolder, resultMsg.getXmlNam()+".xml", FolderPathConfig.receivedFolder);
+        TextFileUtils.moveToOtherFolders(FolderPathConfig.waitingFolder, resultMsg.getXmlNam()+".json", FolderPathConfig.receivedFolder);
         // 数据扔到接口 进行处理
         messageCate.ExchangeCate(info, resultMsg);
 

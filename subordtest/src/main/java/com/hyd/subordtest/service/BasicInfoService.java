@@ -61,12 +61,8 @@ public class BasicInfoService {
 
         switch (info.getMsgaction()){
             case 1:
-                //新增
-                tools.addDocumentToXml(info);
-                break;
             case 2:
-                //修改
-                tools.updateDocumentToXml(info);
+                tools.buildPatInfoToXml(info);
                 break;
             case 3:
                 //删除
@@ -90,12 +86,8 @@ public class BasicInfoService {
     private void syncReportcardToXml(MessageInfo info) {
         switch (info.getMsgaction()) {
             case 1:
-                //新增
-                tools.addReportToXml(info);
-                break;
             case 2:
-                //修改
-                tools.updateReportToXml(info);
+                tools.buildReportToXml(info);
                 break;
             case 3:
                 //删除
@@ -111,12 +103,8 @@ public class BasicInfoService {
     private void syncDischargeToXml(MessageInfo info){
         switch (info.getMsgaction()) {
             case 1:
-                //新增
-                tools.addDischargeToXml(info);
-                break;
             case 2:
-                //修改
-                tools.updateDischargeToXml(info);
+                tools.buildDischargeToXml(info);
                 break;
             case 3:
                 //删除
@@ -132,12 +120,8 @@ public class BasicInfoService {
     private void syncFollowupToXml(MessageInfo info){
         switch (info.getMsgaction()) {
             case 1:
-                //新增
-                tools.addFollowupToXml(info);
-                break;
             case 2:
-                //修改
-                tools.updateFollowupToXml(info);
+                tools.buildFollowupToXml(info);
                 break;
             case 3:
                 //删除
@@ -153,12 +137,8 @@ public class BasicInfoService {
     private void syncEmergencyToXml(MessageInfo info){
         switch (info.getMsgaction()) {
             case 1:
-                //新增
-                tools.addEmergencyToXml(info);
-                break;
             case 2:
-                //修改
-                tools.updateEmergencyToXml(info);
+                tools.buildEmergencyToXml(info);
                 break;
             case 3:
                 //删除
@@ -168,8 +148,6 @@ public class BasicInfoService {
                 break;
         }
     }
-
-
 
 
 }

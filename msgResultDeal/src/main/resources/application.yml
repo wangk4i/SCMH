@@ -54,10 +54,7 @@ config:
 
 mqPath:
 
-  msgPersist: D:\mq\msgFile
+  waiting: D:\mq\exchange\03waiting
   received: D:\mq\exchange\04received
   done: D:\mq\exchange\05done
   failed: D:\mq\exchange\06failed
-  returnTxt: D:\mq\exchange\07returntxt
-  buildxml:
-    sendingxml: D:\mq\exchange\01buildxml\sendingxml

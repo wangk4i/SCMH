@@ -27,7 +27,7 @@ import java.util.List;
 @Component
 public class ListenerService {
 
-    @Value("${config.to-xmlpath}")
+    @Value("${config.build}")
     private String listenerFolder;
 
     @Autowired

@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    hikari:
+      connection-timeout: 300000
+      max-lifetime: 600000
+      maximum-pool-size: 50
+      minimum-idle: 10
+      idle-timeout: 600000
+    master:
+        driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        url: jdbc:sqlserver://172.16.0.60;DatabaseName=sc_mh2019
+        username: scuser
+        password: Hyd123
+        type: com.zaxxer.hikari.HikariDataSource
+    cluster:
+server:
+  port: 12308
+  max-http-header-size: 1024KB
+mybatis:
+  mapper-locations: classpath:mybatis/**/*Mapper.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+logging:
+  config: classpath:log4j2.yml
+spmapp:
+  localprev: 51
+  localprevlike: 51%
+  gwinterface: http://172.0.0.16:12310/
+  baseinformation: baseinformation
+  followup: followup
+
+WebServer:
+   MentalhealthbusinesssynergyURL: https://10.249.6.18:8882/api/mh/
+config:
+  AccessToken: null
+  OrgCode: null
+
+msg:
+  url: http://172.16.0.66:9091/sendMessage
+  tmp:
+    fail: msg/tmp/loadfail
+    shutdown: msg/tmp/shutdown
+  log:
+    logTraceMsg: msg/log/logTraceMsg
+    logTreadErr: msg/log/logTreadErr
+    logSendErr: msg/log/logSendErr
+    logSendErrByReturn: msg/log/logSendErrByReturn
+    logIntoTeam: msg/log/logIntoTeam
