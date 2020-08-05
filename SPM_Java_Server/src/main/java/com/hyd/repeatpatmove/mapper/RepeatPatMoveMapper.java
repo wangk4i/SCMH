@@ -1,8 +1,7 @@
 package com.hyd.repeatpatmove.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.hyd.repeatpatmove.info.RepeatPatApplyInfo;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,13 @@ public interface RepeatPatMoveMapper {
     List<Map<String,String>> queryMoveOutInfoByPk(String Pk);
 
     // 回写状态
-    // @Update("update ")
+    @Update("update SPM_RepeatMove set App")
+    void updateRepeatPatToDb(@Param("RepeatPat") RepeatPatApplyInfo input);
 
+    @Insert("insert into SPM_RepeatMove (Cd.Nam,PatLeftRptCd,ApplyOrg,MoveOutCd,PatInfoCd,ApplyTime,IDNum,MoveState) " +
+            "values(#{RepeatPat.Cd},#{RepeatPat.Nam},#{RepeatPat.PatLeftRptCd},#{Repeat.ApplyOrg},#{Repeat.MoveOutCd},#{Repeat.PatInfoCd},#{Repeat.ApplyTime},#{Repeat.IDNum},#{Repeat.MoveState})")
+    void insertRepeatPatMoveToDb(@Param("RepeatPat") RepeatPatApplyInfo input);
 
+    @Select("select * from SPM_SPMPatInfoMana where IDNum=#{idcode} and State=1")
+    Map<String, String> queryPatInfoByIdcode(String idcode);
 }

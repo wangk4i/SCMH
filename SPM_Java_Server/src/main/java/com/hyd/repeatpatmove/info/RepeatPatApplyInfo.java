@@ -10,33 +10,41 @@ import lombok.Data;
 @Data
 public class RepeatPatApplyInfo {
 
-    private String RepeatInfoId;
+    public String Oper;
 
-    private String DischargeInformationId;
+    public String Cd;
 
-    private String PatientName;
+    public String PatLeftRptCd;
 
-    private String IDCard;
+    public String Nam;
 
-    private String GenderCode;
+    public String MoveCd;
 
-    private String BirthDate;
+    public String ApplyOrg;
 
-    private String CurrentAddrTypeCode;
+    public String MoveOutCd;
 
-    private String CurrentAddrCode;
+    public String PatInfoCd;
 
-    private String CurrentAddrDetail;
+    public String ApplyTime;
 
-    private String DiseaseCode;
+    public String IDNum;
 
-    private String OrgCode;
+    public String MoveState;
 
-    private String OrgZoneCode;
+    public String RefuseReson;
 
-    private String Contacts;
+    public String DealTime;
 
-    private String ContactsTel;
+    public String DealOrganCd;
 
-    private String ContactsRelCode;
+    public String CreaCd;
+
+    public String CreTime;
+
+    public String LastModiCd;
+
+    public String LastModTime;
+
+    public String State;
 }

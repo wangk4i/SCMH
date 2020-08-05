@@ -29,6 +29,17 @@ public interface RepeatPatMoveService {
     // 回写状态
     void syncMoveStaus();
 
+    /**
+     * 重复患者迁出申请
+     * @param input
+     * @return
+     */
     ResultVO RepeatPatMoveOutApply(RepeatPatApplyInfo input);
+
+    /**
+     * 重复患者迁出申请收回
+     * @return
+     */
+    ResultVO RepeatPatMoveCallBackApply(String repeatId);
 
 }
