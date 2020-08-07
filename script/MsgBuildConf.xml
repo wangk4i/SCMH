@@ -30,7 +30,7 @@ SELECT TOP 5 *
 		and len(isnull(FIELDPK,''))!=0
 	 ]]>
 </MsgInfo>
-<MsgInfo name='交换-更新档案' MsgCate='1' MsgType='1' MsgAction='2' ifUse='true'>
+<MsgInfo name='交换-更新档案' MsgCate='1' MsgType='1' MsgAction='2' ifUse='false'>
 <![CDATA[
 SELECT TOP 10 * 
   FROM SPM_SPMPatInfoMana
@@ -38,11 +38,11 @@ SELECT TOP 10 *
 		]]>
 </MsgInfo>
 
-<MsgInfo name='交换-新增档案' MsgCate='1' MsgType='1' MsgAction='1' ifUse='false'>
+<MsgInfo name='交换-新增档案' MsgCate='1' MsgType='1' MsgAction='1' ifUse='true'>
 <![CDATA[
-select top 10 *
-from SPM_SPMPatInfoMana 
-where FIELDPK is null and State=1 and DelStatus='DelLogo001'
+SELECT TOP 1000 * 
+  FROM SPM_SPMPatInfoMana
+  where SyncTime='2018-12-31 00:00:00'
 ]]>
 </MsgInfo>
 <MsgInfo name='交换-新增报告卡' MsgCate='1' MsgType='2' MsgAction='1' ifUse='false'>

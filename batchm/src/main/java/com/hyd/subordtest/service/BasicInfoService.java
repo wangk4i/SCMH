@@ -6,9 +6,6 @@ import com.hyd.subordtest.domain.info.MsgBuildXml;
 import com.hyd.subordtest.mapper.BatchMsgBuildMapper;
 import com.hyd.subordtest.utils.LogUtil;
 import com.hyd.subordtest.utils.XmlUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,13 +25,9 @@ import java.util.stream.Collectors;
 @Service
 public class BasicInfoService {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
-
     @Autowired
     OperateTools tools;
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
 
     @Autowired(required = false)
     private BatchMsgBuildMapper batchMsgBuildMapper;
@@ -139,12 +132,8 @@ public class BasicInfoService {
         boolean suc = false;
         switch (info.getMsgaction()){
             case 1:
-                //新增
-                suc = tools.addDocumentToXml(info);
-                break;
             case 2:
-                //修改
-                suc = tools.updateDocumentToXml(info);
+                suc = tools.buildPatInfoToXml(info);
                 break;
             case 3:
                 //删除
@@ -170,12 +159,8 @@ public class BasicInfoService {
         boolean suc = false;
         switch (info.getMsgaction()) {
             case 1:
-                //新增
-                suc = tools.addReportToXml(info);
-                break;
             case 2:
-                //修改
-                suc = tools.updateReportToXml(info);
+                suc = tools.buildReportToXml(info);
                 break;
             case 3:
                 //删除
@@ -193,12 +178,8 @@ public class BasicInfoService {
         boolean suc = false;
         switch (info.getMsgaction()) {
             case 1:
-                //新增
-                suc = tools.addDischargeToXml(info);
-                break;
             case 2:
-                //修改
-                suc = tools.updateDischargeToXml(info);
+                suc = tools.buildDischargeToXml(info);
                 break;
             case 3:
                 //删除
@@ -216,12 +197,8 @@ public class BasicInfoService {
         boolean suc = false;
         switch (info.getMsgaction()) {
             case 1:
-                //新增
-                suc = tools.addFollowupToXml(info);
-                break;
             case 2:
-                //修改
-                suc = tools.updateFollowupToXml(info);
+                suc = tools.buildFollowupToXml(info);
                 break;
             case 3:
                 //删除
@@ -239,12 +216,8 @@ public class BasicInfoService {
         boolean suc = false;
         switch (info.getMsgaction()) {
             case 1:
-                //新增
-                suc = tools.addEmergencyToXml(info);
-                break;
             case 2:
-                //修改
-                suc = tools.updateEmergencyToXml(info);
+                suc = tools.buildEmergencyToXml(info);
                 break;
             case 3:
                 //删除

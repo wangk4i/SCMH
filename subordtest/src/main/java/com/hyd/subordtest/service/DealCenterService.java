@@ -1,9 +1,6 @@
 package com.hyd.subordtest.service;
 
 import com.hyd.subordtest.domain.info.MessageInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +12,12 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class BasicInfoService {
+public class DealCenterService {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     OperateTools tools;
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
 
 
     /**
@@ -31,33 +25,33 @@ public class BasicInfoService {
      * @param info
      * @return
      */
-    public void queryDocToXml(MessageInfo info){
+    public void BuildPatInfoMsg(MessageInfo info){
         //调用查询档案xml并输出到文件
-        syncDocumentToXml(info);
+        DistribPatMsg(info);
     }
 
-    public void queryRepToXml(MessageInfo info){
+    public void BuildReportCardMsg(MessageInfo info){
         //调用患者报告卡xml并输出到文件
-        syncReportcardToXml(info);
+        DistribReportcardMsg(info);
     }
 
-    public void queryDiscToXml(MessageInfo info){
+    public void BuildLeaveCardMsg(MessageInfo info){
         //调用查询出院单xml并输出到文件
-        syncDischargeToXml(info);
+        DistribDischargeMsg(info);
     }
 
-    public void queryFollToXml(MessageInfo info){
+    public void BuildFollowupMsg(MessageInfo info){
         //调用查询随访xml并输出到文件
-        syncFollowupToXml(info);
+        DistribFollowupMsg(info);
     }
 
-    public void queryEmerToXml(MessageInfo info){
+    public void BuildEmergacyMsg(MessageInfo info){
         //调用应急处置情况并输出到文件
-        syncEmergencyToXml(info);
+        DistribEmergencyMsg(info);
     }
 
 
-    private void syncDocumentToXml(MessageInfo info){
+    private void DistribPatMsg(MessageInfo info){
 
         switch (info.getMsgaction()){
             case 1:
@@ -83,7 +77,7 @@ public class BasicInfoService {
 
 
 
-    private void syncReportcardToXml(MessageInfo info) {
+    private void DistribReportcardMsg(MessageInfo info) {
         switch (info.getMsgaction()) {
             case 1:
             case 2:
@@ -100,7 +94,7 @@ public class BasicInfoService {
 
 
 
-    private void syncDischargeToXml(MessageInfo info){
+    private void DistribDischargeMsg(MessageInfo info){
         switch (info.getMsgaction()) {
             case 1:
             case 2:
@@ -117,7 +111,7 @@ public class BasicInfoService {
 
 
 
-    private void syncFollowupToXml(MessageInfo info){
+    private void DistribFollowupMsg(MessageInfo info){
         switch (info.getMsgaction()) {
             case 1:
             case 2:
@@ -134,7 +128,7 @@ public class BasicInfoService {
 
 
 
-    private void syncEmergencyToXml(MessageInfo info){
+    private void DistribEmergencyMsg(MessageInfo info){
         switch (info.getMsgaction()) {
             case 1:
             case 2:
@@ -143,6 +137,29 @@ public class BasicInfoService {
             case 3:
                 //删除
                 tools.delEmergencyToXml(info);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    public void BuildSendMsg(MessageInfo info) {
+        switch (info.getMsgtype()) {
+            case 1:
+                this.BuildPatInfoMsg(info);
+                break;
+            case 2:
+                this.BuildReportCardMsg(info);
+                break;
+            case 3:
+                this.BuildLeaveCardMsg(info);
+                break;
+            case 4:
+                this.BuildFollowupMsg(info);
+                break;
+            case 5:
+                this.BuildEmergacyMsg(info);
                 break;
             default:
                 break;

@@ -5,9 +5,6 @@ server:
       max: 20
 
 spring:
-  profiles:
-    active: dev
-
   redis:
     port: 6380
     host: 127.0.0.1
@@ -63,15 +60,14 @@ mybatis:
   mapper-locations: classpath:mybatis/**/*Mapper.xml
   config-location: classpath:mybatis/mybatis-config.xml
 config:
-  to-xmlpath: D:\mq\exchange\01buildxml\sendingxml
   max-wirteMessage: 1000
   business-code: '05'
+  build: D:\mq\exchange\01build #xml、json生成路径
   confPath: D:\GitHub\SCMH\script\MsgBuildConf.xml
-  msgPersistPath: D:\mq\msgFile
-  returnTxtPath: D:\mq\exchange\07returntxt
+  returnTxtPath: D:\mq\exchange\04received
 
   templateFilePath: D:\mq\templates
-  logBuildPath: D:\mq
+  logBuildPath: D:\mq\log
 
 
   docmentenum:

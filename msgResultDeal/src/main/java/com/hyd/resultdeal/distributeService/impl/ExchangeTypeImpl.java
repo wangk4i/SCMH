@@ -1,5 +1,7 @@
-package com.hyd.resultdeal.distributeService;
+package com.hyd.resultdeal.distributeService.impl;
 
+import com.hyd.resultdeal.distributeService.ExchangeAction;
+import com.hyd.resultdeal.distributeService.ExchangeType;
 import com.hyd.resultdeal.domain.MessageInfoDO;
 import com.hyd.resultdeal.domain.ReturnMsgDO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,6 @@ public class ExchangeTypeImpl implements ExchangeType {
 
     @Autowired
     ExchangeAction action;
-
-
 
 
     @Override

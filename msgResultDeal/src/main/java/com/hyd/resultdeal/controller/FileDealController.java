@@ -14,7 +14,7 @@ public class FileDealController {
 
     @RequestMapping("/resultDeal")
     public String resultDeal(){
-        server.resultDeal();
+        server.folderResultDeal();
         return "success";
     }
 }

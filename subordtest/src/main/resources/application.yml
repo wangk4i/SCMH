@@ -65,10 +65,14 @@ config:
 
   queue:
     patinfo: SC_PatInfo_Test
-    followup: SC_Followup_Test
     report: SC_ReportCard_Test
     leftcard: SC_LeftCard_Test
+    followup: SC_Followup_Test
     emergacy: SC_Emergacy_Test
+
+    xmlfile: SC_XmlFlie_Sending_Test
+    xmlReturn: SC_XmlFile_Return_Test
+
 logging:
   file:
     path: log

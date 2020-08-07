@@ -62,16 +62,14 @@ public class OperateTools {
     private String reportZoneNam;
 
     // 输出xml路径
-    @Value("${config.to-xmlpath}")
-    private String toXmlpath;
+    @Value("${config.build}")
+    private String buildPath;
     //业务分类编码
     @Value("${config.business-code}")
     private String businessCode;
     // 模板xml路径
     @Value("${config.templateFilePath}")
     private String templateFilePath;
-    @Value("${config.msgPersistPath}")
-    private String toMsgPath;
     @Value("${config.returnTxtPath}")
     private String toReturnTxtPath;
 
@@ -82,74 +80,40 @@ public class OperateTools {
      * 接收新增档案消息并输出到Xml
      * @param info
      */
-    public boolean addDocumentToXml(MessageInfo info){
-
-        //去数据库查询数据
-        Map<String, Object> result = basicInfoMapper.queryBasicInfoViewOfInsert(info.getId());
-        //判断查询结果是否为Null
-        if(result==null){
+    public boolean buildPatInfoToXml(MessageInfo info){
+        Map<String, Object> result = basicInfoMapper.queryBasicInfoViewByCd(info.getId());
+        if (result == null){
             log.info("当前ID无法转码,视图无此数据{}", info.getId());
             LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId()+"\n");
             return false;
         }
-
-        //获取头部数据
+        boolean isadd = false;
+        if(result.get("BasicInformationId") == null||result.get("BasicInformationId").equals("")){
+            isadd = true;
+        }
+        //设置Xml头部分
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
-
-        //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
-        // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         String xmlName = this.getFileNum();
         xmlHeaderInfo.setDocmentId(xmlName);
 
         // 既往危险行为列表
         String pastRiskHaveStr = (String) result.get("PastRiskHave");
         result.put("PastRiskHave", this.getListValue(pastRiskHaveStr));
-
-        //获取模板文件URL
-        String templatePath = templateFilePath + "\\BasicInfo\\Add_BasicInfo.vm";
-        //输出到xml
-        this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
-        this.toMsgJson(info, xmlName);
-        this.toReturnTxt(xmlName);
-        return true;
-    }
-
-    /**
-     *  接收修改档案消息并输出到Xml
-     * @param info
-     */
-    public boolean updateDocumentToXml(MessageInfo info) {
-        //去数据库查询数据
-        Map<String, Object> result = basicInfoMapper.queryBasicInfoViewOfUpdate(info.getId());
-
-        //判断查询结果是否为Null
-        if(result==null){
-            log.info("当前ID无法转码,视图无此数据{}", info.getId());
-            LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId()+"\n");
-            return false;
+        String templatePath ="";
+        if (isadd){
+            info.setMsgaction(1);
+            templatePath = templateFilePath + "\\BasicInfo\\Add_BasicInfo.vm";
+        }else {
+            info.setMsgaction(2);
+            xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
+            templatePath = templateFilePath + "\\BasicInfo\\Update_BasicInfo.vm";
         }
-
-        //获取头部数据
-        XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
-        //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
-        // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        String xmlName = this.getFileNum();
-        xmlHeaderInfo.setDocmentId(xmlName);
-
-        // 既往危险行为列表
-        String pastRiskHaveStr = (String) result.get("PastRiskHave");
-        result.put("PastRiskHave", this.getListValue(pastRiskHaveStr));
-        //获取模板文件URL
-        String templatePath = templateFilePath + "\\BasicInfo\\Update_BasicInfo.vm";
-
-        //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
         this.toMsgJson(info, xmlName);
         this.toReturnTxt(xmlName);
+        basicInfoMapper.setSyncStatus(info.getId());
         return true;
-
     }
 
     /**
@@ -257,84 +221,46 @@ public class OperateTools {
      * 报告卡操作
      * @param info
      */
-    public boolean addReportToXml(MessageInfo info) {
-        //去数据库查询数据
-        Map<String, Object> result = reportInfoMapper.queryReportInfoViewOfInsert(info.getId());
-        //判断查询结果是否为Null
-        if(result==null){
+    public boolean buildReportToXml(MessageInfo info){
+        Map<String, Object> result = reportInfoMapper.queryReportInfoViewByCd(info.getId());
+        if (result == null){
             log.info("当前ID无法转码,视图无此数据{}", info.getId());
-            LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId()+"\n");
+            LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId());
             return false;
         }
-        //获取头部数据
+        boolean isadd = false;
+        if(result.get("NewCaseReportId") == null||result.get("NewCaseReportId").equals("")){
+            isadd = true;
+        }
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
-        //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
-        // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         String xmlName = this.getFileNum();
         xmlHeaderInfo.setDocmentId(xmlName);
 
         // 服药列表
-        if(result.get("IfNoMedication")!=null&&result.get("IfNoMedication").equals("0")) {
-            List<Map<String, Object>> drugList = reportInfoMapper.queryMedicationByNewCaseReportId(info.getId());
-            result.put("DrugList", drugList);
-        }
+        List<Map<String, Object>> drugList = reportInfoMapper.queryMedicationByNewCaseReportId(info.getId());
+        result.put("DrugList",drugList);
         // 既往危险行为列表
         String pastRiskHaveStr = (String) result.get("PastRiskHave");
         result.put("PastRiskHave", this.getListValue(pastRiskHaveStr));
-
         // 送诊主体列表
         String sendClinSubStr = (String) result.get("SendClinSub");
         result.put("SendClinSub",this.getListValue(sendClinSubStr));
 
-        //获取模板文件URL
-        String templatePath = templateFilePath + "\\ReportInfo\\Add_ReportInfo.vm";
+        String templatePath ="";
+        if (isadd){
+            info.setMsgaction(1);
+            templatePath = templateFilePath + "\\ReportInfo\\Add_ReportInfo.vm";
+        }else {
+            info.setMsgaction(2);
+            xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
+            templatePath = templateFilePath + "\\ReportInfo\\Update_ReportInfo.vm";
+        }
 
-        //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
         this.toMsgJson(info, xmlName);
         this.toReturnTxt(xmlName);
-        return true;
-    }
-
-    public boolean updateReportToXml(MessageInfo info) {
-        //去数据库查询数据
-        Map<String, Object> result = reportInfoMapper.queryReportInfoViewOfUpdate(info.getId());
-        //判断查询结果是否为Null
-        if(result==null){
-            log.info("当前ID无法转码,视图无此数据{}", info.getId());
-            LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId()+"\n");
-            return false;
-        }
-        //获取头部数据
-        XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
-        //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
-        // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        String xmlName = this.getFileNum();
-        xmlHeaderInfo.setDocmentId(xmlName);
-
-        // 服药列表
-        if(result.get("IfNoMedication")!=null&&result.get("IfNoMedication").equals("0")) {
-            List<Map<String, Object>> drugList = reportInfoMapper.queryMedicationByNewCaseReportId(info.getId());
-            result.put("DrugList", drugList);
-        }
-
-        // 既往危险行为列表
-        String pastRiskHaveStr = (String) result.get("PastRiskHave");
-        result.put("PastRiskHave", this.getListValue(pastRiskHaveStr));
-
-        // 送诊主体列表
-        String sendClinSubStr = (String) result.get("SendClinSub");
-        result.put("SendClinSub",this.getListValue(sendClinSubStr));
-
-        //获取模板文件URL
-        String templatePath = templateFilePath + "\\ReportInfo\\Update_ReportInfo.vm";
-
-        //输出到xml
-        this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
-        this.toMsgJson(info, xmlName);
-        this.toReturnTxt(xmlName);
+        reportInfoMapper.setSyncStatus(info.getId());
         return true;
     }
 
@@ -344,7 +270,7 @@ public class OperateTools {
         //判断查询结果是否为Null
         if(result==null){
             log.info("当前ID无法转码,视图无此数据{}", info.getId());
-            LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId()+"\n");
+            LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId());
             return false;
         }
         //获取头部数据
@@ -368,95 +294,54 @@ public class OperateTools {
     /**
      * 出院报告卡操作
      */
-    public boolean addDischargeToXml(MessageInfo info) {
-        //去数据库查询数据
-        Map<String, Object> result = dischargeInfoMapper.queryDischargeInfoViewOfInsert(info.getId());
-        //判断查询结果是否为Null
-        if(result==null){
-            log.info("当前ID无法转码,视图无此数据{}", info.getId());
+    public boolean buildDischargeToXml(MessageInfo info){
+        Map<String, Object> result = dischargeInfoMapper.queryDischargeInfoByCd(info.getId());
+        if (result == null){
             LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId()+"\n");
             return false;
         }
-        //获取头部数据
+        if (result.get("CaseReportId")==null||result.get("CaseReportId").equals("")){
+            log.info("当前ID缺少报告卡主键{}", info.getId());
+            LogUtil.info("当前ID缺少报告卡主键{}" + info.getId());
+            return false;
+        }
+
+        boolean isadd = false;
+        if(result.get("DischargeInformationId") == null||result.get("DischargeInformationId").equals("")){
+            isadd = true;
+        }
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
-        //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
-        // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         String xmlName = this.getFileNum();
         xmlHeaderInfo.setDocmentId(xmlName);
 
         // 用药情况列表
-        if(result.get("IfNoMedication")!=null&&result.get("IfNoMedication").equals("0")) {
-            List<Map<String, Object>> drugList = dischargeInfoMapper.queryDrugListByDischargeId(info.getId());
-            result.put("DrugList", drugList);
-        }
-
+        List<Map<String, Object>> drugList = dischargeInfoMapper.queryDrugListByDischargeId(info.getId());
+        result.put("DrugList",drugList);
         // 指导用药列表
-        if(result.get("GuideIfNoMedication")!=null&&result.get("GuideIfNoMedication").equals("0")) {
-            List<Map<String, Object>> guideDrugList = dischargeInfoMapper.queryGuideDrugListByDischargeId(info.getId());
-            result.put("GuideDrugList", guideDrugList);
+        List<Map<String, Object>> guideDrugList = dischargeInfoMapper.queryGuideDrugListByDischargeId(info.getId());
+        result.put("GuideDrugList",guideDrugList);
+
+        String templatePath ="";
+        if (isadd){
+            info.setMsgaction(1);
+            templatePath = templateFilePath + "\\DischargeInfo\\Add_DischargeInfo.vm";
+        }else {
+            info.setMsgaction(2);
+            xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
+            templatePath = templateFilePath + "\\DischargeInfo\\Update_DischargeInfo.vm";
         }
 
-        //获取模板文件URL
-        String templatePath = templateFilePath + "\\DischargeInfo\\Add_DischargeInfo.vm";
-
-        //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
         this.toMsgJson(info, xmlName);
         this.toReturnTxt(xmlName);
-        return true;
-    }
-
-    public boolean updateDischargeToXml(MessageInfo info) {
-        //去数据库查询数据
-        Map<String, Object> result = dischargeInfoMapper.queryDischargeInfoViewOfUpdate(info.getId());
-        //判断查询结果是否为Null
-        if(result==null){
-            log.info("当前ID无法转码,视图无此数据{}", info.getId());
-            LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId()+"\n");
-            return false;
-        }
-        //获取头部数据
-        XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
-        //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
-        // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        String xmlName = this.getFileNum();
-        xmlHeaderInfo.setDocmentId(xmlName);
-
-        // 用药情况列表
-        if(result.get("IfNoMedication")!=null&&result.get("IfNoMedication").equals("0")) {
-            List<Map<String, Object>> drugList = dischargeInfoMapper.queryDrugListByDischargeId(info.getId());
-            result.put("DrugList", drugList);
-        }
-
-        // 指导用药列表
-        if(result.get("GuideIfNoMedication")!=null&&result.get("GuideIfNoMedication").equals("0")) {
-            List<Map<String, Object>> guideDrugList = dischargeInfoMapper.queryGuideDrugListByDischargeId(info.getId());
-            result.put("GuideDrugList", guideDrugList);
-        }
-
-        // 既往危险行为列表
-        String pastRiskHaveStr = (String) result.get("PastRiskHave");
-        result.put("PastRiskHave", this.getListValue(pastRiskHaveStr));
-
-        // 康复措施列表
-        String recoveryMeasureStr = (String) result.get("RecoveryMeasures");
-        result.put("RecoveryMeasures", this.getListValue(recoveryMeasureStr));
-
-        //获取模板文件URL
-        String templatePath = templateFilePath + "\\DischargeInfo\\Add_DischargeInfo.vm";
-
-        //输出到xml
-        this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
-        this.toMsgJson(info, xmlName);
-        this.toReturnTxt(xmlName);
+        dischargeInfoMapper.setSyncStatus(info.getId());
         return true;
     }
 
     public boolean delDischargeToXml(MessageInfo info) {
         //去数据库查询数据
-        Map<String, Object> result = dischargeInfoMapper.queryDischargeInfoViewOfDelete(info.getId());
+        Map<String, Object> result = dischargeInfoMapper.queryDischargeInfoOfDelete(info.getId());
         //判断查询结果是否为Null
         if(result==null){
             log.info("当前ID无法转码,视图无此数据{}", info.getId());
@@ -485,109 +370,61 @@ public class OperateTools {
     /**
      * 流转信息操作
      */
-    public boolean addFollowupToXml(MessageInfo info) {
-        //去数据库查询数据
-        Map<String, Object> result = followupInfoMapper.queryFollowupInfoViewOfInsert(info.getId());
-        //判断查询结果是否为Null
-        if(result==null){
+    public boolean buildFollowupToXml(MessageInfo info){
+        Map<String, Object> result = followupInfoMapper.queryFollowupInfoViewByCd(info.getId());
+        if (result == null){
             log.info("当前ID无法转码,视图无此数据{}", info.getId());
-            LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId()+"\n");
+            LogUtil.info("当前ID无法转码,视图无此数据 " + info.getId());
+            return false;
+        }
+        if (result.get("BasicInformationId")==null||result.get("BasicInformationId").equals("")){
+            log.info("当前ID缺少患者主键{}", info.getId());
+            LogUtil.info("当前ID缺少患者主键 " + info.getId());
             return false;
         }
 
-        //获取头部数据
+        boolean isadd = false;
+        if(result.get("FollowUpInformationId") == null||result.get("FollowUpInformationId").equals("")){
+            isadd = true;
+        }
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
-        //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
-        // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         String xmlName = this.getFileNum();
         xmlHeaderInfo.setDocmentId(xmlName);
 
         // 用药情况列表
         List<Map<String, Object>> drugList = followupInfoMapper.queryDrugListByFollowupId(info.getId());
         result.put("DrugList", drugList);
-
         //用药指导列表
         List<Map<String, Object>>guideDrugList = followupInfoMapper.queryGuideDrugListByFollowupId(info.getId());
         result.put("GuideDrugList", guideDrugList);
-
         // 随访对象列表
         String followObjectStr = (String) result.get("FollowObject");
         result.put("FollowObject", this.getListValue(followObjectStr));
-
         // 目前症状列表
         String currSympStr = (String) result.get("Symptom");
         result.put("Symptom", this.getListValue(currSympStr));
-
         // 实验室检查列表
         String labInspectStr = (String) result.get("LabExamItem");
         result.put("LabExamItem", this.getListValue(labInspectStr));
-
         // 康复措施列表
         String recoveryMeasureStr = (String) result.get("RecoveryMeasures");
         result.put("RecoveryMeasures", this.getListValue(recoveryMeasureStr));
 
-        //获取模板文件URL
-        String templatePath = templateFilePath + "\\FollowupInfo\\Add_FollowupInfo.vm";
-
-        //输出到xml
-        this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
-        this.toMsgJson(info, xmlName);
-        this.toReturnTxt(xmlName);
-        return true;
-    }
-
-    public boolean updateFollowupToXml(MessageInfo info) {
-        //去数据库查询数据
-        Map<String, Object> result = followupInfoMapper.queryFollowupInfoViewOfUpdate(info.getId());
-        //判断查询结果是否为Null
-        if(result==null){
-            log.info("当前ID无法转码,视图无此数据{}", info.getId());
-            LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId()+"\n");
-            return false;
+        String templatePath ="";
+        if (isadd){
+            info.setMsgaction(1);
+            templatePath = templateFilePath + "\\FollowupInfo\\Add_FollowupInfo.vm";
+        }else {
+            info.setMsgaction(2);
+            xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
+            templatePath = templateFilePath + "\\FollowupInfo\\Update_FollowupInfo.vm";
         }
-
-        //获取头部数据
-        XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
-        //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
-        // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        String xmlName = this.getFileNum();
-        xmlHeaderInfo.setDocmentId(xmlName);
-
-        // 用药情况列表
-        List<Map<String, Object>> drugList = followupInfoMapper.queryDrugListByFollowupId(info.getId());
-        result.put("DrugList", drugList);
-
-        //用药指导列表
-        List<Map<String, Object>>guideDrugList = followupInfoMapper.queryGuideDrugListByFollowupId(info.getId());
-        result.put("GuideDrugList", guideDrugList);
-
-        // 随访对象列表
-        String followObjectStr = (String) result.get("FollowObject");
-        result.put("FollowObject", this.getListValue(followObjectStr));
-
-        // 目前症状列表
-        String currSympStr = (String) result.get("Symptom");
-        result.put("Symptom", this.getListValue(currSympStr));
-
-        // 实验室检查列表
-        String labInspectStr = (String) result.get("LabExamItem");
-        result.put("LabExamItem", this.getListValue(labInspectStr));
-
-        // 康复措施列表
-        String recoveryMeasureStr = (String) result.get("RecoveryMeasures");
-        result.put("RecoveryMeasures", this.getListValue(recoveryMeasureStr));
-
-        //获取模板文件URL
-        String templatePath = templateFilePath + "\\FollowupInfo\\Update_FollowupInfo.vm";
-
-        //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
         this.toMsgJson(info, xmlName);
         this.toReturnTxt(xmlName);
+        followupInfoMapper.setSyncStatus(info.getId());
         return true;
-
     }
 
     public boolean delFollowupToXml(MessageInfo info) {
@@ -621,75 +458,41 @@ public class OperateTools {
     /**
      * 应急处置操作
      */
-    public boolean addEmergencyToXml(MessageInfo info) {
-        //去数据库查询数据
-        Map<String, Object> result = emergencyInfoMapper.queryEmergencyInfoViewOfInsert(info.getId());
-        //判断查询结果是否为Null
-        if(result==null){
+    public boolean buildEmergencyToXml(MessageInfo info){
+        Map<String, Object> result = emergencyInfoMapper.queryEmergencyInfoViewByCd(info.getId());
+        if (result == null){
             log.info("当前ID无法转码,视图无此数据{}", info.getId());
-            LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId()+"\n");
             return false;
         }
-
-        //获取头部数据
+        boolean isadd = false;
+        if(result.get("EmerDealInfoId") == null||result.get("EmerDealInfoId").equals("")){
+            isadd = true;
+        }
         XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
         xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
-        //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
-        // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
         String xmlName = this.getFileNum();
         xmlHeaderInfo.setDocmentId(xmlName);
 
         // 处置缘由列表
         String dealReasonStr = (String) result.get("DealReason");
         result.put("DealReason", this.getListValue(dealReasonStr));
-
         // 处置措施列表
         String dealMeasureStr = (String) result.get("DealMeasure");
         result.put("DealMeasure", this.getListValue(dealMeasureStr));
 
-        //获取模板文件URL
-        String templatePath = templateFilePath + "\\EmergencyInfo\\Add_EmergencyInfo.vm";
-
-        //输出到xml
-        this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
-        this.toMsgJson(info, xmlName);
-        this.toReturnTxt(xmlName);
-        return true;
-    }
-
-    public boolean updateEmergencyToXml(MessageInfo info) {
-        //去数据库查询数据
-        Map<String, Object> result = emergencyInfoMapper.queryEmergencyInfoViewOfUpdate(info.getId());
-        //判断查询结果是否为Null
-        if(result==null){
-            log.info("当前ID无法转码,视图无此数据{}", info.getId());
-            LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId()+"\n");
-            return false;
+        String templatePath ="";
+        if (isadd){
+            info.setMsgaction(1);
+            templatePath = templateFilePath + "\\EmergencyInfo\\Add_EmergencyInfo.vm";
+        }else {
+            info.setMsgaction(2);
+            xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
+            templatePath = templateFilePath + "\\EmergencyInfo\\Update_EmergencyInfo.vm";
         }
-
-        //获取头部数据
-        XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
-        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.UPDATE);
-        //xml 文件id 业务分类-进行数据交换的机构代码-系统当前时间（yyyyMMddHHmmssSSS）
-        // 由于当前队列存在高并发可能，会导致唯一ID失效，采用Redis取号器实现ID
-        String xmlName = this.getFileNum();
-        xmlHeaderInfo.setDocmentId(xmlName);
-
-        // 处置缘由列表
-        String dealReasonStr = (String) result.get("DealReason");
-        result.put("DealReason", this.getListValue(dealReasonStr));
-
-        // 处置措施列表
-        String dealMeasureStr = (String) result.get("DealMeasure");
-        result.put("DealMeasure", this.getListValue(dealMeasureStr));
-
-        //获取模板文件URL
-        String templatePath = templateFilePath + "\\EmergencyInfo\\Update_EmergencyInfo.vm";
-
-        //输出到xml
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
         this.toMsgJson(info, xmlName);
         this.toReturnTxt(xmlName);
+        emergencyInfoMapper.setSyncStatus(info.getId());
         return true;
     }
 
@@ -771,7 +574,7 @@ public class OperateTools {
         //生成xml
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter(new File(toXmlpath+"\\"+xmlName+".xml"));
+            fileWriter = new FileWriter(new File(buildPath +"\\"+xmlName+".xml"));
             template.merge(vc, fileWriter);
         }catch (IOException e){
             e.printStackTrace();
@@ -821,7 +624,7 @@ public class OperateTools {
     public void toMsgJson(MessageInfo info, String fileNam){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String content = gson.toJson(info);
-        File file = new File(toMsgPath +"\\"+fileNam+".json");
+        File file = new File(buildPath +"\\"+fileNam+".json");
         FileOutputStream o = null;
         try {
             o = new FileOutputStream(file,true);
@@ -835,11 +638,11 @@ public class OperateTools {
     public void toReturnTxt(String fileNam){
 
         StringBuffer sb = new StringBuffer();
-        sb.append("文件名称:").append(fileNam).append(".xml\n");
-        sb.append("交换信息:=").append("{\"result\":true,\"id\":\"XXXXXX\"}\n");
+        sb.append("文件名称:").append(fileNam).append(".xml\n")
+                .append("交换信息:=").append("{\"result\":true,\"id\":\"XXXXXX\"}\n")
         //sb.append("接受时间:=").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())).append("\n");
-        sb.append("接受时间:=").append("2018-12-31 00:00:00").append("\n");
-        sb.append("消息状态:=").append("成功");
+                .append("接受时间:=").append("2018-12-31 00:00:00").append("\n")
+                .append("消息状态:=").append("成功");
         String content = sb.toString();
 
         File file = new File(toReturnTxtPath +"\\"+fileNam+".txt");

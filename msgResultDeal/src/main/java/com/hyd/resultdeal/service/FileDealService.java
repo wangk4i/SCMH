@@ -9,8 +9,6 @@ import com.hyd.resultdeal.utils.FileUtils;
 import com.hyd.resultdeal.utils.TextFileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.xml.soap.Text;
 import java.io.File;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -25,21 +23,23 @@ public class FileDealService {
 
     private Gson gson = new GsonBuilder().serializeNulls().create();
 
-    public void resultDeal(){
+    public void folderResultDeal(){
         List<String> resultFiles =  FileUtils.getFiles(FolderPathConfig.receivedFolder);
         for (String file: resultFiles){
-            String regEx = "\\.txt";
-            String stream = file.substring(file.lastIndexOf("\\"));
-            Pattern pattern = Pattern.compile(regEx);
-            Matcher matcher = pattern.matcher(stream);
-            if(matcher.find()){
-                analysisMsg(file);
-            }
+            this.fileResultDeal(file);
         }
-
-
     }
 
+
+    public void fileResultDeal(String file){
+        String regEx = "\\.txt";
+        String stream = file.substring(file.lastIndexOf("\\"));
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(stream);
+        if(matcher.find()){
+            analysisMsg(file);
+        }
+    }
 
 
     private String analysisMsg(String filePath){

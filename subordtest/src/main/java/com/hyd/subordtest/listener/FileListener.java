@@ -1,7 +1,10 @@
-package com.hyd.resultdeal.listener;
+package com.hyd.subordtest.listener;
 
-
-import com.hyd.resultdeal.service.FileDealService;
+import com.google.gson.Gson;
+import com.hyd.subordtest.domain.info.MessageInfo;
+import com.hyd.subordtest.service.DealCenterService;
+import com.hyd.subordtest.service.ListenerService;
+import com.hyd.subordtest.utils.FileUtils;
 import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 
@@ -10,10 +13,10 @@ import java.io.File;
 public class FileListener extends FileAlterationListenerAdaptor {
 
     // 声明业务服务
-    private FileDealService listenerService;
+    private ListenerService listenerService;
 
     // 采用构造函数注入服务
-    public FileListener(FileDealService listenerService){
+    public FileListener(ListenerService listenerService){
         this.listenerService = listenerService;
     }
 
@@ -23,7 +26,10 @@ public class FileListener extends FileAlterationListenerAdaptor {
         super.onFileCreate(file);
         System.out.println("文件创建事件");
         System.out.println("文件名称："+file.getName());
-        listenerService.fileResultDeal(file.getName());
+        listenerService.sendXml(file);
+//        String msg = FileUtils.readJsonFile(file);
+//        MessageInfo info = new Gson().fromJson(msg, MessageInfo.class);
+//        listenerService.BuildSendMsg(info);
     }
 
     // 文件创建修改
@@ -31,6 +37,7 @@ public class FileListener extends FileAlterationListenerAdaptor {
     public void onFileChange(File file) {
         super.onFileChange(file);
         System.out.println("文件改变事件");
+        System.out.println("文件名称："+file.getName());
         // 触发业务
         //listenerService.doSomething();
     }
@@ -56,6 +63,7 @@ public class FileListener extends FileAlterationListenerAdaptor {
     public void onDirectoryChange(File directory) {
         super.onDirectoryChange(directory);
         System.out.println("目录改变事件");
+        System.out.println("目录名称："+directory.getName());
     }
 
     // 目录删除

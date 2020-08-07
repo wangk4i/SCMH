@@ -1,19 +1,7 @@
 server:
   port: 21084
 spring:
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: test
   rabbitmq:
-    host: 172.16.0.66
-    port: 5672
-    username: admin
-    password: admin
-    virtual-host: root
-    publisher-returns: true
-    connection-timeout: 5000
   datasource:
     url: jdbc:sqlserver://172.16.0.21;DatabaseName=sc_mh2020Test #:1433
     username: scuser

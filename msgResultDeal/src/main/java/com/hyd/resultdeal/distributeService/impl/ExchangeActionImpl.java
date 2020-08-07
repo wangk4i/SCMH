@@ -1,9 +1,10 @@
-package com.hyd.resultdeal.distributeService;
+package com.hyd.resultdeal.distributeService.impl;
 
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hyd.resultdeal.Config.FolderPathConfig;
+import com.hyd.resultdeal.distributeService.ExchangeAction;
 import com.hyd.resultdeal.domain.InterchangeDO;
 import com.hyd.resultdeal.domain.MessageInfoDO;
 import com.hyd.resultdeal.domain.ReturnMsgDO;
@@ -51,7 +52,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         }
         String fieldPk = exMsg.getId();
         mapper.syncDocSuccInfo(info.getId(), resultMsg.getReceivedTime());
-        this.updDelSucHandle(docXml, fieldPk);
+        this.syncSucHandle(docXml, fieldPk);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         }
         String fieldPk = exMsg.getId();
         mapper.syncDocSuccInfo(info.getId(), resultMsg.getReceivedTime());
-        this.updDelSucHandle(docXml, fieldPk);
+        this.syncSucHandle(docXml, fieldPk);
     }
 
     @Override
@@ -85,7 +86,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         }
         String fieldPk = exMsg.getId();
         mapper.undeleteDocSuccInfo(info.getId(), resultMsg.getReceivedTime());
-        this.updDelSucHandle(docXml, fieldPk);
+        this.syncSucHandle(docXml, fieldPk);
     }
 
     @Override
@@ -103,7 +104,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         }
         String fieldPk = exMsg.getId();
         mapper.turnDeathSuccInfo(info.getId(), resultMsg.getReceivedTime());
-        this.updDelSucHandle(docXml, fieldPk);
+        this.syncSucHandle(docXml, fieldPk);
     }
 
 
@@ -115,7 +116,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 记录失败日志
         if (!exMsg.getResult()){
             // 数据库记录同步信息
-            mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
+            mapper.syncReportErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
             this.moveToOtherFolder(docXml, FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -133,14 +134,14 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 记录失败日志
         if (!exMsg.getResult()){
             // 数据库记录同步信息
-            mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
+            mapper.syncReportErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
             this.moveToOtherFolder(docXml, FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
         }
         String fieldPk = exMsg.getId();
         mapper.syncReportSuccInfo(info.getId(), resultMsg.getReceivedTime());
-        this.updDelSucHandle(docXml, fieldPk);
+        this.syncSucHandle(docXml, fieldPk);
     }
 
     @Override
@@ -151,14 +152,14 @@ public class ExchangeActionImpl implements ExchangeAction {
         // todo 记录失败日志
         if (!exMsg.getResult()){
             // 数据库记录同步信息
-            mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
+            mapper.syncReportErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
             this.moveToOtherFolder(docXml, FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
         }
         String fieldPk = exMsg.getId();
         mapper.syncReportSuccInfo(info.getId(), resultMsg.getReceivedTime());
-        this.updDelSucHandle(docXml, fieldPk);
+        this.syncSucHandle(docXml, fieldPk);
     }
 
     @Override
@@ -168,13 +169,13 @@ public class ExchangeActionImpl implements ExchangeAction {
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
-            mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
+            mapper.syncDischargeErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
             this.moveToOtherFolder(docXml, FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
         }
         String fieldPk = exMsg.getId();
-        mapper.syncDischargeSuccInfo(info.getId(), resultMsg.getReceivedTime());
+        mapper.addDischargeSuccInfo(info.getId(), fieldPk, resultMsg.getReceivedTime());
         this.addSucHandle(docXml, fieldPk);
     }
 
@@ -187,14 +188,14 @@ public class ExchangeActionImpl implements ExchangeAction {
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
-            mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
+            mapper.syncDischargeErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
             this.moveToOtherFolder(docXml, FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
         }
         String fieldPk = exMsg.getId();
         mapper.syncDischargeSuccInfo(info.getId(), resultMsg.getReceivedTime());
-        this.updDelSucHandle(docXml, fieldPk);
+        this.syncSucHandle(docXml, fieldPk);
     }
 
     @Override
@@ -204,14 +205,14 @@ public class ExchangeActionImpl implements ExchangeAction {
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
-            mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
+            mapper.syncDischargeErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
             this.moveToOtherFolder(docXml, FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
         }
         String fieldPk = exMsg.getId();
         mapper.syncDischargeSuccInfo(info.getId(), resultMsg.getReceivedTime());
-        this.updDelSucHandle(docXml, fieldPk);
+        this.syncSucHandle(docXml, fieldPk);
     }
 
 
@@ -222,7 +223,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
-            mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
+            mapper.syncFollowupErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
             this.moveToOtherFolder(docXml, FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -239,14 +240,14 @@ public class ExchangeActionImpl implements ExchangeAction {
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
-            mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
+            mapper.syncFollowupErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
             this.moveToOtherFolder(docXml, FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
         }
         String fieldPk = exMsg.getId();
         mapper.syncFollowupSuccInfo(info.getId(), resultMsg.getReceivedTime());
-        this.updDelSucHandle(docXml, fieldPk);
+        this.syncSucHandle(docXml, fieldPk);
     }
 
     @Override
@@ -257,14 +258,14 @@ public class ExchangeActionImpl implements ExchangeAction {
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
-            mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
+            mapper.syncFollowupErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
             this.moveToOtherFolder(docXml, FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
         }
         String fieldPk = exMsg.getId();
         mapper.syncFollowupSuccInfo(info.getId(), resultMsg.getReceivedTime());
-        this.updDelSucHandle(docXml, fieldPk);
+        this.syncSucHandle(docXml, fieldPk);
     }
 
 
@@ -275,7 +276,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
-            mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
+            mapper.syncEmergencyErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
             this.moveToOtherFolder(docXml, FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
@@ -293,14 +294,14 @@ public class ExchangeActionImpl implements ExchangeAction {
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
-            mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
+            mapper.syncEmergencyErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
             this.moveToOtherFolder(docXml, FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
         }
         String fieldPk = exMsg.getId();
         mapper.syncEmergencySuccInfo(info.getId(), resultMsg.getReceivedTime());
-        this.updDelSucHandle(docXml, fieldPk);
+        this.syncSucHandle(docXml, fieldPk);
     }
 
     @Override
@@ -310,14 +311,14 @@ public class ExchangeActionImpl implements ExchangeAction {
         // 返回值为失败时，xml,txt 转移到failed文件夹，返回交换消息体
         if (!exMsg.getResult()){
             // 数据库记录同步信息
-            mapper.syncDocErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
+            mapper.syncEmergencyErrInfo(info.getId(), resultMsg.getReceivedTime(), exMsg.getDesc());
             this.moveToOtherFolder(docXml, FolderPathConfig.failedFolder);
             System.out.println(resultMsg.getMsgBody());
             return ;
         }
         String fieldPk = exMsg.getId();
         mapper.syncEmergencySuccInfo(info.getId(), resultMsg.getReceivedTime());
-        this.updDelSucHandle(docXml, fieldPk);
+        this.syncSucHandle(docXml, fieldPk);
     }
 
     public void addSucHandle(String docXml, String fieldPk){
@@ -341,7 +342,7 @@ public class ExchangeActionImpl implements ExchangeAction {
         this.moveToOtherFolder(docXml, FolderPathConfig.doneFolder);
     }
 
-    public void updDelSucHandle(String docXml, String fieldPk){
+    public void syncSucHandle(String docXml, String fieldPk){
         String msgFilePath =  FolderPathConfig.receivedFolder + File.separator + docXml+".json";
         // todo 没找到json时的处理 记日志
         String msgInfoJson = TextFileUtils.readFileContent(msgFilePath);

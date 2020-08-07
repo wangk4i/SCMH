@@ -4,7 +4,7 @@ import com.hyd.subordtest.domain.info.MessageInfo;
 import com.hyd.subordtest.domain.info.MsgBuildConf;
 import com.hyd.subordtest.domain.info.MsgBuildXml;
 import com.hyd.subordtest.mapper.BatchMsgBuildMapper;
-import com.hyd.subordtest.service.BasicInfoService;
+import com.hyd.subordtest.service.DealCenterService;
 import com.hyd.subordtest.utils.XmlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/BatchProcess")
 public class BatchProcessController {
     @Autowired
-    BasicInfoService basicInfoService;
+    DealCenterService basicInfoService;
     @Autowired(required = false)
     BatchMsgBuildMapper batchMsgBuildMapper;
 
@@ -40,19 +40,19 @@ public class BatchProcessController {
                     info.setMsgaction(conf.getMsgAction());
                     switch (conf.getMsgType()){
                         case 1:
-                            basicInfoService.queryDocToXml(info);
+                            basicInfoService.BuildPatInfoMsg(info);
                             break;
                         case 2:
-                            basicInfoService.queryRepToXml(info);
+                            basicInfoService.BuildReportCardMsg(info);
                             break;
                         case 3:
-                            basicInfoService.queryDiscToXml(info);
+                            basicInfoService.BuildLeaveCardMsg(info);
                             break;
                         case 4:
-                            basicInfoService.queryFollToXml(info);
+                            basicInfoService.BuildFollowupMsg(info);
                             break;
                         case 5:
-                            basicInfoService.queryEmerToXml(info);
+                            basicInfoService.BuildEmergacyMsg(info);
                             break;
                         default:
                             break;

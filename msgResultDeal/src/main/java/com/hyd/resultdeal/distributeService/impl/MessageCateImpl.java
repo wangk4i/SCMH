@@ -1,5 +1,7 @@
-package com.hyd.resultdeal.distributeService;
+package com.hyd.resultdeal.distributeService.impl;
 
+import com.hyd.resultdeal.distributeService.ExchangeType;
+import com.hyd.resultdeal.distributeService.MessageCate;
 import com.hyd.resultdeal.domain.MessageInfoDO;
 import com.hyd.resultdeal.domain.ReturnMsgDO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class MessageCateImpl implements MessageCate{
+public class MessageCateImpl implements MessageCate {
     @Autowired
     ExchangeType exchangeType;
 

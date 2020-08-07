@@ -21,23 +21,6 @@ public class TestController {
     private BasicInfoMapper mapper;
 
 
-    @RequestMapping("/querylist")
-    public String queryList() {
-        //去数据库查询前1000条  主键
-        List<String> list = mapper.queryTestBasicInfoView();
-        for (int i = 0; i < list.size(); i++) {
-            Map<String, String> map = new HashMap<>();
-            map.put("id", list.get(i));
-            map.put("zone", "testZone" + i);
-            map.put("organ", "testOrgan" + i);
-            map.put("msgcate", "1");
-            map.put("msgtype", "1");
-            map.put("msgaction", "1");
-            System.out.println(JSONArray.toJSONString(map));
-        }
-        return "success";
-    }
-
     @RequestMapping("/TestRedis")
     public String testRedis(){
         return testService.getRedisNum();
