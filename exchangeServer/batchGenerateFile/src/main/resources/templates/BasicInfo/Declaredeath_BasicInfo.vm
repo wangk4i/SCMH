@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EDRDocument>
+    <Header>
+        <DocumentId>$!{docmentId}</DocumentId>
+        <OperateType>$!{operateEnum}</OperateType>
+        <BusinessActivityIdentification>$!{activityion}</BusinessActivityIdentification>
+        <ReportZoneCode version='1.0' value='$!{zoneCodeValue}'>$!{zoneCode}</ReportZoneCode>
+        <ReportOrgCode version='1.0' value='$!{orgCodeValue}'>$!{orgCode}</ReportOrgCode>
+        <License>$!{licenseCode}</License>
+    </Header>
+    <Body>
+    <PersonInfo>
+        <ID>$!{BasicInformationId}</ID>
+        <DeadDate>$!{DeathDate}</DeadDate>
+        <DeadReason version='1.0' value='$!{DeathCauseValue}'>$!{DeathCauseCode}</DeadReason>
+#if($!{DeathCauseCode}==1)
+        <DeadDetail version='1.0' value='$!{BodyDiseaseValue}'>$!{BodyDiseaseCode}</DeadDetail>
+#end
+    </PersonInfo>
+    </Body>
+</EDRDocument>

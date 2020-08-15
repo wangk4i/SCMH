@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EDRDocument>
+    <Header>
+        <DocumentId>$!{docmentId}</DocumentId>
+        <OperateType>$!{operateEnum}</OperateType>
+        <BusinessActivityIdentification>$!{activityion}</BusinessActivityIdentification>
+        <ReportZoneCode version='1.0' value='$!{zoneCodeValue}'>$!{zoneCode}</ReportZoneCode>
+        <ReportOrgCode version='1.0' value='$!{orgCodeValue}'>$!{orgCode}</ReportOrgCode>
+        <License>$!{licenseCode}</License>
+    </Header>
+    <Body>
+    <PersonInfo>
+        <PersonID>$!{BasicInformationId}</PersonID>
+    </PersonInfo>
+    <FollowupInfo>
+        <ID>$!{FollowUpInformationId}</ID>
+        <FollowupDate>$!{FollowupDate}</FollowupDate>
+        <LostReasonCode version='1.0' value='$!{LostReasonValue}'>$!{LostReasonCode}</LostReasonCode>
+        <LostReasonOther>$!{LostReasonOther}</LostReasonOther>
+        <HospitalStateCode version='1.0' value='$!{HospitalCourseValue}'>$!{HospitalCourse}</HospitalStateCode>
+        <LastOutHospitalDate>$!{LastDischargedDate}</LastOutHospitalDate>
+        <LastOutHospitalDateAccuracyCode version='1.0' value='$!{LastDischargedDateAccuracyValue}'>$!{LastDischargedDateAccuracy}</LastOutHospitalDateAccuracyCode>
+        <FollowupModeCode version='1.0' value='$!{FollowFormValue}'>$!{FollowForm}</FollowupModeCode>
+        <FollowObjectCodeList>
+#foreach($!{followObj} in $!{FollowObject})
+            <FollowObjectCode version='1.0' value='$!{followObj.Nam}'>$!{followObj.DictCode}</FollowObjectCode>
+#end
+        </FollowObjectCodeList>
+        <ShutStatusCode version='1.0' value='$!{CaptivityValue}'>$!{Captivity}</ShutStatusCode>
+        <DiseaseStatusCode version='1.0' value='$!{CaseClassificationValue}'>$!{CaseClassification}</DiseaseStatusCode>
+        <PsychogenyRiskCode version='1.0' value='$!{RiskAssessmentValue}'>$!{RiskAssessment}</PsychogenyRiskCode>
+        <SymptomsCodeList>
+#foreach($!{symp} in $!{Symptom})
+            <SymptomsCode version='1.0' value='$!{symp.Nam}'>$!{symp.DictCode}</SymptomsCode>
+#end
+            <SymptomsOther>$!{SymptomDesc}</SymptomsOther>
+        </SymptomsCodeList>
+        <InsightConditionCode version='1.0' value='$!{InsightValue}'>$!{Insight}</InsightConditionCode>
+        <SleepConditionCode version='1.0' value='$!{SleepValue}'>$!{Sleep}</SleepConditionCode>
+        <DietConditionCode version='1.0' value='$!{DietValue}'>$!{Diet}</DietConditionCode>
+        <LifeConditionCode version='1.0' value='$!{LifeValue}'>$!{Life}</LifeConditionCode>
+        <MenageConditionCode version='1.0' value='$!{MenageValue}'>$!{Menage}</MenageConditionCode>
+        <WorkConditionCode version='1.0' value='$!{WorkValue}'>$!{Work}</WorkConditionCode>
+        <StudyConditionCode version='1.0' value='$!{StudyValue}'>$!{Study}</StudyConditionCode>
+        <ContactConditionCode version='1.0' value='$!{ContactValue}'>$!{Contact}</ContactConditionCode>
+        <MildDisturbancesNumber>$!{MildDisturbancesNumber}</MildDisturbancesNumber>
+        <TroubleNumber>$!{TroubleNumber}</TroubleNumber>
+        <AccidentNumber>$!{AccidentNumber}</AccidentNumber>
+        <HarmNumber>$!{HarmNumber}</HarmNumber>
+        <AutolesionNumber>$!{AutolesionNumber}</AutolesionNumber>
+        <SuicideFailNumber>$!{SuicideFailNumber}</SuicideFailNumber>
+        <DrugComplianceCode version='1.0' value='$!{DrugHabituationValue}'>$!{DrugHabituation}</DrugComplianceCode>
+        <AdverseDrugReactionCode version='1.0' value='$!{AdverseDrugReactionValue}'>$!{AdverseDrugReaction}</AdverseDrugReactionCode>
+        <TreatmentEffectCode version='1.0' value='$!{InMentalEffectValue}'>$!{InMentalEffect}</TreatmentEffectCode>
+        <DrugList>
+#foreach($!{drug} in $!{DrugList})
+#if($!{drug.IfLongAct}==1)
+            <DrugInfo>
+                <DrugID>$!{drug.DrugId}</DrugID>
+                <Sort>$!{drug.SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{drug.IfLongActNam}'>$!{drug.IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{drug.DrugNam}'>$!{drug.DrugCode}</DrugCode>
+                <DrugSpecifications>$!{drug.LDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{drug.DrugUnit}</DrugDoseCode>
+                <LongActingDrugFrequency>$!{drug.LDrugFrequency}</LongActingDrugFrequency>
+                <LongActingDrugFrequencyUnitCode version='1.0' value='$!{drug.UseDailyNam}'>$!{drug.UseDailyCode}</LongActingDrugFrequencyUnitCode>
+                <LongActingDrugDose>$!{drug.LDrugDose}</LongActingDrugDose>
+            </DrugInfo>
+#elseif($!{drug.IfLongAct}==0)
+            <DrugInfo>
+                <DrugID>$!{drug.DrugId}</DrugID>
+                <Sort>$!{drug.SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{drug.IfLongActNam}'>$!{drug.IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{drug.DrugNam}'>$!{drug.DrugCode}</DrugCode>
+                <DrugSpecifications>$!{drug.SDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{drug.DrugUnit}</DrugDoseCode>
+                <NonLongActingDrugDoseMorning>$!{drug.SDrugDosem}</NonLongActingDrugDoseMorning>
+                <NonLongActingDrugDoseNoon>$!{drug.SDrugDosen}</NonLongActingDrugDoseNoon>
+                <NonLongActingDrugDoseEvening>$!{drug.SDrugDosee}</NonLongActingDrugDoseEvening>
+            </DrugInfo>
+#end
+#end
+        </DrugList>
+        <IfRecipe version='1.0' value='$!{IfRecipeValue}'>$!{IfRecipe}</IfRecipe>
+        <GuideDrugList>
+#foreach($!{guideDrug} in $!{GuideDrugList})
+#if($!{guideDrug.IfLongAct}==1)
+            <DrugInfo>
+                <DrugID>$!{guideDrug.DrugId}</DrugID>
+                <Sort>$!{guideDrug.SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{guideDrug.IfLongActNam}'>$!{guideDrug.IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{guideDrug.DrugNam}'>$!{guideDrug.DrugCode}</DrugCode>
+                <DrugSpecifications>$!{guideDrug.LDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{guideDrug.DrugUnit}</DrugDoseCode>
+                <LongActingDrugFrequency>$!{guideDrug.LDrugFrequency}</LongActingDrugFrequency>
+                <LongActingDrugFrequencyUnitCode version='1.0' value='$!{guideDrug.UseDailyNam}'>$!{guideDrug.UseDailyCode}</LongActingDrugFrequencyUnitCode>
+                <LongActingDrugDose>$!{guideDrug.LDrugDose}</LongActingDrugDose>
+            </DrugInfo>
+#elseif($!{guideDrug.IfLongAct}==0)
+            <DrugInfo>
+                <DrugID>$!{guideDrug.DrugId}</DrugID>
+                <Sort>$!{guideDrug.SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{guideDrug.IfLongActNam}'>$!{guideDrug.IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{guideDrug.DrugNam}'>$!{guideDrug.DrugCode}</DrugCode>
+                <DrugSpecifications>$!{guideDrug.SDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{guideDrug.DrugUnit}</DrugDoseCode>
+                <NonLongActingDrugDoseMorning>$!{guideDrug.SDrugDosem}</NonLongActingDrugDoseMorning>
+                <NonLongActingDrugDoseNoon>$!{guideDrug.SDrugDosen}</NonLongActingDrugDoseNoon>
+                <NonLongActingDrugDoseEvening>$!{guideDrug.SDrugDosee}</NonLongActingDrugDoseEvening>
+            </DrugInfo>
+#end
+#end
+        </GuideDrugList>
+        <IfLaboratoryExam version='1.0' value='$!{IfLabExamValue}'>$!{IfLabExam}</IfLaboratoryExam>
+        <LaboratorySpecificCodeList>
+#foreach($!{labExam} in $!{LabExamItem})
+            <LaboratorySpecificCode version='1.0' value='$!{labExam.Nam}'>$!{labExam.DictCode}</LaboratorySpecificCode>
+#end
+        </LaboratorySpecificCodeList>
+        <SuggestReferal version='1.0' value='$!{SuggestReferValue}'>$!{SuggestRefer}</SuggestReferal>
+        <CauseReferal>$!{ReferReason}</CauseReferal>
+        <IfReferral version='1.0' value='$!{ReferValue}'>$!{Refer}</IfReferral>
+        <ReferralOrg>$!{ReferDepartment}</ReferralOrg>
+        <IfCaseManagement version='1.0' value='$!{CaseManagementValue}'>$!{CaseManagement}</IfCaseManagement>
+        <CaseAssess version='1.0' value='$!{AssessValue}'>$!{Assess}</CaseAssess>
+        <CaseSocialEvaluation version='1.0' value='$!{SocialEvaluationValue}'>$!{SocialEvaluation}</CaseSocialEvaluation>
+        <RecoveryMeasuresCodeList>
+#foreach($!{measure} in $!{RecoveryMeasures})
+            <RecoveryMeasuresCode version='1.0' value='$!{measure.Nam}'>$!{measure.DictCode}</RecoveryMeasuresCode>
+#end
+            <RecoveryMeasuresOther>$!{RecoveryDesc}</RecoveryMeasuresOther>
+        </RecoveryMeasuresCodeList>
+    </FollowupInfo>
+    </Body>
+</EDRDocument>

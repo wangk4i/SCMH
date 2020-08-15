@@ -1,0 +1,5 @@
+server:
+  port: 21090
+sysconfig:
+  System-backup-folder: D:\sczj_folder\backup-folder\
+  State-Grid-monitor-folder: D:\sczj_folder\monitor-folder\

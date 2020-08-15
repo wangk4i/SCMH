@@ -1,0 +1,63 @@
+server:
+  port: 21084
+spring:
+#  data:
+#    mongodb:
+#      host: localhost
+#      port: 27017
+#      database: test
+  rabbitmq:
+    host: 172.16.0.66
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: root
+    publisher-returns: true
+    connection-timeout: 5000
+  datasource:
+    url: jdbc:sqlserver://172.16.0.21;DatabaseName=sc_mh2020Test
+    username: scuser
+    password: Hyd123
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    initial-size: 1
+    min-idle: 1
+    max-active: 20
+    max-wait: 60000
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 300000
+    validation-query: SELECT 'x'
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+    pool-prepared-statements: false
+    max-pool-prepared-statement-per-connection-size: 20
+
+#    hikari:
+#      connection-timeout: 300000
+#      max-lifetime: 600000
+#      maximum-pool-size: 50
+#      minimum-idle: 10
+#      idle-timeout: 600000
+#    master:
+#      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#      url: jdbc:sqlserver://172.16.0.21;DatabaseName=sc_mh2020070100
+#      username: scuser
+#      password: Hyd123
+#      type: com.zaxxer.hikari.HikariDataSource
+#    cluster:
+
+mybatis:
+  mapper-locations: classpath:mybatis/**/*Mapper.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+
+config:
+  rabbit:
+     queueName: SC_XmlFile_Return_Test
+
+mqPath:
+
+  waiting: D:\mq\exchange\03waiting
+  received: D:\mq\exchange\04received
+  done: D:\mq\exchange\05done
+  failed: D:\mq\exchange\06failed
+

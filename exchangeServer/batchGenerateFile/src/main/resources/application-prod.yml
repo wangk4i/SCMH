@@ -1,0 +1,88 @@
+server:
+  port: 9092
+  tomcat:
+    threads:
+      max: 20
+spring:
+  redis:
+    port: 6380
+    host: 127.0.0.1
+    password: Hyd123
+    database: 0
+  rabbitmq:
+    host: 172.16.0.66
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: root
+    publisher-returns: true
+  datasource:
+    url: jdbc:sqlserver://172.16.0.21;DatabaseName=sc_mh2020Test #:1433
+    username: scuser
+    password: Hyd123
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    initial-size: 1
+    min-idle: 1
+    max-active: 20
+    max-wait: 60000
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 300000
+    validation-query: SELECT 'x'
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+    pool-prepared-statements: false
+    max-pool-prepared-statement-per-connection-size: 20
+#    hikari:
+#      connection-timeout: 300000
+#      max-lifetime: 600000
+#      maximum-pool-size: 50
+#      minimum-idle: 10
+#      idle-timeout: 600000
+#    master:
+#      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#      url: jdbc:sqlserver://172.16.0.21;DatabaseName=sc_mh2020Test
+#      username: scuser
+#      password: Hyd123
+#      type: com.zaxxer.hikari.HikariDataSource
+#    cluster:
+
+
+mybatis:
+  mapper-locations: classpath:mybatis/**/*Mapper.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+config:
+  to-xmlpath: D:\mq\exchange\01buildxml\sendingxml
+  max-wirteMessage: 1000
+  business-code: '05'
+  confPath: D:\GIT103\scspm\GW2020_Interface\code\exchangeServer\script\MsgBuildConf.xml
+  msgPersistPath: D:\mq\msgFile
+  returnTxtPath: D:\mq\exchange\07returntxt
+  receivedPath: D:\mq\exchange\04received
+  waitingPath: D:\mq\exchange\03waiting
+
+  templateFilePath: D:\mq\templates
+  BuildLogPath: D:\mq\log
+
+
+  docmentenum:
+    license-code: test1111
+    reportOrg: organ001
+    reportZone: zone001
+    reportOrgNam: organ001Nam
+    reportZoneNam: zone001Nam
+
+  queue:
+    patinfo: SC_PatInfo_Test
+    followup: SC_Followup_Test
+    report: SC_ReportCard_Test
+    leftcard: SC_LeftCard_Test
+    emergacy: SC_Emergacy_Test
+logging:
+  file:
+    path: log
+  pattern:
+    file: logging.pattern.file=%d{yyyy/MM/dd-HH:mm:ss}  [%thread] %-5level %logger- %msg%n
+  level:
+    root: info
+    file: error

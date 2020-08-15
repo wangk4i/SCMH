@@ -1,12 +1,16 @@
 package com.hyd.subordtest.domain.info;
 
 import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by xieshuai on 2020/6/11 10:05
  */
 
 @Data
+@Component
+@ConfigurationProperties(prefix = "config.docmentenum")
 public class XmlHeaderInfo {
 
     private String docmentId;

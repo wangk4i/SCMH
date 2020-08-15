@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EDRDocument>
+    <Header>
+        <DocumentId>$!{docmentId}</DocumentId>
+        <OperateType>$!{operateEnum}</OperateType>
+        <BusinessActivityIdentification>$!{activityion}</BusinessActivityIdentification>
+        <ReportZoneCode version='1.0' value='$!{zoneCodeValue}'>$!{zoneCode}</ReportZoneCode>
+        <ReportOrgCode version='1.0' value='$!{orgCodeValue}'>$!{orgCode}</ReportOrgCode>
+        <License>$!{licenseCode}</License>
+    </Header>
+    <Body>
+    <PersonInfo>
+        <PersonID>$!{BasicInformationId}</PersonID>
+        <PatientName>$!{PatientName}</PatientName>
+        <IdCardTypeCode version='1.0' value='$!{IDTypeNam}'>$!{IDType}</IdCardTypeCode>
+        <IdCard>$!{IDCode}</IdCard>
+        <GenderCode version='1.0' value='$!{GenderNam}'>$!{GenderCode}</GenderCode>
+        <NationalityCode version='1.0' value='$!{NationalityNam}'>$!{Nationality}</NationalityCode>
+        <BirthDate>$!{BirthDate}</BirthDate>
+        <NationCode version='1.0' value='$!{NationNam}'>$!{Nation}</NationCode>
+        <MaritalStatusCode version='1.0' value='$!{MarriageNam}'>$!{Marriage}</MaritalStatusCode>
+        <EducationCode version='1.0' value='$!{EducationbackNam}'>$!{Educationback}</EducationCode>
+        <ProfessionCode version='1.0' value='$!{EmploymentNam}'>$!{Employment}</ProfessionCode>
+        <FamilyHistory version='1.0' value='$!{FamilyHistoryNam}'>$!{FamilyHistory}</FamilyHistory>
+        <Contacts>$!{GuardianNam}</Contacts>
+        <ContactsTel>$!{GuardianTel}</ContactsTel>
+        <ContactsTelTwo>$!{GuardianTelVice}</ContactsTelTwo>
+        <ContactsRelCode version='1.0' value='$!{RelationshipNam}'>$!{Relationship}</ContactsRelCode>
+        <PermanentAddrTypeCode version='1.0' value='$!{DomicileAddressAttributionNam}'>$!{DomicileAddressAttributionCode}</PermanentAddrTypeCode>
+        <PermanentAddrCode version='1.0' value='$!{DomicileAddressNam}'> $!{DomicileAddressCode}</PermanentAddrCode>
+        <PermanentAddrDetail>$!{DomicileAdrressDetails}</PermanentAddrDetail>
+        <PsychogenyPermanentAddrCode version='1.0' value='$!{RegistertypeNam}'>$!{Registertype}</PsychogenyPermanentAddrCode>
+        <PermanentAddrTypeUnknownCause>$!{RegistertypeCause}</PermanentAddrTypeUnknownCause>
+        <CurrentAddrTypeCode version='1.0' value='$!{LivingAddressAttributionNam}'>$!{LivingAddressAttributionCode}</CurrentAddrTypeCode>
+        <CurrentAddrCode version='1.0' value='$!{LivingAddressNam}'>$!{LivingAddressCode}</CurrentAddrCode>
+        <CurrentAddrDetail>$!{LivingAddressDetails}</CurrentAddrDetail>
+    </PersonInfo>
+    <DiseaseInfo>
+        <ID>$!{NewCaseReportId}</ID>
+        <ReportZoneCode version='1.0' value='$!{OrgCountyNam}'>$!{OrgCountyCode}</ReportZoneCode>
+        <ReportOrgCode version='1.0' value='$!{OrgNam}'>$!{OrganCd}</ReportOrgCode>
+        <PatientRegistrationNumber>$!{NewCaseReportNumber}</PatientRegistrationNumber>
+        <BaseinfoSource version='1.0' value='$!{DivisionNam}'>$!{Division}</BaseinfoSource>
+        <OnsetDate>$!{FirstOnsetDate}</OnsetDate>
+        <OnsetDateAccuracyCode version='1.0' value='$!{FirstOnsetDateAccuracyNam}'>$!{FirstOnsetDateAccuracy}</OnsetDateAccuracyCode>
+        <SignsMedicationCode version='1.0' value='$!{IfCureNam}'>$!{IfCure}</SignsMedicationCode>
+        <PsychogenyFirstCureDate>FirstCureTime</PsychogenyFirstCureDate>
+        <PsychogenyFirstCureDateAccuracyCode version='1.0' value='$!{FirstMedicineTimeAccuracyNam}'>$!{FirstMedicineTimeAccuracy}</PsychogenyFirstCureDateAccuracyCode>
+        <PsychogenyShutStatusHistoryCode version='1.0' value='$!{ShutStatusHistoryNam}'>$!{ShutStatusHistory}</PsychogenyShutStatusHistoryCode>
+        <PsychogenyPastDangerousCodeList>
+#foreach($!{risk} in $!{PastRiskHave})
+            <PsychogenyPastDangerousCode version='1.0' value='$!{risk.Nam}'>$!{risk.DictCode}</PsychogenyPastDangerousCode>
+#end
+        </PsychogenyPastDangerousCodeList>
+        <PsychogenyPastRiskCode version='1.0' value='$!{RiskPastNam}'>$!{RiskPast}</PsychogenyPastRiskCode>
+        <PsychogenySendDiagnosisCodeList>
+#foreach($!{sendClin} in $!{SendClinSub})
+            <PsychogenySendDiagnosisCode version='1.0' value='$!{sendClin.Nam}'>$!{sendClin.DictCode}</PsychogenySendDiagnosisCode>
+#end
+            <PsychogenySendDiagnosisOther>$!{SendDiagnosisOther}</PsychogenySendDiagnosisOther>
+        </PsychogenySendDiagnosisCodeList>
+        <DiseaseCode version='1.0' value='$!{ICD10Nam}'>$!{ICD10Code}</DiseaseCode>
+        <DiagnoseOrg>$!{DiagnosisHospital}</DiagnoseOrg>
+        <DiagnoseTime>$!{DiagnosisDate}</DiagnoseTime>
+        <IfNoMedication version='1.0' value='$!{IfNoMedicationNam}'>$!{IfNoMedication}</IfNoMedication>
+#if($!{IfNoMedication}==0)
+        <DrugList>
+#foreach($!{drug} in $!{DrugList})
+#if($!{drug.IfLongAct}==1)
+            <DrugInfo>
+                <DrugID>$!{drug.DrugId}</DrugID>
+                <Sort>$!{drug.SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{drug.IfLongActNam}'>$!{drug.IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{drug.DrugNam}'>$!{drug.DrugCode}</DrugCode>
+                <DrugSpecifications>$!{drug.LDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{drug.DrugUnit}</DrugDoseCode>
+                <LongActingDrugFrequency>$!{drug.LDrugFrequency}</LongActingDrugFrequency>
+                <LongActingDrugFrequencyUnitCode version='1.0' value='$!{drug.UseDailyNam}'>$!{drug.UseDailyCode}</LongActingDrugFrequencyUnitCode>
+                <LongActingDrugDose>$!{drug.LDrugDose}</LongActingDrugDose>
+            </DrugInfo>
+#elseif($!{drug.IfLongAct}==0)
+            <DrugInfo>
+                <DrugID>$!{drug.DrugId}</DrugID>
+                <Sort>$!{drug.SortNo}</Sort>
+                <LongActingDrugFlagCode version='1.0' value='$!{drug.IfLongActNam}'>$!{drug.IfLongAct}</LongActingDrugFlagCode>
+                <DrugCode version='1.0' value='$!{drug.DrugNam}'>$!{drug.DrugCode}</DrugCode>
+                <DrugSpecifications>$!{drug.SDrugSpecifications}</DrugSpecifications>
+                <DrugDoseCode>$!{drug.DrugUnit}</DrugDoseCode>
+                <NonLongActingDrugDoseMorning>$!{drug.SDrugDosem}</NonLongActingDrugDoseMorning>
+                <NonLongActingDrugDoseNoon>$!{drug.SDrugDosen}</NonLongActingDrugDoseNoon>
+                <NonLongActingDrugDoseEvening>$!{drug.SDrugDosee}</NonLongActingDrugDoseEvening>
+            </DrugInfo>
+#end
+#end
+        </DrugList>
+#end
+        <PsychogenyInformedCode version='1.0' value='$!{NformedNam}'>$!{Nformed}</PsychogenyInformedCode>
+        <PsychogenyInformedDate>$!{InformedDate}</PsychogenyInformedDate>
+        <FillDoctor>$!{FillingDoctorName}</FillDoctor>
+        <FillDate>$!{CardFillingTime}</FillDate>
+        <Department>$!{ReportDepartment}</Department>
+        <DepartmentPhone>$!{ReportDepartmentTel}</DepartmentPhone>
+    </DiseaseInfo>
+    </Body>
+</EDRDocument>

@@ -1,0 +1,22 @@
+server:
+  port: 21082
+spring:
+  rabbitmq:
+    host: 172.16.0.66
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: root
+    publisher-returns: true
+config:
+  sendXmlinterface: http://10.92.0.70:31090/receiveXml
+  request-url: http://10.92.0.70:31090/receiveXml
+  #sendXmlinterface: http://172.16.0.66:9095/receiveXml
+  #request-url: http://172.16.0.66:9095/receiveXml
+  build: D:\mq\exchange\01build
+  sending: D:\mq\exchange\02sending
+  waiting: D:\mq\exchange\03waiting
+
+  queue:
+    xmlfile: SC_XmlFlie_Sending_Test
+

@@ -17,7 +17,7 @@ spring:
     virtual-host: root
     publisher-returns: true
   datasource:
-    url: jdbc:sqlserver://172.16.0.21;DatabaseName=sc_mh2020070100 #:1433
+    url: jdbc:sqlserver://172.16.0.21;DatabaseName=sc_mh2020Test #:1433
     username: scuser
     password: Hyd123
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -52,7 +52,8 @@ mybatis:
 config:
   max-wirteMessage: 1000
   business-code: '05'
-  build: D:\mq\exchange\01build #xml、json生成路径
+  build: D:\mq\exchange\01build
+  sending:
   templateFilePath: D:\mq\templates
   BuildLogPath: D:\mq\log
 

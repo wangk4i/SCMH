@@ -68,30 +68,7 @@ public class TextFileUtils {
      * @param fileName 文件名
      * @param ansPath 新文件夹
      */
-    public static void moveTotherFolders(String pathName,String fileName,String ansPath){
-        String currentDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
-        String startPath = pathName + File.separator + fileName;
-        String endPath = ansPath + File.separator + currentDate + File.separator;
-        try {
-            File startFile = new File(startPath);
-            File tmpFile = new File(endPath);//获取文件夹路径
-            if(!tmpFile.exists()){//判断文件夹是否创建，没有创建则创建新文件夹
-                tmpFile.mkdirs();
-            }
-            System.out.println(endPath + startFile.getName());
-            if (startFile.renameTo(new File(endPath + startFile.getName()))) {
-//                System.out.println("File is moved successful!");
-                log.info("File is moved successful! FileName:<{}> EndPath{}",fileName,endPath);
-            } else {
-//                System.out.println("File is failed to move!");
-                log.info("File is failed to move! FileName:<{}> StartPath:{}",fileName,startPath);
-            }
-        } catch (Exception e) {
-            log.info("File move unexpected！FileName:<{}> StartPath:{}",fileName,startPath);
-        }
-    }
-
-    public static void moveToOtherFolders(String pathName,String fileName,String ansPath){
+    public static void moveToOtherFolders(String fileName, String pathName, String ansPath){
         String startPath = pathName + File.separator + fileName;
         String endPath = ansPath + File.separator + File.separator;
         try {

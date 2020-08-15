@@ -64,7 +64,7 @@ public class FileUtils {
      * @param jsonPath
      * @return
      */
-    public static String readJsonFile(String jsonPath) {
+    public static String readFile(String jsonPath) {
         File jsonFile = null;
         try {
             jsonFile = new File(jsonPath);
@@ -84,7 +84,7 @@ public class FileUtils {
             return null;
         }
     }
-    public static String readJsonFile(File jsonFile){
+    public static String readFile(File jsonFile){
         try {
             FileReader fileReader = new FileReader(jsonFile);
             Reader reader = new InputStreamReader(new FileInputStream(jsonFile), "utf-8");

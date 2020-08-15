@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue>
+    <Item name="患者档案" cate="1" type="1" queue="SC_PatInfo_Test" />
+    <Item name="患者随访"  cate="1" type="2" queue="SC_Followup_Test" />
+    <Item name="患者报告卡"  cate="1" type="3" queue="SC_ReportCard_Test" />
+    <Item name="患者出院单"  cate="1" type="4" queue="SC_LeftCard_Test" />
+    <Item name="应急处置"  cate="1" type="5" queue="SC_Emergacy_Test" />
+    <Item name="患者体检"  cate="1" type="6" queue="SC_ExamInfo_Test" />
+    <Item name="跨省流转迁出"  cate="2" type="7" queue="SC_MoveOut_Test" />
+    <Item name="跨省流转迁入"  cate="2" type="8" queue="SC_MoveIn_Test" />
+    <Item name="跨省重复患者迁移"  cate="2" type="9" queue="SC_RepeatPat_Test" />
+    <Item name="机构变更"  cate="2" type="10" queue="SC_OrganChange_Test" />
+    <Item name="跨省消息通知"  cate="2" type="11" queue="SC_Notice_Test" />
+    <Item name="省内流转迁出"  cate="3" type="7" queue="SC_InnerMoveOut_Test" />
+    <Item name="省内流转迁入"  cate="3" type="8" queue="SC_InnerMoveIn_Test" />
+    <Item name="省内业务通知"  cate="4" type="-1" queue="SC_SysNotice_Test" />
+</Queue>

@@ -1,0 +1,91 @@
+server:
+  port: 21081
+  tomcat:
+    threads:
+      max: 20
+spring:
+  redis:
+    port: 6380
+    host: 127.0.0.1
+    password: Hyd123
+    database: 0
+  rabbitmq:
+    host: 172.16.0.66
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: root
+    publisher-returns: true
+  datasource:
+    hikari:
+      connection-timeout: 300000
+      max-lifetime: 600000
+      maximum-pool-size: 50
+      minimum-idle: 10
+      idle-timeout: 600000
+    master:
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      url: jdbc:sqlserver://172.16.0.21;DatabaseName=sc_mh2020Test
+      username: scuser
+      password: Hyd123
+      type: com.zaxxer.hikari.HikariDataSource
+    cluster:
+mybatis:
+  mapper-locations: classpath:mybatis/**/*Mapper.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+config:
+  max-wirteMessage: 1000
+  business-code: '05'
+  backupfolder: D:\mq\file
+  build: D:\mq\exchange\01build #xml、json生成路径
+  templateFilePath: D:\mq\templates
+  BuildLogPath: D:\mq\log
+  docmentenum:
+    license-code: test1111
+    reportOrg: organ001
+    reportZone: zone001
+    reportOrgNam: organ001Nam
+    reportZoneNam: zone001Nam
+  queue:
+    patinfo: SC_PatInfo_Test
+    followup: SC_Followup_Test
+    report: SC_ReportCard_Test
+    leftcard: SC_LeftCard_Test
+    emergacy: SC_Emergacy_Test
+    xmlfile: SC_XmlFlie_Sending_Test
+    xmlReturn: SC_XmlFile_Return_Test
+logging:
+  file:
+    path: log
+  pattern:
+    file: logging.pattern.file=%d{yyyy/MM/dd-HH:mm:ss}  [%thread] %-5level %logger- %msg%n
+  level:
+    root: info
+    file: error
+rabbitconfig:
+  # 交换机
+  exchanges:
+    # 通配符订阅
+    - name: topic.mode
+      type: TOPIC
+    # 广播
+    - name: fanout.mode
+      type: FANOUT
+    # 消息头
+    - name: headers.mode
+      type: HEADERS
+  # 队列
+  queues:
+    # 直连队列
+    - name: SC_PatInfo_Test
+      exchange-name: fanout.mode
+    - name: SC_Followup_Test
+      exchange-name: fanout.mode
+    - name: SC_ReportCard_Test
+      exchange-name: fanout.mode
+    - name: SC_LeftCard_Test
+      exchange-name: fanout.mode
+    - name: SC_Emergacy_Test
+      exchange-name: fanout.mode
+    - name: SC_XmlFile_Return_Test
+      exchange-name: fanout.mode

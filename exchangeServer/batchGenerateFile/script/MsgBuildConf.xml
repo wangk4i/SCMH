@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+<MsgInfo name='交换-新增档案' MsgCate='1' MsgType='1' MsgAction='1' ifUse='false'>
+<![CDATA[
+	   select top 1 Cd,ZoneCd,OrganCd,FIELDPK 
+		from SPM_SPMPatInfoMana 
+		where ZoneCd like '51%' and State=1 and DelStatus='DelLogo001'
+		and len(isnull(FIELDPK,''))=0
+	 ]]>
+</MsgInfo>
+<MsgInfo name='交换-新增档案' MsgCate='1' MsgType='1' MsgAction='1' ifUse='false'>
+<![CDATA[
+SELECT TOP 5 * 
+  FROM SPM_SPMPatInfoMana
+  where len(isnull(FIELDPK,''))=0 and DelStatus='DelLogo001' and State='1' and CreTime<='2018-01-01'
+]]>
+</MsgInfo>
+<MsgInfo name='交换-更新档案' MsgCate='1' MsgType='1' MsgAction='2' ifUse='false'>
+<![CDATA[
+	   select top 1 Cd,ZoneCd,OrganCd,FIELDPK 
+		from SPM_SPMPatInfoMana 
+		where Cd='1767d41f-ff08-4c9f-980d-a7adacb7e27f' and State=1 and DelStatus='DelLogo001'
+		]]>
+</MsgInfo>
+<MsgInfo name='交换-更新档案' MsgCate='1' MsgType='1' MsgAction='2' ifUse='false'>
+<![CDATA[
+	   select top 100 Cd,ZoneCd,OrganCd,FIELDPK 
+		from SPM_SPMPatInfoMana 
+		where ZoneCd like '5101%' and State=1 and DelStatus='DelLogo001'
+		and len(isnull(FIELDPK,''))!=0
+	 ]]>
+</MsgInfo>
+<MsgInfo name='交换-更新档案' MsgCate='1' MsgType='1' MsgAction='2' ifUse='true'>
+<![CDATA[
+SELECT TOP 2000 * 
+  FROM SPM_SPMPatInfoMana
+  where FIELDPK is not null and DelStatus='DelLogo001' and State='1'
+		]]>
+</MsgInfo>
+
+<MsgInfo name='交换-新增档案' MsgCate='1' MsgType='1' MsgAction='1' ifUse='false'>
+<![CDATA[
+select top 10 *
+from SPM_SPMPatInfoMana 
+where FIELDPK is null and State=1 and DelStatus='DelLogo001'
+]]>
+</MsgInfo>
+<MsgInfo name='交换-新增报告卡' MsgCate='1' MsgType='2' MsgAction='1' ifUse='false'>
+<![CDATA[
+  select top 10 *
+  from SPM_SPMPatInciRpt 
+  where FIELDPK is null and State=1 and DelStatus='DelLogo001' and SyncStatus=''
+]]>
+</MsgInfo>
+<MsgInfo name='交换-更新报告卡' MsgCate='1' MsgType='2' MsgAction='2' ifUse='false'>
+<![CDATA[
+  select top 100 *
+  from SPM_SPMPatInciRpt 
+  where FIELDPK is not null and State=1 and DelStatus='DelLogo001' and SyncStatus=''
+]]>
+</MsgInfo>
+<MsgInfo name='交换-删除报告卡' MsgCate='1' MsgType='2' MsgAction='3' ifUse='false'>
+<![CDATA[
+select top 100 *
+ from SPM_SPMPatInciRpt
+ where DelStatus='DelLogo002'
+]]>
+</MsgInfo>
+<MsgInfo name='交换-新增出院报告卡' MsgCate='1' MsgType='3' MsgAction='1' ifUse='false'>
+<![CDATA[
+select top 100 * 
+from SPM_SPMPatLeftRpt
+where FIELDPK is null and  State='1' and DelStatus='DelLogo001' and SyncStatus=''
+]]>
+</MsgInfo>
+<MsgInfo name='交换-更新出院报告卡' MsgCate='1' MsgType='3' MsgAction='2' ifUse='false'>
+<![CDATA[
+select top 100 *
+from SPM_SPMPatLeftRpt
+where SyncStatus=''and DelStatus='DelLogo001' 
+]]>
+</MsgInfo>
+<MsgInfo name='交换-删除出院报告卡' MsgCate='1' MsgType='3' MsgAction='3' ifUse='false'>
+<![CDATA[
+select top 100 * 
+from SPM_SPMPatLeftRpt  
+where SyncStatus=''and DelStatus='DelLogo002' 
+]]>
+</MsgInfo>
+<MsgInfo name='交换-新增流转' MsgCate='1' MsgType='4' MsgAction='1' ifUse='false'>
+<![CDATA[
+select top 10 * 
+from SPM_SPMPatFollowup 
+where CreTime<='2018-12-31' and CreTime>='2018-01-01' and  DelStatus='DelLogo001' and State='1' 
+]]>
+</MsgInfo>
+
+</root>

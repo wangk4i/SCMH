@@ -1,8 +1,8 @@
-package com.hyd.subordtest.listener;
+package com.hyd.subordmq.listener;
 
 import com.alibaba.fastjson.JSON;
-import com.hyd.subordtest.domain.info.MessageInfo;
-import com.hyd.subordtest.service.DealCenterService;
+import com.hyd.subordmq.domain.info.MessageInfo;
+import com.hyd.subordmq.service.DealCenterService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -12,10 +12,8 @@ import java.util.Map;
 @Mapper
 public interface BasicInfoMapper {
 
-
     @Select("select * from V_Center2020_BasicInfo where LocalPatID = #{cd} and State=1 ")
     Map<String, Object> queryBasicInfoViewByCd(String cd);
-
 
     @Select("select * from V_Center2020_BasicInfo where LocalPatID = #{cd} and DelStatus ='DelLogo002' ")
     Map<String, Object> queryBasicInfoViewOfDelete(String cd);
@@ -25,9 +23,6 @@ public interface BasicInfoMapper {
 
     @Select("select * from V_Center2020_BasicInfo where LocalPatID = #{cd} and DeathDate is not null ")
     Map<String, Object> queryBasicInfoViewOfTrundeath(String cd);
-
-
-
 
 }
 

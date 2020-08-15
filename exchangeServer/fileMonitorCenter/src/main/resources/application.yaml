@@ -1,0 +1,25 @@
+server:
+  port: 21091
+config:
+  #请求xml指定文件夹
+  listener-xml-folder: null
+  #生成成功响应文件指定文件夹
+  listener-success-folder: E:\测试文件夹\listener
+  #生成失败响应文件指定文件夹
+  listener-error-folder: E:\测试文件夹\error
+  #待确认文件夹
+  unconfirm-folder: E:\测试文件夹\unconfirm\
+  #已确认文件夹:
+  confirm-folder: E:\测试文件夹\confirm\
+  #每次返回的文件上限
+  max_file_count: 20
+  #Redis中缓存的FileID集合名称
+  redis_zset_key: feedbackFileSet
+  #Redis延迟消息业务名称
+  redis_channel: test
+spring:
+  redis:
+    port: 6380
+    host: localhost
+    password: Hyd123
+    database: 0

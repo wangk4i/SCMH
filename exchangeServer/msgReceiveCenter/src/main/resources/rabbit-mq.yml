@@ -1,0 +1,42 @@
+####################################################
+#######  Rabbit MQ Exchange Queue Config  ##########
+####################################################
+rabbit:
+  # 交换机
+  exchanges:
+    # 自定义-延迟
+    - name: delay.mode
+      type: CUSTOM
+      custom-type: x-delayed-message
+      arguments:
+        x-delayed-type: direct
+    # 通配符订阅
+    - name: topic.mode
+      type: TOPIC
+    # 广播
+    - name: fanout.mode
+      type: FANOUT
+    # 消息头
+    - name: headers.mode
+      type: HEADERS
+  # 队列
+  queues:
+    # 直连队列
+    - name: SC_PatInfo_Test
+      exchange-name: fanout.mode
+    - name: SC_Followup_Test
+      exchange-name: fanout.mode
+    - name: SC_ReportCard_Test
+      exchange-name: fanout.mode
+    - name: SC_LeftCard_Test
+      exchange-name: fanout.mode
+    - name: SC_Emergacy_Test
+      exchange-name: fanout.mode
+    # 队列2
+    - name: queue.2
+      routing-key: queue.*
+      exchange-name: fanout.mode,topic.mode
+    # 延迟队列
+    - name: delay.queue
+      routing-key: delay.queue
+      exchange-name: delay.mode

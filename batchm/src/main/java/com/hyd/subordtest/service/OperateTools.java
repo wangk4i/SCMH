@@ -73,7 +73,8 @@ public class OperateTools {
     @Value("${config.returnTxtPath}")
     private String toReturnTxtPath;
 
-
+    @Autowired
+    private XmlHeaderInfo xmlHeaderInfo;
 
 
     /**
@@ -81,6 +82,42 @@ public class OperateTools {
      * @param info
      */
     public boolean buildPatInfoToXml(MessageInfo info){
+        Map<String, Object> result = basicInfoMapper.queryBasicInfoViewByCd(info.getId());
+        if (result == null){
+            LogUtil.info("当前ID无法转码,视图无此数据 "+ info.getId());
+            return false;
+        }
+        boolean isadd = false;
+        if(result.get("BasicInformationId") == null||result.get("BasicInformationId").equals("")){
+            isadd = true;
+        }
+        //设置Xml头部分
+        xmlHeaderInfo.setOperateEnum(OperateEnum.ADD);
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
+
+        XmlHeaderInfo xmlHeaderInfo = new XmlHeaderInfo();
+        xmlHeaderInfo.setXmlHeaderInfo("MentalHealth", reportZoneCode, reportZoneNam, reportOrgCode, reportOrgNam, licenseCode, OperateEnum.ADD);
+        xmlHeaderInfo.setDocmentId(this.getFileNum());
+
+        // 既往危险行为列表
+        String pastRiskHaveStr = (String) result.get("PastRiskHave");
+        result.put("PastRiskHave", this.getListValue(pastRiskHaveStr));
+        String templatePath ="";
+        if (isadd){
+            templatePath = templateFilePath + "\\BasicInfo\\Add_BasicInfo.vm";
+        }else {
+            xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
+            templatePath = templateFilePath + "\\BasicInfo\\Update_BasicInfo.vm";
+        }
+        String xmlName = xmlHeaderInfo.getDocmentId();
+        this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
+        this.toMsgJson(info, xmlName);
+        this.toReturnTxt(xmlName);
+        // 同步状态设为0
+        basicInfoMapper.setSyncStatus(info.getId());
+        return true;
+    }
+    /*public boolean buildPatInfoToXml(MessageInfo info){
         Map<String, Object> result = basicInfoMapper.queryBasicInfoViewByCd(info.getId());
         if (result == null){
             log.info("当前ID无法转码,视图无此数据{}", info.getId());
@@ -114,7 +151,7 @@ public class OperateTools {
         this.toReturnTxt(xmlName);
         basicInfoMapper.setSyncStatus(info.getId());
         return true;
-    }
+    }*/
 
     /**
      * 接收删除档案消息并输出到Xml

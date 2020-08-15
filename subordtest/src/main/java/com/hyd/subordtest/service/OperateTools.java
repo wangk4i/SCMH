@@ -95,6 +95,7 @@ public class OperateTools {
             xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
             templatePath = templateFilePath + "\\BasicInfo\\Update_BasicInfo.vm";
         }
+        info.setGwaction(isadd?1 : 2);
         String xmlName = xmlHeaderInfo.getDocmentId();
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
         this.toJson(info, xmlName);
@@ -192,6 +193,7 @@ public class OperateTools {
             xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
             templatePath = templateFilePath + "\\ReportInfo\\Update_ReportInfo.vm";
         }
+        info.setGwaction(isadd?1 : 2);
         String xmlName = xmlHeaderInfo.getDocmentId();
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
         this.toJson(info, xmlName);
@@ -244,6 +246,7 @@ public class OperateTools {
             xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
             templatePath = templateFilePath + "\\DischargeInfo\\Update_DischargeInfo.vm";
         }
+        info.setGwaction(isadd?1 : 2);
         String xmlName = xmlHeaderInfo.getDocmentId();
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
         this.toJson(info, xmlName);
@@ -307,6 +310,7 @@ public class OperateTools {
             xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
             templatePath = templateFilePath + "\\FollowupInfo\\Update_FollowupInfo.vm";
         }
+        info.setGwaction(isadd?1 : 2);
         String xmlName = xmlHeaderInfo.getDocmentId();
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
         this.toJson(info, xmlName);
@@ -358,9 +362,9 @@ public class OperateTools {
             xmlHeaderInfo.setOperateEnum(OperateEnum.UPDATE);
             templatePath = templateFilePath + "\\EmergencyInfo\\Update_EmergencyInfo.vm";
         }
+        info.setGwaction(isadd?1 : 2);
         String xmlName = xmlHeaderInfo.getDocmentId();
         this.toXML(xmlHeaderInfo, result, templatePath, xmlName);
-        this.toJson(info, xmlName);
     }
 
     public void delEmergencyToXml(MessageInfo info) {

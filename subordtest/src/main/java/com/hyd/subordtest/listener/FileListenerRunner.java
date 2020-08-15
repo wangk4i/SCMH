@@ -37,7 +37,7 @@ public class FileListenerRunner{
     @Autowired
     private  FileListenerFactory fileListenerFactory;
 
-    @PostConstruct
+    /*@PostConstruct
     public void run() {
         // 创建监听者
         FileAlterationMonitor fileAlterationMonitor = fileListenerFactory.getMonitor();
@@ -47,5 +47,5 @@ public class FileListenerRunner{
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

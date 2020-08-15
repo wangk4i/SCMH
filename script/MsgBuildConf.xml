@@ -42,7 +42,7 @@ SELECT TOP 10 *
 <![CDATA[
 SELECT TOP 1000 * 
   FROM SPM_SPMPatInfoMana
-  where SyncTime='2018-12-31 00:00:00'
+  where FIELDPK is null and SyncTime<'2020'
 ]]>
 </MsgInfo>
 <MsgInfo name='交换-新增报告卡' MsgCate='1' MsgType='2' MsgAction='1' ifUse='false'>

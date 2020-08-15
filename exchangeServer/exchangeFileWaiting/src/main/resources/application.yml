@@ -1,0 +1,27 @@
+server:
+  port: 21083
+config:
+  pollFileUri: http://10.92.0.70:31091/queryResultFiles
+  confirmFileUri: http://10.92.0.70:31091/confirmFilesBatch
+  backupFolder: E:\测试文件夹\to-filePath\
+  waitingFolder: D:\git\04waiting\
+  receivedFolder: D:\git\05received\
+  rabbit:
+    queueName: SC_XmlFile_Return_Test
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: root
+    publisher-returns: true
+    connection-timeout: 5000
+http_pool:
+  max_total: 200
+  default_max_per_route: 100
+  connect_timeout: 5000
+  connection_request_timeout: 1000
+  socket_timeout: 65000
+  validate_after_inactivity: 2000
+

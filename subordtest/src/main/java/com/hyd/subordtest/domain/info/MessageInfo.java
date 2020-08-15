@@ -39,10 +39,11 @@ public class MessageInfo {
      */
     private Integer msgaction;
 
+    private Integer gwaction;
+
     /**
      * 生成文件名
      */
     private String fileNam;
-
 
 }
